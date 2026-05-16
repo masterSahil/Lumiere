@@ -224,7 +224,7 @@ export default function ShoppingCartPage() {
               <a className="text-[#d0c5af] hover:text-[#84cc16] transition-colors italic" href="#">Twitter</a>
               <a className="text-[#d0c5af] hover:text-[#84cc16] transition-colors italic" href="#">Facebook</a>
             </div>
-            <p className="text-[10px] text-[#d0c5af]/50 uppercase tracking-[0.2em]">© 2024 Lumière Gastronomy Group</p>
+            <p className="text-[10px] text-[#d0c5af]/50 uppercase tracking-[0.2em]">© {new Date().getFullYear()} Lumière Gastronomy Group</p>
           </div>
         </footer>
 

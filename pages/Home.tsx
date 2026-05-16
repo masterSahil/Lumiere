@@ -328,7 +328,7 @@ export default function LumiereDining() {
           </div>
           
           <div className="max-w-[1440px] mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[#d0c5af] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium">© 2024 Lumière Dining. All Rights Reserved.</p>
+            <p className="text-[#d0c5af] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium">© {new Date().getFullYear()} Lumière Dining. All Rights Reserved.</p>
             <div className="flex gap-8">
               <span className="text-[#d0c5af] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium">Designed with Excellence</span>
               <span className="text-[#d0c5af] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium">English (UK)</span>

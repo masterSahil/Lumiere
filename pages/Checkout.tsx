@@ -270,7 +270,7 @@ export default function CheckoutPage() {
         </main>
 
         <footer className="mt-24 border-t border-[#4d4635]/20 py-12 text-center text-xs text-[#d0c5af]/40 uppercase tracking-[0.2em]">
-          © 2024 Lumière Fine Dining. All Rights Reserved.
+          © {new Date().getFullYear()} Lumière Fine Dining. All Rights Reserved.
         </footer>
       </div>
     </>

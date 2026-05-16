@@ -289,7 +289,7 @@ export default function AboutPage() {
               <a href="#" className="text-[#d0c5af] hover:text-[#84cc16] transition-colors"><span className="material-symbols-outlined">location_on</span></a>
             </div>
             <p className="text-xs text-[#d0c5af]/60 uppercase tracking-[0.2em]">
-              © 2024 Lumière Fine Dining. All Rights Reserved.
+              © {new Date().getFullYear()} Lumière Fine Dining. All Rights Reserved.
             </p>
           </div>
         </footer>

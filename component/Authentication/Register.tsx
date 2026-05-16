@@ -2,6 +2,7 @@ import Head from 'next/head';
 // Added LuUser and LuShieldCheck for the new registration fields
 import { LuAtSign, LuLock, LuEye, LuUser, LuShieldCheck } from 'react-icons/lu';
 import { FaGoogle, FaApple } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function RegisterPage() {
   return (
@@ -116,22 +117,6 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                {/* Form Options (Terms of Service) */}
-                <div className="pt-2 pb-2">
-                  <label className="flex items-start gap-3 cursor-pointer group">
-                    <div className="relative flex items-center mt-1">
-                      <input 
-                        className="peer h-5 w-5 rounded border-white/10 bg-[#1d2022] text-[#84cc16] focus:ring-[#9ee939]/20 focus:ring-offset-0" 
-                        type="checkbox" 
-                        required
-                      />
-                    </div>
-                    <span className=" text-[14px] leading-tight text-[#c1cab0] group-hover:text-[#e0e3e5] transition-colors">
-                      I agree to the <a href="#" className="text-[#9ee939] hover:underline">Terms of Service</a> and <a href="#" className="text-[#9ee939] hover:underline">Privacy Policy</a>.
-                    </span>
-                  </label>
-                </div>
-
                 {/* Primary Register Button */}
                 <button 
                   className="w-full py-4 bg-[#9ee939] text-[#1f3700]  text-[12px] leading-[1] tracking-[0.1em] uppercase rounded-lg font-bold hover:bg-[#91db2a] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95" 
@@ -149,28 +134,24 @@ export default function RegisterPage() {
                   <div className="flex-grow h-[1px] bg-white/10"></div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <button className="flex items-center justify-center gap-3 py-3 px-4 bg-[#272a2c] border border-white/10 rounded-lg hover:bg-[#323537] transition-all duration-300 active:scale-[0.98]">
                     <FaGoogle className="text-[18px] text-[#e0e3e5]" />
                     <span className=" text-[16px] text-[#e0e3e5] font-semibold">Google</span>
-                  </button>
-                  <button className="flex items-center justify-center gap-3 py-3 px-4 bg-[#272a2c] border border-white/10 rounded-lg hover:bg-[#323537] transition-all duration-300 active:scale-[0.98]">
-                    <FaApple className="text-[20px] text-[#e0e3e5]" />
-                    <span className=" text-[16px] text-[#e0e3e5] font-semibold">Apple</span>
                   </button>
                 </div>
               </div>
 
               <p className="text-center  text-[16px] text-[#c1cab0]">
                 Already have an account?{' '}
-                <a className="text-[#9ee939] font-semibold hover:underline" href="/login">Sign In</a>
+                <Link className="text-[#9ee939] font-semibold hover:underline" href="/login">Sign In</Link>
               </p>
             </div>
 
             {/* Footer */}
             <footer className="absolute bottom-6 w-full px-[20px] md:px-[64px] text-center hidden md:block">
               <p className=" text-[12px] leading-[1] tracking-[0.1em] font-semibold text-[#c1cab0]/60 uppercase">
-                © 2024 Lumière Modern Gastronomy. All rights reserved.
+                © {new Date().getFullYear()} Lumière Modern Gastronomy. All rights reserved.
               </p>
             </footer>
 

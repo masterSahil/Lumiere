@@ -394,7 +394,7 @@ export default function AdminDashboard() {
               <p className="text-[#d0c5af] font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold max-w-sm mb-6 opacity-70">
                 The control center for global culinary excellence. Manage orders, analyze trends, and curate the ultimate dining experience.
               </p>
-              <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-50">© 2024 Lumière Dining. All Rights Reserved.</p>
+              <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-50">© {new Date().getFullYear()} Lumière Dining. All Rights Reserved.</p>
             </div>
             
             <div>

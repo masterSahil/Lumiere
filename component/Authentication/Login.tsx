@@ -132,7 +132,7 @@ export default function LoginPage() {
             {/* Footer */}
             <footer className="absolute bottom-6 w-full px-[20px] md:px-[64px] text-center">
               <p className="  text-[12px] leading-[1] tracking-[0.1em] font-semibold text-[#c1cab0]/60 uppercase">
-                © 2024 Lumière Modern Gastronomy. All rights reserved.
+                © {new Date().getFullYear()} Lumière Modern Gastronomy. All rights reserved.
               </p>
             </footer>
 

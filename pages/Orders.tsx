@@ -301,7 +301,7 @@ export default function MyOrders() {
           </div>
           
           <div className="max-w-[1440px] mx-auto mt-12 pt-8 border-t border-white/5 text-center">
-            <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#e5e2e3]/30">© 2024 Lumière Dining. All Rights Reserved.</p>
+            <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#e5e2e3]/30">© {new Date().getFullYear()} Lumière Dining. All Rights Reserved.</p>
           </div>
         </footer>
 

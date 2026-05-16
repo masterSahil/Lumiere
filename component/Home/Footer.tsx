@@ -36,7 +36,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-          <p>© 2024 Luxe Bistro. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Luxe Bistro. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             {/* Social Icons placeholders */}
             <a href="#" className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center hover:bg-amber-600 hover:text-slate-900 transition-all">

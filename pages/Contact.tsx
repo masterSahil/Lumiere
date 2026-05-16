@@ -258,7 +258,7 @@ export default function ReservationsPage() {
                 A destination for those who seek the extraordinary. Experience the art of light through our culinary lens.
               </p>
               <p className="font-['Inter'] text-[12px] leading-[1] tracking-[0.1em] font-semibold text-[#c1cab0] opacity-60 uppercase">
-                © 2024 LUMIÈRE CULINARY GROUP. ALL RIGHTS RESERVED.
+                © {new Date().getFullYear()} LUMIÈRE CULINARY GROUP. ALL RIGHTS RESERVED.
               </p>
             </div>
             
