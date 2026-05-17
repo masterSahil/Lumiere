@@ -8,7 +8,8 @@ export default function Page() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    let isLogin = sessionStorage.getItem("token"); setLoggedIn(true);
+    let isLogin = sessionStorage.getItem("token"); 
+    isLogin && setLoggedIn(true);
   }, [])
 
   return (

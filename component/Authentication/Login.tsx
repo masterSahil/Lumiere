@@ -1,8 +1,35 @@
+"use client"
 import { LuAtSign, LuLock, LuEye } from 'react-icons/lu';
-import { FaGoogle, FaApple } from 'react-icons/fa';
+import { FaGoogle } from 'react-icons/fa';
 import Link from 'next/link';
+import axios from 'axios';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+
+  const [formData, setFormData] = useState({
+    email: '', password: '',
+  })
+
+  const router = useRouter();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({...formData, [e.target.name]: e.target.value})
+  }
+
+  const loginSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:3000/api/auth/login", formData)
+      sessionStorage.setItem("token", res.data.token);
+
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <div className="bg-[#101415] text-[#e0e3e5] overflow-x-hidden min-h-screen dark">
@@ -17,7 +44,7 @@ export default function LoginPage() {
         <main className="relative min-h-screen grid grid-cols-1 md:grid-cols-12 overflow-hidden z-10">
           
           {/* Cinematic Visual Panel (Hidden on Mobile) */}
-          <section className="hidden md:flex md:col-span-7 lg:col-span-8 relative items-center justify-center p-[64px] overflow-hidden">
+          <section className="hidden md:flex md:col-span-6 lg:col-span-7 relative items-center justify-center p-[64px] overflow-hidden">
             <div className="absolute inset-0 z-0">
               <img 
                 alt="Cinematic close-up of a Michelin-star dish" 
@@ -38,7 +65,7 @@ export default function LoginPage() {
           </section>
 
           {/* Login Panel */}
-          <section className="col-span-1 md:col-span-5 lg:col-span-4 flex flex-col items-center justify-center p-[20px] md:p-[64px] bg-[#0b0f10] relative z-10 border-l border-white/5">
+          <section className="col-span-1 md:col-span-6 lg:col-span-5 flex flex-col items-center justify-center p-[20px] md:p-[64px] bg-[#0b0f10] relative z-10 border-l border-white/5">
             
             {/* Header */}
             <header className="absolute top-0 left-0 w-full flex justify-between items-center px-[20px] md:px-[64px] h-20 z-50">
@@ -61,15 +88,15 @@ export default function LoginPage() {
                   {/* Email Field */}
                   <div className="space-y-2">
                     <label className="  text-[12px] leading-[1] tracking-[0.1em] font-semibold text-[#c1cab0] block uppercase" htmlFor="identity">
-                      Email or Username
+                      Email 
                     </label>
                     <div className="flex items-center bg-[#1d2022] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[#84cc16] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
                       <LuAtSign className="mx-4 text-[#c1cab0] text-[20px] shrink-0" />
                       <input 
                         className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
-                        id="identity" 
+                        value={formData.email} name='email'
                         placeholder="name@lumiere.com" 
-                        type="text" 
+                        type="text" onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -83,9 +110,9 @@ export default function LoginPage() {
                       <LuLock className="mx-4 text-[#c1cab0] text-[20px] shrink-0" />
                       <input 
                         className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
-                        id="password" 
-                        placeholder="••••••••" 
-                        type="password" 
+                        value={formData.password}
+                        placeholder="••••••••" name='password'
+                        type="password" onChange={handleChange}
                       />
                       <button className="px-4 group" type="button" aria-label="Toggle password visibility">
                         <LuEye className="text-[#c1cab0] group-hover:text-[#9ee939] transition-colors text-[20px]" />
@@ -100,7 +127,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Primary Sign In */}
-                <button 
+                <button onClick={loginSubmit}
                   className="w-full py-4 bg-[#9ee939] text-[#1f3700] text-[12px] leading-[1] tracking-[0.1em] uppercase rounded-lg font-bold hover:bg-[#91db2a] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95" 
                   type="submit">
                   Sign In
