@@ -203,7 +203,7 @@ export default function CheckoutPage() {
                 {/* Item List */}
                 <div className="space-y-6 mb-8">
                   <div className="flex items-center space-x-4">
-                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-[#2a2a2b]">
+                    <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-[#2a2a2b]">
                       <img 
                         alt="Beef Wellington" 
                         className="h-full w-full object-cover" 
@@ -218,7 +218,7 @@ export default function CheckoutPage() {
                   </div>
                   
                   <div className="flex items-center space-x-4">
-                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-[#2a2a2b]">
+                    <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-[#2a2a2b]">
                       <img 
                         alt="Truffle Pasta" 
                         className="h-full w-full object-cover" 

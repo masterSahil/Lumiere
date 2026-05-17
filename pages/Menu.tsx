@@ -27,12 +27,12 @@ export default function MenuPage() {
         }
       `}} />
 
-      <div className="font-sans text-[16px] leading-[24px] selection:bg-[#bcfb4b] selection:text-[#0a1f00] min-h-screen bg-[#121212]">
+      <div className="font-sans text-4 leading-6 selection:bg-[#bcfb4b] selection:text-[#0a1f00] min-h-screen bg-[#121212]">
         
         {/* Top Navigation Bar */}
         <nav className="w-full z-50 bg-[#121212] border-b border-white/5 py-4">
-          <div className="flex justify-between items-center px-[20px] md:px-[80px] w-full max-w-[1440px] mx-auto">
-            <div className="font-serif text-[28px] font-bold text-[#bcfb4b]">
+          <div className="flex justify-between items-center px-5 md:px-20 w-full max-w-360 mx-auto">
+            <div className="font-serif text-7 font-bold text-[#bcfb4b]">
               Lumière Dining
             </div>
             <div className="hidden lg:flex items-center gap-10">
@@ -43,7 +43,7 @@ export default function MenuPage() {
             </div>
             <div className="hidden md:flex items-center gap-6">
               <div className="relative">
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">search</span>
+                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-5">search</span>
                 <input 
                   type="text" 
                   placeholder="Search our canvas..." 
@@ -61,7 +61,7 @@ export default function MenuPage() {
           </div>
         </nav>
 
-        <main className="px-[20px] md:px-[80px] max-w-[1440px] mx-auto py-12">
+        <main className="px-5 md:px-20 max-w-360 mx-auto py-12">
           
           {/* Header Section */}
           <div className="max-w-3xl mb-12">
@@ -115,7 +115,7 @@ export default function MenuPage() {
                   Signature Dish
                 </div>
               </div>
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-serif text-[22px] font-semibold text-white">Saffron Gold Tagliatelle</h3>
                   <span className="text-[#bcfb4b] font-bold text-[18px]">$42</span>
@@ -124,7 +124,7 @@ export default function MenuPage() {
                   <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
                   <span className="text-gray-400 text-[12px]">4.9 (124)</span>
                 </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 flex-grow">
+                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
                   Hand-rolled pasta infused with Iranian saffron, finished with a 24k gold leaf and truffle-infused emulsion.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
@@ -141,7 +141,7 @@ export default function MenuPage() {
                   Seasonal Special
                 </div>
               </div>
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-serif text-[22px] font-semibold text-white">A5 Wagyu Obsidian</h3>
                   <span className="text-[#bcfb4b] font-bold text-[18px]">$128</span>
@@ -150,7 +150,7 @@ export default function MenuPage() {
                   <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
                   <span className="text-gray-400 text-[12px]">5.0 (86)</span>
                 </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 flex-grow">
+                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
                   Charcoal-grilled Wagyu served with fermented garlic purée and a reduction of aged balsamic and forest berries.
                 </p>
                 {/* Quantity Selector State */}
@@ -167,7 +167,7 @@ export default function MenuPage() {
               <div className="relative h-64 overflow-hidden">
                 <img src="/api/placeholder/400/300" alt="Zen Matcha Clouds" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-serif text-[22px] font-semibold text-white">Zen Matcha Clouds</h3>
                   <span className="text-[#bcfb4b] font-bold text-[18px]">$18</span>
@@ -176,7 +176,7 @@ export default function MenuPage() {
                   <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
                   <span className="text-gray-400 text-[12px]">4.8 (210)</span>
                 </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 flex-grow">
+                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
                   Deconstructed ceremonial matcha tiramisu with white chocolate pearls and yuzu-infused mascarpone.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
@@ -190,7 +190,7 @@ export default function MenuPage() {
               <div className="relative h-64 overflow-hidden">
                 <img src="/api/placeholder/400/300" alt="Lumière Elixir" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-serif text-[22px] font-semibold text-white">Lumière Elixir</h3>
                   <span className="text-[#bcfb4b] font-bold text-[18px]">$22</span>
@@ -199,7 +199,7 @@ export default function MenuPage() {
                   <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
                   <span className="text-gray-400 text-[12px]">4.9 (340)</span>
                 </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 flex-grow">
+                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
                   Gin infused with cucumber and basil, clarified through milk, and finished with a citrus-mint vapor cloud.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
@@ -213,7 +213,7 @@ export default function MenuPage() {
               <div className="relative h-64 overflow-hidden">
                 <img src="/api/placeholder/400/300" alt="Heirloom Prism Salad" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-serif text-[22px] font-semibold text-white">Heirloom Prism Salad</h3>
                   <span className="text-[#bcfb4b] font-bold text-[18px]">$28</span>
@@ -222,7 +222,7 @@ export default function MenuPage() {
                   <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
                   <span className="text-gray-400 text-[12px]">4.7 (94)</span>
                 </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 flex-grow">
+                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
                   Shaved heritage roots, compressed melon, and wildflower honey-lime drizzle over organic wild greens.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
@@ -236,7 +236,7 @@ export default function MenuPage() {
               <div className="relative h-64 overflow-hidden">
                 <img src="/api/placeholder/400/300" alt="Veridian Atlantic Salmon" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-serif text-[22px] font-semibold text-white">Veridian Atlantic Salmon</h3>
                   <span className="text-[#bcfb4b] font-bold text-[18px]">$48</span>
@@ -245,7 +245,7 @@ export default function MenuPage() {
                   <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
                   <span className="text-gray-400 text-[12px]">4.9 (182)</span>
                 </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 flex-grow">
+                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
                   Sustainably sourced salmon with a pea and mint velouté, accompanied by charred seasonal greens.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
@@ -264,7 +264,7 @@ export default function MenuPage() {
             <div className="lg:w-1/2 p-10 md:p-16 flex flex-col justify-center">
               <h4 className="text-[#bcfb4b] text-[12px] font-bold tracking-widest uppercase mb-4">Dish Spotlight</h4>
               <h2 className="font-serif text-[36px] font-bold text-white mb-6">Saffron Gold Tagliatelle</h2>
-              <p className="text-gray-400 text-[16px] leading-relaxed mb-8">
+              <p className="text-gray-400 text-4 leading-relaxed mb-8">
                 Our master chef's magnum opus. This dish explores the delicate balance between the earthiness of Iranian saffron and the ethereal lightness of hand-pulled silk pasta. Every bite is an evolution of flavor.
               </p>
               <div className="flex flex-wrap gap-3 mb-10">
@@ -272,8 +272,8 @@ export default function MenuPage() {
                 <span className="bg-[#1e1e1e] border border-white/10 text-gray-300 text-[10px] font-bold px-4 py-2 rounded-full uppercase tracking-wider">Chef's Favorite</span>
               </div>
               <div className="flex items-center gap-8 mt-auto">
-                <span className="font-serif text-[40px] text-[#bcfb4b] font-bold">$42.00</span>
-                <button className="bg-[#bcfb4b] text-[#0a1f00] px-8 py-4 rounded-xl font-bold hover:bg-[#a2dd3b] transition-colors flex-grow text-center">
+                <span className="font-serif text-10 text-[#bcfb4b] font-bold">$42.00</span>
+                <button className="bg-[#bcfb4b] text-[#0a1f00] px-8 py-4 rounded-xl font-bold hover:bg-[#a2dd3b] transition-colors grow text-center">
                   Reserve Selection
                 </button>
               </div>
@@ -284,17 +284,17 @@ export default function MenuPage() {
 
         {/* Footer */}
         <footer className="w-full bg-[#0a0a0a] pt-16 pb-8 border-t border-white/5">
-          <div className="px-[20px] md:px-[80px] max-w-[1440px] mx-auto">
+          <div className="px-5 md:px-20 max-w-360 mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
               <div className="space-y-6">
-                <div className="font-serif text-[28px] font-bold text-[#bcfb4b]">Lumière Dining</div>
+                <div className="font-serif text-7 font-bold text-[#bcfb4b]">Lumière Dining</div>
                 <p className="text-gray-400 text-[14px] leading-relaxed">Experience the convergence of light, art, and the world's finest culinary traditions.</p>
                 <div className="flex gap-4">
                   <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:border-[#bcfb4b] hover:text-[#bcfb4b] transition-all">
-                    <span className="material-symbols-outlined text-[20px]">public</span>
+                    <span className="material-symbols-outlined text-5">public</span>
                   </a>
                   <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:border-[#bcfb4b] hover:text-[#bcfb4b] transition-all">
-                    <span className="material-symbols-outlined text-[20px]">share</span>
+                    <span className="material-symbols-outlined text-5">share</span>
                   </a>
                 </div>
               </div>

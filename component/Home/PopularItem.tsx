@@ -70,12 +70,12 @@ export default function PopularItems() {
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
                 />
               </div>
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="text-xl font-bold text-slate-900">{item.name}</h3>
                   <span className="text-lg font-bold text-amber-600">{item.price}</span>
                 </div>
-                <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{item.description}</p>
+                <p className="text-slate-500 text-sm leading-relaxed mb-6 grow">{item.description}</p>
                 <button className="w-full py-3 bg-gray-50 hover:bg-slate-900 hover:text-white text-slate-800 rounded-xl font-medium transition-colors flex items-center justify-center space-x-2 border border-gray-100 group-hover:border-slate-900">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                   <span>Add to Order</span>

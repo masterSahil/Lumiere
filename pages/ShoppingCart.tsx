@@ -63,7 +63,7 @@ export default function ShoppingCartPage() {
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuCllEl6vxE-ldddSkgPH__lazkNLBnBKQjM-f979ayBYpf7y7IToe-VswAixXQFg1NN7UtrDf4oPcRz7Qg1HnYrq8XIggpWcnpDuP23sqFN-HGmkhG_x6bDjkWzBNfR3JN-KNEEDPP0usPmYAtBumH4h99CPio1DmENq7B5g0Fvvo82yQ1lxpVUmiz2GpLksq127QeIKAK_IIEZ2WaccMe3N2Y7Ok7L7bAOR1Qp6LDL_w-e41DupGNUhWD7dr5LvrjoQTWsiOWrYoWP"
                     />
                   </div>
-                  <div className="flex-grow w-full">
+                  <div className="grow w-full">
                     <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-4 sm:mb-0">
                       <div>
                         <h3 className="text-xl mb-1 font-serif">Miyazaki Wagyu A5</h3>
@@ -97,7 +97,7 @@ export default function ShoppingCartPage() {
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxRVU8f8hdleLHWkVFmmGTDkLX7po9tNv3WwgrHmwoEUpZRSkLcp0Jbo_ITElopMjXhbWGD0u_ibRBJxEE52jAK8viaJukNnwLePg5jiLcl4bk5Q5jNb5BiCzF1fwl6xWywhpwJ5-dD8qpxi69Lfg0-6tO20N5P6Wt6pwvs0_xF_0yyGdCvdWzS1He9BzZUYqvDfYJlp0hiXQhqfyGS1QaltTugRkWmlmdToxz9P8Z_ESn8KicIWzOUpHxNevD400u3CfL0caAh3Ma"
                     />
                   </div>
-                  <div className="flex-grow w-full">
+                  <div className="grow w-full">
                     <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-4 sm:mb-0">
                       <div>
                         <h3 className="text-xl mb-1 font-serif">Midnight Fondant</h3>

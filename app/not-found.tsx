@@ -14,18 +14,18 @@ export default function page() {
         
         {/* Atmospheric Background Elements */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(132,204,22,0.03)_0%,rgba(132,204,22,0)_70%)] pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute w-200 h-200 bg-[radial-gradient(circle,rgba(132,204,22,0.03)_0%,rgba(132,204,22,0)_70%)] pointer-events-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
         </div>
 
         {/* Header */}
-        <header className="w-full flex justify-between items-center px-[20px] md:px-[64px] h-20 z-50 relative">
-          <Link href="/" className=" text-[24px] leading-[1.4] font-semibold text-[#9ee939] uppercase tracking-widest hover:opacity-80 transition-opacity">
+        <header className="w-full flex justify-between items-center px-5 md:px-16 h-20 z-50 relative">
+          <Link href="/" className=" text-6 leading-[1.4] font-semibold text-[#9ee939] uppercase tracking-widest hover:opacity-80 transition-opacity">
             Lumière
           </Link>
         </header>
 
         {/* Main 404 Content */}
-        <main className="flex-grow flex flex-col items-center justify-center relative z-10 px-[20px] text-center w-full">
+        <main className="grow flex flex-col items-center justify-center relative z-10 px-5 text-center w-full">
           
           {/* Massive Background 404 Text */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center items-center pointer-events-none select-none overflow-hidden z-0">
@@ -47,7 +47,7 @@ export default function page() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <a 
                 href="/" 
-                className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-[#9ee939] text-[#1f3700] text-[12px] leading-[1] tracking-[0.1em] uppercase rounded-lg font-bold hover:bg-[#91db2a] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95"
+                className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-[#9ee939] text-[#1f3700] text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-[#91db2a] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95"
               >
                 <LuArrowLeft className="text-[18px]" />
                 Return to Lobby
@@ -55,7 +55,7 @@ export default function page() {
               
               <a 
                 href="/menu" 
-                className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-[#272a2c] border border-white/10 text-[#e0e3e5] text-[12px] leading-[1] tracking-[0.1em] uppercase rounded-lg font-bold hover:bg-[#323537] transition-all duration-300 active:scale-[0.98]"
+                className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-[#272a2c] border border-white/10 text-[#e0e3e5] text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-[#323537] transition-all duration-300 active:scale-[0.98]"
               >
                 <LuUtensils className="text-[18px]" />
                 View Current Menu
@@ -65,8 +65,8 @@ export default function page() {
         </main>
 
         {/* Footer */}
-        <footer className="w-full px-[20px] md:px-[64px] pb-6 text-center z-50 relative">
-          <p className="font-['Inter'] text-[12px] leading-[1] tracking-[0.1em] font-semibold text-[#c1cab0]/60 uppercase">
+        <footer className="w-full px-5 md:px-16 pb-6 text-center z-50 relative">
+          <p className="font-['Inter'] text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0]/60 uppercase">
             © {new Date().getFullYear()} Lumière Modern Gastronomy. All rights reserved.
           </p>
         </footer>

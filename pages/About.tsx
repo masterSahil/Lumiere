@@ -54,7 +54,7 @@ export default function AboutPage() {
                 alt="Lumiere Banner Background" 
                 className="w-full h-full object-cover opacity-90 scale-105" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#131314] via-[#131314]/80 to-transparent"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-[#131314] via-[#131314]/80 to-transparent"></div>
               {/* <div className="absolute inset-0 bg-gradient-to-b from-[#131314] via-transparent to-transparent"></div> */}
             </div>
             
@@ -71,13 +71,13 @@ export default function AboutPage() {
 
           {/* Restaurant Story & Mission */}
           <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div className="relative h-[500px] w-full rounded-2xl overflow-hidden group border border-white/5">
+            <div className="relative h-125 w-full rounded-2xl overflow-hidden group border border-white/5">
               <img 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzGiD3zEp6PP5Lr3YA3g-YT2Cg4PH5UkF4zfFA4tREoEAVRjJafxRmAP2l5aIckKQmolYjq1LIU7kBpZ0BdaXpiab_MWRvM61meQYTD3cMYM8ZhjcVsbFHV_DzFmTjbZMefUPHC2cDq3rznAgNCszqhS4aBMGq-6kwdj2IZNOktl-qT9JXsp45HOZforDMbdHytcXtEcHsWQsUoxmQbO4m4EweXsU4bLL7em23Rg66T_HT7xfJFCqVZ7SCG3g8cJic8eR0_U2WDlSi" 
                 alt="Our Culinary Story" 
                 className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#131314] via-transparent to-transparent opacity-80"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-[#131314] via-transparent to-transparent opacity-80"></div>
             </div>
             <div className="space-y-8">
               <div>

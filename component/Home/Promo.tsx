@@ -8,7 +8,7 @@ export default function Promo() {
           
           {/* Text Content Area */}
           <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center relative z-10">
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900 to-transparent z-0 hidden md:block"></div>
+            <div className="absolute inset-0 bg-linear-to-r from-slate-900 via-slate-900 to-transparent z-0 hidden md:block"></div>
             <div className="relative z-10">
               <span className="text-amber-500 text-xs font-bold tracking-widest uppercase mb-3 block">Limited Time Experience</span>
               <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
@@ -26,7 +26,7 @@ export default function Promo() {
           {/* Image Area */}
           <div className="w-full md:w-1/2 h-64 md:h-auto relative">
             {/* Soft gradient blend for desktop */}
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-slate-900 to-transparent z-10 hidden md:block"></div>
+            <div className="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-slate-900 to-transparent z-10 hidden md:block"></div>
             <img 
               src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1200&auto=format&fit=crop" 
               alt="Executive Lunch" 

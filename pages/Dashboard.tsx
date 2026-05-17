@@ -35,40 +35,40 @@ export default function AdminDashboard() {
         }
       `}} />
 
-      <div className="bg-[#131314] text-[#e5e2e3] font-sans text-[16px] leading-[24px] selection:bg-[#7ae749] selection:text-[#103900] min-h-screen">
+      <div className="bg-[#131314] text-[#e5e2e3] font-sans text-4 leading-6 selection:bg-[#7ae749] selection:text-[#103900] min-h-screen">
         
         {/* SideNavBar */}
         <aside className="h-screen w-64 fixed left-0 top-0 bg-[#1c1b1c] backdrop-blur-2xl border-r border-white/5 flex flex-col py-8 px-4 z-50">
           <div className="mb-12 px-4">
-            <h1 className="font-serif text-[32px] leading-[40px] text-[#7ae749] tracking-tight">Lumière</h1>
-            <p className="text-[#d0c5af] text-[12px] leading-[16px] uppercase tracking-widest mt-1 opacity-60">Admin Panel</p>
+            <h1 className="font-serif text-[32px] leading-10 text-[#7ae749] tracking-tight">Lumière</h1>
+            <p className="text-[#d0c5af] text-[12px] leading-4 uppercase tracking-widest mt-1 opacity-60">Admin Panel</p>
           </div>
           <nav className="flex-1 space-y-2">
             {/* Active State: Analytics */}
             <a className="flex items-center gap-3 py-3 px-4 rounded-lg bg-[#09530d]/20 text-[#7ae749] border-r-4 border-[#7ae749] transition-all" href="#">
               <span className="material-symbols-outlined">monitoring</span>
-              <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Analytics</span>
+              <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Analytics</span>
             </a>
             <a className="flex items-center gap-3 py-3 px-4 rounded-lg text-[#d0c5af] hover:bg-[#2a2a2b] transition-all group" href="#">
               <span className="material-symbols-outlined group-hover:text-[#7ae749]">receipt_long</span>
-              <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Orders</span>
+              <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Orders</span>
             </a>
             <a className="flex items-center gap-3 py-3 px-4 rounded-lg text-[#d0c5af] hover:bg-[#2a2a2b] transition-all group" href="#">
               <span className="material-symbols-outlined group-hover:text-[#7ae749]">restaurant_menu</span>
-              <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Menu CMS</span>
+              <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Menu CMS</span>
             </a>
             <a className="flex items-center gap-3 py-3 px-4 rounded-lg text-[#d0c5af] hover:bg-[#2a2a2b] transition-all group" href="#">
               <span className="material-symbols-outlined group-hover:text-[#7ae749]">palette</span>
-              <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Branding</span>
+              <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Branding</span>
             </a>
             <a className="flex items-center gap-3 py-3 px-4 rounded-lg text-[#d0c5af] hover:bg-[#2a2a2b] transition-all group" href="#">
               <span className="material-symbols-outlined group-hover:text-[#7ae749]">settings</span>
-              <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Settings</span>
+              <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Settings</span>
             </a>
           </nav>
           <div className="mt-auto pt-8 border-t border-white/5 px-4">
-            <button className="w-full py-3 px-4 bg-[#7ae749] text-[#103900] font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold rounded-lg hover:bg-[#8dfc5b] transition-colors flex items-center justify-center gap-2 mb-6">
-              <span className="material-symbols-outlined text-[16px]">add</span>
+            <button className="w-full py-3 px-4 bg-[#7ae749] text-[#103900] font-sans text-[14px] leading-5 tracking-wider font-semibold rounded-lg hover:bg-[#8dfc5b] transition-colors flex items-center justify-center gap-2 mb-6">
+              <span className="material-symbols-outlined text-4">add</span>
               Add New Item
             </button>
             <div className="flex items-center gap-3">
@@ -80,48 +80,48 @@ export default function AdminDashboard() {
                 />
               </div>
               <div>
-                <p className="text-[14px] leading-[20px] tracking-[0.05em] font-bold text-[#e5e2e3]">Alexandre L.</p>
-                <p className="text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af]">Master Admin</p>
+                <p className="text-[14px] leading-5 tracking-wider font-bold text-[#e5e2e3]">Alexandre L.</p>
+                <p className="text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af]">Master Admin</p>
               </div>
             </div>
           </div>
         </aside>
 
         {/* Main Content Canvas */}
-        <main className="ml-64 min-h-screen p-[40px] md:p-[80px]">
+        <main className="ml-64 min-h-screen p-10 md:p-20">
           
           {/* Header */}
           <header className="flex flex-col md:flex-row justify-between md:items-end mb-12 gap-6">
             <div>
-              <h2 className="font-serif text-[48px] leading-[56px] font-semibold text-[#e5e2e3] mb-2">Executive Overview</h2>
-              <p className="text-[#d0c5af] font-sans text-[18px] leading-[28px]">Real-time performance metrics for Lumière Dining.</p>
+              <h2 className="font-serif text-[48px] leading-14 font-semibold text-[#e5e2e3] mb-2">Executive Overview</h2>
+              <p className="text-[#d0c5af] font-sans text-[18px] leading-7">Real-time performance metrics for Lumière Dining.</p>
             </div>
             <div className="flex flex-wrap gap-4">
               <div className="glass-card flex items-center px-4 py-2 gap-2 text-[#7ae749] border border-[#7ae749]/20">
                 <span className="material-symbols-outlined">calendar_today</span>
-                <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Oct 24, 2024 - Oct 31, 2024</span>
+                <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Oct 24, 2024 - Oct 31, 2024</span>
               </div>
-              <button className="glass-card px-6 py-2 text-[#7ae749] hover:bg-[#7ae749]/10 transition-colors font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold border border-[#7ae749]/30">
+              <button className="glass-card px-6 py-2 text-[#7ae749] hover:bg-[#7ae749]/10 transition-colors font-sans text-[14px] leading-5 tracking-wider font-semibold border border-[#7ae749]/30">
                 Export Report
               </button>
             </div>
           </header>
 
           {/* Stats Grid */}
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[24px] mb-[24px]">
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             {/* Card 1 */}
             <div className="glass-card p-6 amber-glow flex flex-col justify-between group">
               <div className="flex justify-between items-start mb-4">
                 <div className="p-2 bg-[#7ae749]/10 rounded-lg text-[#7ae749]">
                   <span className="material-symbols-outlined">payments</span>
                 </div>
-                <span className="text-[#7ae749] text-[12px] leading-[16px] tracking-[0.03em] font-medium flex items-center gap-1">
+                <span className="text-[#7ae749] text-[12px] leading-4 tracking-[0.03em] font-medium flex items-center gap-1">
                   <span className="material-symbols-outlined text-[14px]">trending_up</span> 12.5%
                 </span>
               </div>
               <div>
-                <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-70 mb-1">Total Revenue</p>
-                <h3 className="font-serif text-[32px] leading-[40px] font-medium text-[#e5e2e3]">$142,850.00</h3>
+                <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-70 mb-1">Total Revenue</p>
+                <h3 className="font-serif text-[32px] leading-10 font-medium text-[#e5e2e3]">$142,850.00</h3>
               </div>
             </div>
 
@@ -131,13 +131,13 @@ export default function AdminDashboard() {
                 <div className="p-2 bg-[#7ae749]/10 rounded-lg text-[#7ae749]">
                   <span className="material-symbols-outlined">shopping_bag</span>
                 </div>
-                <span className="text-[#7ae749] text-[12px] leading-[16px] tracking-[0.03em] font-medium flex items-center gap-1">
+                <span className="text-[#7ae749] text-[12px] leading-4 tracking-[0.03em] font-medium flex items-center gap-1">
                   <span className="material-symbols-outlined text-[14px]">trending_up</span> 8.2%
                 </span>
               </div>
               <div>
-                <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-70 mb-1">Total Orders</p>
-                <h3 className="font-serif text-[32px] leading-[40px] font-medium text-[#e5e2e3]">1,284</h3>
+                <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-70 mb-1">Total Orders</p>
+                <h3 className="font-serif text-[32px] leading-10 font-medium text-[#e5e2e3]">1,284</h3>
               </div>
             </div>
 
@@ -147,13 +147,13 @@ export default function AdminDashboard() {
                 <div className="p-2 bg-[#7ae749]/10 rounded-lg text-[#7ae749]">
                   <span className="material-symbols-outlined">group</span>
                 </div>
-                <span className="text-[#ffb4ab] text-[12px] leading-[16px] tracking-[0.03em] font-medium flex items-center gap-1 bg-[#ffb4ab]/20 px-2 rounded">
+                <span className="text-[#ffb4ab] text-[12px] leading-4 tracking-[0.03em] font-medium flex items-center gap-1 bg-[#ffb4ab]/20 px-2 rounded">
                   <span className="material-symbols-outlined text-[14px]">trending_down</span> 2.1%
                 </span>
               </div>
               <div>
-                <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-70 mb-1">Active Users</p>
-                <h3 className="font-serif text-[32px] leading-[40px] font-medium text-[#e5e2e3]">4,592</h3>
+                <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-70 mb-1">Active Users</p>
+                <h3 className="font-serif text-[32px] leading-10 font-medium text-[#e5e2e3]">4,592</h3>
               </div>
             </div>
 
@@ -163,27 +163,27 @@ export default function AdminDashboard() {
                 <div className="p-2 bg-[#7ae749]/10 rounded-lg text-[#7ae749]">
                   <span className="material-symbols-outlined">timer</span>
                 </div>
-                <span className="text-[#7ae749] text-[12px] leading-[16px] tracking-[0.03em] font-medium flex items-center gap-1">
+                <span className="text-[#7ae749] text-[12px] leading-4 tracking-[0.03em] font-medium flex items-center gap-1">
                   - 4m
                 </span>
               </div>
               <div>
-                <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-70 mb-1">Avg Delivery Time</p>
-                <h3 className="font-serif text-[32px] leading-[40px] font-medium text-[#e5e2e3]">24m 12s</h3>
+                <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-70 mb-1">Avg Delivery Time</p>
+                <h3 className="font-serif text-[32px] leading-10 font-medium text-[#e5e2e3]">24m 12s</h3>
               </div>
             </div>
           </section>
 
           {/* Analytics & Timeline */}
-          <section className="grid grid-cols-1 lg:grid-cols-3 gap-[24px] mb-[24px]">
+          <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
             
             {/* Large Line Chart Placeholder */}
-            <div className="lg:col-span-2 glass-card p-8 min-h-[400px] flex flex-col">
+            <div className="lg:col-span-2 glass-card p-8 min-h-100 flex flex-col">
               <div className="flex justify-between items-center mb-8">
-                <h4 className="font-serif text-[24px] font-medium text-[#e5e2e3]">Sales Performance Trend</h4>
+                <h4 className="font-serif text-6 font-medium text-[#e5e2e3]">Sales Performance Trend</h4>
                 <div className="flex gap-2">
-                  <button className="px-3 py-1 bg-[#7ae749] text-[#103900] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium rounded-full">Weekly</button>
-                  <button className="px-3 py-1 text-[#d0c5af] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium hover:text-[#7ae749] transition-colors">Monthly</button>
+                  <button className="px-3 py-1 bg-[#7ae749] text-[#103900] font-sans text-[12px] leading-4 tracking-[0.03em] font-medium rounded-full">Weekly</button>
+                  <button className="px-3 py-1 text-[#d0c5af] font-sans text-[12px] leading-4 tracking-[0.03em] font-medium hover:text-[#7ae749] transition-colors">Monthly</button>
                 </div>
               </div>
               <div className="flex-1 relative border-l border-b border-white/10 mt-4 flex items-end justify-between px-4 pb-4">
@@ -206,41 +206,41 @@ export default function AdminDashboard() {
                   </svg>
                 </div>
                 {/* Axis Labels */}
-                <span className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Mon</span>
-                <span className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Tue</span>
-                <span className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Wed</span>
-                <span className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Thu</span>
-                <span className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Fri</span>
-                <span className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Sat</span>
-                <span className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-bold text-[#7ae749]">Sun</span>
+                <span className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Mon</span>
+                <span className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Tue</span>
+                <span className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Wed</span>
+                <span className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Thu</span>
+                <span className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Fri</span>
+                <span className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af] opacity-40">Sat</span>
+                <span className="font-sans text-[12px] leading-4 tracking-[0.03em] font-bold text-[#7ae749]">Sun</span>
               </div>
             </div>
 
             {/* Activity Timeline */}
             <div className="glass-card p-8 flex flex-col">
-              <h4 className="font-serif text-[24px] font-medium text-[#e5e2e3] mb-8">Recent Activity</h4>
+              <h4 className="font-serif text-6 font-medium text-[#e5e2e3] mb-8">Recent Activity</h4>
               <div className="space-y-6">
                 
                 <div className="flex gap-4 relative">
-                  <div className="absolute left-3 top-8 bottom-[-16px] w-[1px] bg-white/10"></div>
+                  <div className="absolute left-3 top-8 bottom-4 w-px bg-white/10"></div>
                   <div className="w-6 h-6 rounded-full bg-[#7ae749]/20 border border-[#7ae749] flex items-center justify-center z-10 shrink-0">
                     <span className="material-symbols-outlined text-[14px] text-[#7ae749]">restaurant</span>
                   </div>
                   <div>
-                    <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#e5e2e3]">New Menu Item Added</p>
-                    <p className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af]">Black Truffle Risotto by Chef Marco</p>
+                    <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#e5e2e3]">New Menu Item Added</p>
+                    <p className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af]">Black Truffle Risotto by Chef Marco</p>
                     <p className="text-[10px] text-[#7ae749] mt-1 uppercase">2 hours ago</p>
                   </div>
                 </div>
 
                 <div className="flex gap-4 relative">
-                  <div className="absolute left-3 top-8 bottom-[-16px] w-[1px] bg-white/10"></div>
+                  <div className="absolute left-3 top-8 bottom-4 w-px bg-white/10"></div>
                   <div className="w-6 h-6 rounded-full bg-[#09530d]/20 border border-[#09530d] flex items-center justify-center z-10 shrink-0">
                     <span className="material-symbols-outlined text-[14px] text-[#7fc673]">star</span>
                   </div>
                   <div>
-                    <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#e5e2e3]">Campaign Launched</p>
-                    <p className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af]">Autumn Gold Tasting Series</p>
+                    <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#e5e2e3]">Campaign Launched</p>
+                    <p className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af]">Autumn Gold Tasting Series</p>
                     <p className="text-[10px] text-[#7ae749] mt-1 uppercase">5 hours ago</p>
                   </div>
                 </div>
@@ -250,26 +250,26 @@ export default function AdminDashboard() {
                     <span className="material-symbols-outlined text-[14px] text-[#72df41]">person</span>
                   </div>
                   <div>
-                    <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#e5e2e3]">Profile Updated</p>
-                    <p className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#d0c5af]">Master Admin credentials rotated</p>
+                    <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#e5e2e3]">Profile Updated</p>
+                    <p className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#d0c5af]">Master Admin credentials rotated</p>
                     <p className="text-[10px] text-[#7ae749] mt-1 uppercase">Yesterday</p>
                   </div>
                 </div>
 
               </div>
-              <button className="mt-auto w-full py-2 border border-white/10 text-[#d0c5af] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium hover:text-[#7ae749] hover:border-[#7ae749]/50 transition-all rounded">View All Logs</button>
+              <button className="mt-auto w-full py-2 border border-white/10 text-[#d0c5af] font-sans text-[12px] leading-4 tracking-[0.03em] font-medium hover:text-[#7ae749] hover:border-[#7ae749]/50 transition-all rounded">View All Logs</button>
             </div>
           </section>
 
           {/* Recent Orders Table */}
           <section className="glass-card overflow-hidden">
             <div className="p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/5">
-              <h4 className="font-serif text-[24px] font-medium text-[#e5e2e3]">Live Order Stream</h4>
+              <h4 className="font-serif text-6 font-medium text-[#e5e2e3]">Live Order Stream</h4>
               <div className="flex gap-2 w-full sm:w-auto">
                 <div className="relative w-full sm:w-auto">
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#d0c5af]">search</span>
                   <input 
-                    className="bg-[#2a2a2b] border-none rounded-lg pl-10 pr-4 py-2 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold focus:ring-1 focus:ring-[#7ae749] w-full sm:w-64 text-[#e5e2e3]" 
+                    className="bg-[#2a2a2b] border-none rounded-lg pl-10 pr-4 py-2 font-sans text-[14px] leading-5 tracking-wider font-semibold focus:ring-1 focus:ring-[#7ae749] w-full sm:w-64 text-[#e5e2e3]" 
                     placeholder="Filter orders..." 
                     type="text" 
                   />
@@ -281,18 +281,18 @@ export default function AdminDashboard() {
               <table className="w-full text-left">
                 <thead className="bg-white/5">
                   <tr>
-                    <th className="px-8 py-4 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-50 uppercase">Order ID</th>
-                    <th className="px-8 py-4 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-50 uppercase">Customer</th>
-                    <th className="px-8 py-4 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-50 uppercase">Item</th>
-                    <th className="px-8 py-4 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-50 uppercase">Status</th>
-                    <th className="px-8 py-4 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-50 uppercase">Total</th>
-                    <th className="px-8 py-4 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-50 uppercase text-right">Actions</th>
+                    <th className="px-8 py-4 font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-50 uppercase">Order ID</th>
+                    <th className="px-8 py-4 font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-50 uppercase">Customer</th>
+                    <th className="px-8 py-4 font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-50 uppercase">Item</th>
+                    <th className="px-8 py-4 font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-50 uppercase">Status</th>
+                    <th className="px-8 py-4 font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-50 uppercase">Total</th>
+                    <th className="px-8 py-4 font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-50 uppercase text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   
                   <tr className="hover:bg-white/5 transition-colors group">
-                    <td className="px-8 py-5 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-bold text-[#7ae749]">#LM-9021</td>
+                    <td className="px-8 py-5 font-sans text-[14px] leading-5 tracking-wider font-bold text-[#7ae749]">#LM-9021</td>
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-[#353436] overflow-hidden">
@@ -314,7 +314,7 @@ export default function AdminDashboard() {
                   </tr>
 
                   <tr className="hover:bg-white/5 transition-colors group">
-                    <td className="px-8 py-5 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-bold text-[#7ae749]">#LM-9020</td>
+                    <td className="px-8 py-5 font-sans text-[14px] leading-5 tracking-wider font-bold text-[#7ae749]">#LM-9020</td>
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-[#353436] overflow-hidden">
@@ -336,7 +336,7 @@ export default function AdminDashboard() {
                   </tr>
 
                   <tr className="hover:bg-white/5 transition-colors group">
-                    <td className="px-8 py-5 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-bold text-[#7ae749]">#LM-9019</td>
+                    <td className="px-8 py-5 font-sans text-[14px] leading-5 tracking-wider font-bold text-[#7ae749]">#LM-9019</td>
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-[#353436] overflow-hidden flex items-center justify-center">
@@ -358,7 +358,7 @@ export default function AdminDashboard() {
                   </tr>
 
                   <tr className="hover:bg-white/5 transition-colors group">
-                    <td className="px-8 py-5 font-sans text-[14px] leading-[20px] tracking-[0.05em] font-bold text-[#7ae749]">#LM-9018</td>
+                    <td className="px-8 py-5 font-sans text-[14px] leading-5 tracking-wider font-bold text-[#7ae749]">#LM-9018</td>
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-[#353436] overflow-hidden">
@@ -383,33 +383,33 @@ export default function AdminDashboard() {
               </table>
             </div>
             <div className="p-4 bg-white/5 flex justify-center">
-              <button className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#7ae749] hover:underline">View Transaction History</button>
+              <button className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749] hover:underline">View Transaction History</button>
             </div>
           </section>
 
           {/* Footer Integration */}
-          <footer className="mt-[80px] py-12 px-0 border-t border-white/5 grid grid-cols-1 md:grid-cols-4 gap-[24px]">
+          <footer className="mt-20 py-12 px-0 border-t border-white/5 grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="col-span-1 md:col-span-2">
-              <h3 className="font-serif text-[32px] leading-[40px] font-medium text-[#72df41] mb-4">Lumière Dining</h3>
-              <p className="text-[#d0c5af] font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold max-w-sm mb-6 opacity-70">
+              <h3 className="font-serif text-[32px] leading-10 font-medium text-[#72df41] mb-4">Lumière Dining</h3>
+              <p className="text-[#d0c5af] font-sans text-[14px] leading-5 tracking-wider font-semibold max-w-sm mb-6 opacity-70">
                 The control center for global culinary excellence. Manage orders, analyze trends, and curate the ultimate dining experience.
               </p>
-              <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#d0c5af] opacity-50">© {new Date().getFullYear()} Lumière Dining. All Rights Reserved.</p>
+              <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#d0c5af] opacity-50">© {new Date().getFullYear()} Lumière Dining. All Rights Reserved.</p>
             </div>
             
             <div>
-              <h4 className="text-[#7ae749] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-bold mb-4 uppercase">System</h4>
+              <h4 className="text-[#7ae749] font-sans text-[12px] leading-4 tracking-[0.03em] font-bold mb-4 uppercase">System</h4>
               <ul className="space-y-2">
-                <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold" href="#">Privacy Policy</a></li>
-                <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold" href="#">Terms of Service</a></li>
+                <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-5 tracking-wider font-semibold" href="#">Privacy Policy</a></li>
+                <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-5 tracking-wider font-semibold" href="#">Terms of Service</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="text-[#7ae749] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-bold mb-4 uppercase">Company</h4>
+              <h4 className="text-[#7ae749] font-sans text-[12px] leading-4 tracking-[0.03em] font-bold mb-4 uppercase">Company</h4>
               <ul className="space-y-2">
-                <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold" href="#">Sustainability</a></li>
-                <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold" href="#">Careers</a></li>
+                <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-5 tracking-wider font-semibold" href="#">Sustainability</a></li>
+                <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-5 tracking-wider font-semibold" href="#">Careers</a></li>
               </ul>
             </div>
           </footer>

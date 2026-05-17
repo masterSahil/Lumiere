@@ -25,22 +25,22 @@ export default function MyOrders() {
         }
       `}} />
 
-      <div className="font-sans text-[16px] leading-[24px] selection:bg-[#7ae749] selection:text-[#062100] min-h-screen bg-[#131314]">
+      <div className="font-sans text-4 leading-6 selection:bg-[#7ae749] selection:text-[#062100] min-h-screen bg-[#131314]">
         
         {/* Top Navigation Bar */}
         <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl border-b border-white/10">
-          <div className="flex justify-between items-center px-[20px] md:px-[80px] py-4 w-full max-w-[1440px] mx-auto">
-            <span className="font-serif text-[48px] leading-[56px] font-bold text-[#72df41]">
+          <div className="flex justify-between items-center px-5 md:px-20 py-4 w-full max-w-360 mx-auto">
+            <span className="font-serif text-[48px] leading-14 font-bold text-[#72df41]">
               Lumière Dining
             </span>
-            <div className="hidden md:flex items-center gap-[24px]">
-              <a className="font-serif text-[14px] leading-[20px] font-medium text-[#e5e2e3]/70 hover:text-[#7ae749] transition-colors duration-300" href="#">Menu</a>
-              <a className="font-serif text-[14px] leading-[20px] font-medium text-[#e5e2e3]/70 hover:text-[#7ae749] transition-colors duration-300" href="#">About</a>
-              <a className="font-serif text-[14px] leading-[20px] font-medium text-[#7ae749] border-b-2 border-[#7ae749] pb-1 transition-colors duration-300" href="#">Reservations</a>
-              <a className="font-serif text-[14px] leading-[20px] font-medium text-[#e5e2e3]/70 hover:text-[#7ae749] transition-colors duration-300" href="#">Contact</a>
+            <div className="hidden md:flex items-center gap-6">
+              <a className="font-serif text-[14px] leading-5 font-medium text-[#e5e2e3]/70 hover:text-[#7ae749] transition-colors duration-300" href="#">Menu</a>
+              <a className="font-serif text-[14px] leading-5 font-medium text-[#e5e2e3]/70 hover:text-[#7ae749] transition-colors duration-300" href="#">About</a>
+              <a className="font-serif text-[14px] leading-5 font-medium text-[#7ae749] border-b-2 border-[#7ae749] pb-1 transition-colors duration-300" href="#">Reservations</a>
+              <a className="font-serif text-[14px] leading-5 font-medium text-[#e5e2e3]/70 hover:text-[#7ae749] transition-colors duration-300" href="#">Contact</a>
             </div>
             <div className="flex items-center gap-4">
-              <button className="bg-[#7ae749] text-[#103900] px-6 py-2 rounded-full font-sans text-[14px] leading-[20px] font-semibold tracking-[0.05em] hover:brightness-110 transition-all">
+              <button className="bg-[#7ae749] text-[#103900] px-6 py-2 rounded-full font-sans text-[14px] leading-5 font-semibold tracking-wider hover:brightness-110 transition-all">
                 Order Now
               </button>
               <div className="w-10 h-10 rounded-full border border-[#7ae749]/30 overflow-hidden">
@@ -54,11 +54,11 @@ export default function MyOrders() {
           </div>
         </nav>
 
-        <main className="pt-32 pb-20 px-[20px] md:px-[80px] max-w-[1440px] mx-auto min-h-screen">
-          <div className="flex flex-col lg:flex-row gap-[24px]">
+        <main className="pt-32 pb-20 px-5 md:px-20 max-w-360 mx-auto min-h-screen">
+          <div className="flex flex-col lg:flex-row gap-6">
             
             {/* SideNavBar (SaaS Sidebar Style) */}
-            <aside className="w-full lg:w-64 flex-shrink-0">
+            <aside className="w-full lg:w-64 shrink-0">
               <div className="sticky top-32 flex flex-col gap-6">
                 <div className="glass-panel p-6 rounded-xl">
                   <div className="flex items-center gap-4 mb-8">
@@ -66,52 +66,52 @@ export default function MyOrders() {
                       <span className="material-symbols-outlined text-[#7ae749]">person</span>
                     </div>
                     <div>
-                      <h3 className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#7ae749]">Julian Vane</h3>
-                      <p className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#e5e2e3]/50">Lumière Gold Member</p>
+                      <h3 className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749]">Julian Vane</h3>
+                      <p className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#e5e2e3]/50">Lumière Gold Member</p>
                     </div>
                   </div>
                   <nav className="flex flex-col gap-1">
                     <a className="flex items-center gap-3 p-3 rounded-lg bg-[#09530d]/20 text-[#7ae749] border-r-4 border-[#7ae749] transition-all" href="#">
                       <span className="material-symbols-outlined">receipt_long</span>
-                      <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Orders</span>
+                      <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Orders</span>
                     </a>
                     <a className="flex items-center gap-3 p-3 rounded-lg text-[#d0c5af] hover:bg-[#2a2a2b] transition-all" href="#">
                       <span className="material-symbols-outlined">person</span>
-                      <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Profile</span>
+                      <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Profile</span>
                     </a>
                     <a className="flex items-center gap-3 p-3 rounded-lg text-[#d0c5af] hover:bg-[#2a2a2b] transition-all" href="#">
                       <span className="material-symbols-outlined">location_on</span>
-                      <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Addresses</span>
+                      <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Addresses</span>
                     </a>
                     <a className="flex items-center gap-3 p-3 rounded-lg text-[#d0c5af] hover:bg-[#2a2a2b] transition-all" href="#">
                       <span className="material-symbols-outlined">payments</span>
-                      <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Payment Methods</span>
+                      <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Payment Methods</span>
                     </a>
                     <a className="flex items-center gap-3 p-3 rounded-lg text-[#d0c5af] hover:bg-[#2a2a2b] transition-all" href="#">
                       <span className="material-symbols-outlined">notifications</span>
-                      <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Notifications</span>
+                      <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Notifications</span>
                     </a>
                     <a className="flex items-center gap-3 p-3 rounded-lg text-[#d0c5af] hover:bg-[#2a2a2b] transition-all" href="#">
                       <span className="material-symbols-outlined">settings</span>
-                      <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Settings</span>
+                      <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Settings</span>
                     </a>
                   </nav>
                 </div>
                 <button className="w-full glass-panel p-4 flex items-center justify-center gap-2 hover:bg-[#5fca2d]/10 transition-all border-[#7ae749]/20">
                   <span className="material-symbols-outlined text-[#7ae749]">add_circle</span>
-                  <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#7ae749]">New Reservation</span>
+                  <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749]">New Reservation</span>
                 </button>
               </div>
             </aside>
 
             {/* Main Content */}
-            <div className="flex-grow flex flex-col gap-12">
+            <div className="grow flex flex-col gap-12">
               
               {/* Section: Active Order */}
               <section>
                 <div className="flex justify-between items-end mb-6">
                   <div>
-                    <h1 className="font-serif text-[48px] leading-[56px] font-semibold mb-2">My Orders</h1>
+                    <h1 className="font-serif text-[48px] leading-14 font-semibold mb-2">My Orders</h1>
                     <p className="text-[#d0c5af]">Manage your culinary journeys and live deliveries.</p>
                   </div>
                 </div>
@@ -124,16 +124,16 @@ export default function MyOrders() {
                   </div>
                   <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div>
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#09530d] text-[#abf59c] font-sans text-[12px] leading-[16px] tracking-[0.03em] font-bold mb-4">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#09530d] text-[#abf59c] font-sans text-[12px] leading-4 tracking-[0.03em] font-bold mb-4">
                         <span className="w-2 h-2 rounded-full bg-[#abf59c] animate-pulse"></span>
                         LIVE TRACKING
                       </div>
-                      <h2 className="font-serif text-[32px] leading-[40px] font-medium mb-2">Order #LM-8821</h2>
+                      <h2 className="font-serif text-[32px] leading-10 font-medium mb-2">Order #LM-8821</h2>
                       <p className="text-[#d0c5af] mb-8">Estimated Arrival: <span className="text-[#7ae749] font-bold">18:45 (12 mins)</span></p>
                       
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#7ae749]">Chef is plating</span>
-                        <span className="font-sans text-[12px] leading-[16px] tracking-[0.03em] font-medium text-[#e5e2e3]/50">Out for delivery</span>
+                        <span className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#7ae749]">Chef is plating</span>
+                        <span className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-[#e5e2e3]/50">Out for delivery</span>
                       </div>
                       
                       <div className="w-full h-1 bg-white/10 rounded-full mb-8">
@@ -143,25 +143,25 @@ export default function MyOrders() {
                       </div>
                       
                       <div className="flex flex-wrap gap-4">
-                        <button className="bg-[#7ae749] text-[#103900] px-6 py-3 rounded-lg font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">Track on Map</button>
-                        <button className="glass-panel border border-[#7ae749]/30 px-6 py-3 rounded-lg font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#7ae749]">Contact Courier</button>
+                        <button className="bg-[#7ae749] text-[#103900] px-6 py-3 rounded-lg font-sans text-[14px] leading-5 tracking-wider font-semibold">Track on Map</button>
+                        <button className="glass-panel border border-[#7ae749]/30 px-6 py-3 rounded-lg font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749]">Contact Courier</button>
                       </div>
                     </div>
                     
                     <div className="glass-panel bg-white/5 p-6 rounded-xl border border-white/5">
-                      <h4 className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold mb-4 text-[#e5e2e3]/70 uppercase">Order Summary</h4>
+                      <h4 className="font-sans text-[14px] leading-5 tracking-wider font-semibold mb-4 text-[#e5e2e3]/70 uppercase">Order Summary</h4>
                       <ul className="space-y-4">
                         <li className="flex justify-between items-center">
-                          <span className="font-sans text-[16px] leading-[24px]">Wagyu Beef Tartare x 1</span>
+                          <span className="font-sans text-4 leading-6">Wagyu Beef Tartare x 1</span>
                           <span className="text-[#7ae749]">$42.00</span>
                         </li>
                         <li className="flex justify-between items-center">
-                          <span className="font-sans text-[16px] leading-[24px]">Black Truffle Risotto x 2</span>
+                          <span className="font-sans text-4 leading-6">Black Truffle Risotto x 2</span>
                           <span className="text-[#7ae749]">$84.00</span>
                         </li>
                         <li className="flex justify-between items-center border-t border-white/10 pt-4 mt-4">
                           <span className="font-bold">Total</span>
-                          <span className="font-serif text-[32px] leading-[40px] font-medium text-[#7ae749]">$126.00</span>
+                          <span className="font-serif text-[32px] leading-10 font-medium text-[#7ae749]">$126.00</span>
                         </li>
                       </ul>
                     </div>
@@ -171,7 +171,7 @@ export default function MyOrders() {
 
               {/* Section: History */}
               <section>
-                <h3 className="font-serif text-[32px] leading-[40px] font-medium mb-8">Order History</h3>
+                <h3 className="font-serif text-[32px] leading-10 font-medium mb-8">Order History</h3>
                 <div className="grid grid-cols-1 gap-6">
                   
                   {/* Order Card 1 */}
@@ -182,18 +182,18 @@ export default function MyOrders() {
                       </div>
                       <div>
                         <div className="flex items-center gap-3 mb-1">
-                          <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#7ae749]">#LM-7740</span>
-                          <span className="font-sans text-[12px] leading-[16px] font-medium text-[#e5e2e3]/40">•</span>
-                          <span className="font-sans text-[12px] leading-[16px] font-medium text-[#e5e2e3]/60">Oct 24, 2024</span>
+                          <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749]">#LM-7740</span>
+                          <span className="font-sans text-[12px] leading-4 font-medium text-[#e5e2e3]/40">•</span>
+                          <span className="font-sans text-[12px] leading-4 font-medium text-[#e5e2e3]/60">Oct 24, 2024</span>
                         </div>
-                        <p className="font-sans text-[18px] leading-[28px] font-medium text-white">Pan-Seared Scallops, Vintage Chardonnay...</p>
-                        <p className="font-sans text-[12px] leading-[16px] font-medium text-[#d0c5af]">3 items • Delivered to Home</p>
+                        <p className="font-sans text-[18px] leading-7 font-medium text-white">Pan-Seared Scallops, Vintage Chardonnay...</p>
+                        <p className="font-sans text-[12px] leading-4 font-medium text-[#d0c5af]">3 items • Delivered to Home</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-8 justify-between md:justify-end">
                       <div className="text-right">
-                        <p className="font-serif text-[32px] leading-[40px] font-medium text-[#7ae749]">$215.50</p>
-                        <span className="font-sans text-[12px] leading-[16px] font-medium text-[#93000b]">Completed</span>
+                        <p className="font-serif text-[32px] leading-10 font-medium text-[#7ae749]">$215.50</p>
+                        <span className="font-sans text-[12px] leading-4 font-medium text-[#93000b]">Completed</span>
                       </div>
                       <button className="p-3 rounded-full border border-white/10 hover:border-[#7ae749]/50 hover:bg-[#7ae749]/10 transition-all">
                         <span className="material-symbols-outlined text-[#e5e2e3]/50">chevron_right</span>
@@ -209,18 +209,18 @@ export default function MyOrders() {
                       </div>
                       <div>
                         <div className="flex items-center gap-3 mb-1">
-                          <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#7ae749]">#LM-7592</span>
-                          <span className="font-sans text-[12px] leading-[16px] font-medium text-[#e5e2e3]/40">•</span>
-                          <span className="font-sans text-[12px] leading-[16px] font-medium text-[#e5e2e3]/60">Oct 12, 2024</span>
+                          <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749]">#LM-7592</span>
+                          <span className="font-sans text-[12px] leading-4 font-medium text-[#e5e2e3]/40">•</span>
+                          <span className="font-sans text-[12px] leading-4 font-medium text-[#e5e2e3]/60">Oct 12, 2024</span>
                         </div>
-                        <p className="font-sans text-[18px] leading-[28px] font-medium text-white">Dry-Aged Ribeye, Bone Marrow, Reserve...</p>
-                        <p className="font-sans text-[12px] leading-[16px] font-medium text-[#d0c5af]">2 items • Delivered to Office</p>
+                        <p className="font-sans text-[18px] leading-7 font-medium text-white">Dry-Aged Ribeye, Bone Marrow, Reserve...</p>
+                        <p className="font-sans text-[12px] leading-4 font-medium text-[#d0c5af]">2 items • Delivered to Office</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-8 justify-between md:justify-end">
                       <div className="text-right">
-                        <p className="font-serif text-[32px] leading-[40px] font-medium text-[#7ae749]">$188.00</p>
-                        <span className="font-sans text-[12px] leading-[16px] font-medium text-[#93000b]">Completed</span>
+                        <p className="font-serif text-[32px] leading-10 font-medium text-[#7ae749]">$188.00</p>
+                        <span className="font-sans text-[12px] leading-4 font-medium text-[#93000b]">Completed</span>
                       </div>
                       <button className="p-3 rounded-full border border-white/10 hover:border-[#7ae749]/50 hover:bg-[#7ae749]/10 transition-all">
                         <span className="material-symbols-outlined text-[#e5e2e3]/50">chevron_right</span>
@@ -236,18 +236,18 @@ export default function MyOrders() {
                       </div>
                       <div>
                         <div className="flex items-center gap-3 mb-1">
-                          <span className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#7ae749]">#LM-6120</span>
-                          <span className="font-sans text-[12px] leading-[16px] font-medium text-[#e5e2e3]/40">•</span>
-                          <span className="font-sans text-[12px] leading-[16px] font-medium text-[#e5e2e3]/60">Sep 28, 2024</span>
+                          <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749]">#LM-6120</span>
+                          <span className="font-sans text-[12px] leading-4 font-medium text-[#e5e2e3]/40">•</span>
+                          <span className="font-sans text-[12px] leading-4 font-medium text-[#e5e2e3]/60">Sep 28, 2024</span>
                         </div>
-                        <p className="font-sans text-[18px] leading-[28px] font-medium text-white">Chocolate Delice, Gold Leaf, Vanilla Bean...</p>
-                        <p className="font-sans text-[12px] leading-[16px] font-medium text-[#d0c5af]">4 items • Delivered to Home</p>
+                        <p className="font-sans text-[18px] leading-7 font-medium text-white">Chocolate Delice, Gold Leaf, Vanilla Bean...</p>
+                        <p className="font-sans text-[12px] leading-4 font-medium text-[#d0c5af]">4 items • Delivered to Home</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-8 justify-between md:justify-end">
                       <div className="text-right">
-                        <p className="font-serif text-[32px] leading-[40px] font-medium text-[#7ae749]">$94.20</p>
-                        <span className="font-sans text-[12px] leading-[16px] font-medium text-[#93000b]">Completed</span>
+                        <p className="font-serif text-[32px] leading-10 font-medium text-[#7ae749]">$94.20</p>
+                        <span className="font-sans text-[12px] leading-4 font-medium text-[#93000b]">Completed</span>
                       </div>
                       <button className="p-3 rounded-full border border-white/10 hover:border-[#7ae749]/50 hover:bg-[#7ae749]/10 transition-all">
                         <span className="material-symbols-outlined text-[#e5e2e3]/50">chevron_right</span>
@@ -257,7 +257,7 @@ export default function MyOrders() {
                 </div>
 
                 <div className="mt-12 flex justify-center">
-                  <button className="glass-panel px-8 py-3 rounded-full text-[#e5e2e3]/70 hover:text-[#7ae749] hover:border-[#7ae749]/30 transition-all font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold">
+                  <button className="glass-panel px-8 py-3 rounded-full text-[#e5e2e3]/70 hover:text-[#7ae749] hover:border-[#7ae749]/30 transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
                     View Older Orders
                   </button>
                 </div>
@@ -268,10 +268,10 @@ export default function MyOrders() {
         </main>
 
         {/* Footer */}
-        <footer className="w-full py-12 px-[20px] md:px-[80px] border-t border-white/5 bg-[#0e0e0f]">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-[24px] max-w-[1440px] mx-auto">
+        <footer className="w-full py-12 px-5 md:px-20 border-t border-white/5 bg-[#0e0e0f]">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-360 mx-auto">
             <div className="col-span-1 md:col-span-2">
-              <span className="font-serif text-[32px] leading-[40px] font-medium text-[#72df41] mb-4 block">Lumière Dining</span>
+              <span className="font-serif text-[32px] leading-10 font-medium text-[#72df41] mb-4 block">Lumière Dining</span>
               <p className="text-[#d0c5af] max-w-xs mb-8">Elevating the digital culinary experience to Michelin standards, one plate at a time.</p>
               <div className="flex gap-4">
                 <a className="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:text-[#7ae749] transition-all" href="#">
@@ -284,7 +284,7 @@ export default function MyOrders() {
             </div>
             
             <div>
-              <h4 className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#7ae749] mb-6">Quick Links</h4>
+              <h4 className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749] mb-6">Quick Links</h4>
               <ul className="space-y-4">
                 <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors" href="#">Privacy Policy</a></li>
                 <li><a className="text-[#d0c5af] hover:text-[#7ae749] transition-colors" href="#">Terms of Service</a></li>
@@ -294,14 +294,14 @@ export default function MyOrders() {
             </div>
             
             <div>
-              <h4 className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#7ae749] mb-6">Contact</h4>
+              <h4 className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749] mb-6">Contact</h4>
               <p className="text-[#d0c5af] mb-2">concierge@lumieredining.com</p>
               <p className="text-[#d0c5af]">1-800-LUMIERE</p>
             </div>
           </div>
           
-          <div className="max-w-[1440px] mx-auto mt-12 pt-8 border-t border-white/5 text-center">
-            <p className="font-sans text-[14px] leading-[20px] tracking-[0.05em] font-semibold text-[#e5e2e3]/30">© {new Date().getFullYear()} Lumière Dining. All Rights Reserved.</p>
+          <div className="max-w-360 mx-auto mt-12 pt-8 border-t border-white/5 text-center">
+            <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#e5e2e3]/30">© {new Date().getFullYear()} Lumière Dining. All Rights Reserved.</p>
           </div>
         </footer>
 
