@@ -1,16 +1,36 @@
-import Head from 'next/head';
-// Added LuUser and LuShieldCheck for the new registration fields
-import { LuAtSign, LuLock, LuEye, LuUser, LuShieldCheck } from 'react-icons/lu';
-import { FaGoogle, FaApple } from 'react-icons/fa';
+"use client"
+
+import { LuAtSign, LuLock, LuEye, LuUser } from 'react-icons/lu';
+import { FaGoogle } from 'react-icons/fa';
 import Link from 'next/link';
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function RegisterPage() {
+
+  const [formData, setFormData] = useState({
+    username: '', email: '', password: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const Register = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      const res = await axios.post("http://localhost:3000/api/auth/register", formData);
+      sessionStorage.setItem("token", res.data.token);
+      setFormData({
+        username: '', email: '', password: ''
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-      </Head>
-
       <div className="bg-[#101415] text-[#e0e3e5]  overflow-x-hidden min-h-screen dark">
         
         {/* Atmospheric Background Elements */}
@@ -57,12 +77,12 @@ export default function RegisterPage() {
             <div className="w-full max-w-md space-y-8">
               
               <div className="space-y-2">
-                <h1 className="font-['Playfair_Display'] text-[32px] leading-[1.3] font-semibold text-[#e0e3e5]">Create Account</h1>
-                <p className=" text-[16px] text-[#c1cab0]">Enter your details to register for Lumière.</p>
+                <h1 className="text-[32px] leading-[1.3] font-semibold text-[#e0e3e5]">Create Account</h1>
+                <p className="text-[16px] text-[#c1cab0]">Enter your details to register for Lumière.</p>
               </div>
 
               {/* Registration Form */}
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={Register}>
                 <div className="space-y-4">
                   
                   {/* Full Name Field */}
@@ -74,9 +94,10 @@ export default function RegisterPage() {
                       <LuUser className="mx-4 text-[#c1cab0] text-[20px] shrink-0" />
                       <input 
                         className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
-                        id="name" 
+                        name="username" value={formData.username}
                         placeholder="e.g. Jane Doe" 
                         type="text" 
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -90,9 +111,10 @@ export default function RegisterPage() {
                       <LuAtSign className="mx-4 text-[#c1cab0] text-[20px] shrink-0" />
                       <input 
                         className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
-                        id="email" 
+                        name="email" 
                         placeholder="name@example.com" 
-                        type="email" 
+                        type="email" value={formData.email}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -106,9 +128,10 @@ export default function RegisterPage() {
                       <LuLock className="mx-4 text-[#c1cab0] text-[20px] shrink-0" />
                       <input 
                         className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
-                        id="password" 
+                        name="password" 
                         placeholder="Create a password" 
-                        type="password" 
+                        type="password" value={formData.password}
+                        onChange={handleChange}
                       />
                       <button className="px-4 group" type="button" aria-label="Toggle password visibility">
                         <LuEye className="text-[#c1cab0] group-hover:text-[#9ee939] transition-colors text-[20px]" />
@@ -118,10 +141,8 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Primary Register Button */}
-                <button 
-                  className="w-full py-4 bg-[#9ee939] text-[#1f3700]  text-[12px] leading-[1] tracking-[0.1em] uppercase rounded-lg font-bold hover:bg-[#91db2a] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95" 
-                  type="submit"
-                >
+                <button className="w-full py-4 bg-[#9ee939] text-[#1f3700]  text-[12px] leading-[1] tracking-[0.1em] uppercase rounded-lg font-bold hover:bg-[#91db2a] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95" 
+                  type="submit">
                   Create Account
                 </button>
               </form>
