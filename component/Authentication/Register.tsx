@@ -29,8 +29,14 @@ export default function RegisterPage({ setLoggedIn} : any) {
         username: '', email: '', password: ''
       })
       setLoggedIn(true)
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log("FULL ERROR:", error);
+
+      if (error.response) {
+        console.log("SERVER MESSAGE:", error.response.data.message);
+      } else {
+        console.log("NETWORK ERROR:", error.message);
+      }
     }
   };
 
@@ -66,7 +72,7 @@ export default function RegisterPage({ setLoggedIn} : any) {
           </section>
 
           {/* Registration Panel */}
-          <section className="col-span-1 md:col-span-5 lg:col-span-4 flex flex-col items-center justify-center p-5 md:p-16 bg-[#0b0f10] relative z-10 border-l border-white/5 py-24">
+          <section className="col-span-1 md:col-span-5 lg:col-span-4 flex flex-col items-center justify-center p-5 md:p-16 bg-[#0b0f10] relative z-10 border-l border-white/5 md:py-24">
             
             {/* Header */}
             <header className="absolute top-0 left-0 w-full flex justify-between items-center px-5 md:px-16 h-20 z-50">
