@@ -16,7 +16,7 @@ const page = () => {
     }
 
     try {
-      await axios.get("http://localhost:3000/api/auth/verify", {
+      await axios.get("/api/auth/verify", {
         headers: {
           Authorization: `bearer ${token}`
         }

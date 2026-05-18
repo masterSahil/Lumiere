@@ -23,7 +23,7 @@ export default function Page() {
 
     try {
       setLoading(true);
-      await axios.get("http://localhost:3000/api/auth/verify",
+      await axios.get("/api/auth/verify",
         {
           headers: {
             Authorization: `Bearer ${token}`,

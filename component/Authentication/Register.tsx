@@ -23,7 +23,7 @@ export default function RegisterPage({ setLoggedIn} : any) {
   const Register = async (e: React.FormEvent) => {
     try {
       e.preventDefault();
-      const res = await axios.post("http://localhost:3000/api/auth/register", formData);
+      const res = await axios.post("/api/auth/register", formData);
       sessionStorage.setItem("token", res.data.token);
       setFormData({
         username: '', email: '', password: ''
