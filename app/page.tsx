@@ -4,42 +4,49 @@ import AdminDashboard from "@/pages/Dashboard";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Loader from "./loading";
 
 export default function Page() {
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
   const VerifyLogin = async () => {
-  try {
-    const token = sessionStorage.getItem("token");
-    console.log(token);
-    if (!token) {
-      setLoggedIn(false);
-      router.push("/");
-      return;
-    }
-
-    const res = await axios.get("http://localhost:3000/api/auth/verify",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        setLoggedIn(false);
+        router.push("/");
+        return;
       }
-    );
-    console.log(res.data);
 
-    setLoggedIn(true);
-  } catch (error) {
-    console.log(error);
-    setLoggedIn(false);
-  }
-};
+    try {
+      setLoading(true);
+      await axios.get("http://localhost:3000/api/auth/verify",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setLoggedIn(true);
+    } catch (error) {
+      console.log(error);
+      setLoggedIn(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     VerifyLogin();
   }, [])
+
+  if (loading) {
+    return <Loader />
+  }
 
   return (
     <main>

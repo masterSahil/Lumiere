@@ -49,11 +49,6 @@ export default function LoginPage() {
           {/* Cinematic Visual Panel (Hidden on Mobile) */}
           <section className="hidden md:flex md:col-span-7 lg:col-span-8 relative items-center justify-center p-16 overflow-hidden">
             <div className="absolute inset-0 z-0">
-              {/* <img 
-                alt="Cinematic close-up of a Michelin-star dish" 
-                className="w-full h-full object-cover opacity-60 scale-105" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3MVgQgvjzljAqjUUq32CAZUCTn54QO-gJYEKi5X9JFYsS8bI3Y9AYzPc_C0m1ToHzdiCNfv-MzZhM78jT_1KTjJGjqcuptuv4bpqx-DZaVHHjS8Yz6WZwWnK8N3ibd7GL7DO2DXZMHdfm3wVDYJoJetqrav8Sfrc5uR5ZOLoarW_jSlqH9f2M_ZxmkveVtu38hOWvtd8zScBXgesc6XEKFw8pcbJpXsrmonjCzIhzhPfVCxFSgReUdtlVnL7ryfRFgDTiB3QaxepX" 
-              /> */}
               <Image src={dish} alt='Chef meticulously plating a gourmet dish in a dark, moody kitchen'
                       className="w-full h-full object-cover opacity-60 scale-105" />
               <div className="absolute inset-0 bg-linear-to-r from-[#101415] via-transparent to-transparent"></div>
@@ -92,13 +87,13 @@ export default function LoginPage() {
                   
                   {/* Email Field */}
                   <div className="space-y-2">
-                    <label className="  text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0] block uppercase" htmlFor="identity">
+                    <label className="text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0] block uppercase" htmlFor="identity">
                       Email 
                     </label>
                     <div className="flex items-center bg-[#1d2022] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[#84cc16] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
                       <LuAtSign className="mx-4 text-[#c1cab0] text-5 shrink-0" />
                       <input 
-                        className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
+                        className="w-full py-3 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
                         value={formData.email} name='email'
                         placeholder="name@lumiere.com" 
                         type="text" onChange={handleChange}
@@ -108,13 +103,13 @@ export default function LoginPage() {
 
                   {/* Password Field */}
                   <div className="space-y-2">
-                    <label className="  text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0] block uppercase" htmlFor="password">
+                    <label className="text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0] block uppercase" htmlFor="password">
                       Password
                     </label>
                     <div className="flex items-center bg-[#1d2022] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[#84cc16] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
                       <LuLock className="mx-4 text-[#c1cab0] text-5 shrink-0" />
                       <input 
-                        className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
+                        className="w-full py-3 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
                         value={formData.password}
                         placeholder="••••••••" name='password'
                         type={inpPwd ?"password" : "text"} onChange={handleChange}

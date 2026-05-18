@@ -1,4 +1,6 @@
 import "./globals.css";
+import { Suspense } from "react";
+import Loader from "./loading";
 
 export const metadata = {
   title: "Restaurant Food App",
@@ -8,7 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Suspense fallback={<Loader />}>
+          {children}
+        </Suspense>
+      </body>
     </html>
   );
 }

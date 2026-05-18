@@ -94,7 +94,7 @@ export default function RegisterPage({ setLoggedIn} : any) {
                     <div className="flex items-center bg-[#1d2022] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[#84cc16] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
                       <LuUser className="mx-4 text-[#c1cab0] text-5 shrink-0" />
                       <input 
-                        className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
+                        className="w-full py-3 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
                         name="username" value={formData.username}
                         placeholder="e.g. Jane Doe" 
                         type="text" 
@@ -111,7 +111,7 @@ export default function RegisterPage({ setLoggedIn} : any) {
                     <div className="flex items-center bg-[#1d2022] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[#84cc16] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
                       <LuAtSign className="mx-4 text-[#c1cab0] text-5 shrink-0" />
                       <input 
-                        className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
+                        className="w-full py-3 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
                         name="email" 
                         placeholder="name@example.com" 
                         type="email" value={formData.email}

@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Link from 'next/link';
-// Using Lucide icons for clean navigation and culinary cues
 import { LuArrowLeft, LuUtensils } from 'react-icons/lu';
 
 export default function page() {
@@ -45,21 +44,15 @@ export default function page() {
 
             {/* Call to Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-              <a 
-                href="/" 
-                className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-[#9ee939] text-[#1f3700] text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-[#91db2a] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95"
-              >
-                <LuArrowLeft className="text-[18px]" />
-                Return to Lobby
-              </a>
+              <Link href="/" 
+                className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-[#9ee939] text-[#1f3700] text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-[#91db2a] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95">
+                <LuArrowLeft className="text-[18px]" /> Return to Lobby
+              </Link>
               
-              <a 
-                href="/menu" 
-                className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-[#272a2c] border border-white/10 text-[#e0e3e5] text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-[#323537] transition-all duration-300 active:scale-[0.98]"
-              >
-                <LuUtensils className="text-[18px]" />
-                View Current Menu
-              </a>
+              <Link href="/menu" 
+                className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-[#272a2c] border border-white/10 text-[#e0e3e5] text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-[#323537] transition-all duration-300 active:scale-[0.98]">
+                <LuUtensils className="text-[18px]" /> View Current Menu
+              </Link>
             </div>
           </div>
         </main>
@@ -70,7 +63,6 @@ export default function page() {
             © {new Date().getFullYear()} Lumière Modern Gastronomy. All rights reserved.
           </p>
         </footer>
-
       </div>
     </>
   );
