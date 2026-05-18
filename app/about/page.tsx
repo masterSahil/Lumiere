@@ -136,7 +136,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {/* Chef 1 */}
               <div className="group">
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-6 border border-white/5">
+                <div className="relative aspect-3/4 rounded-2xl overflow-hidden mb-6 border border-white/5">
                   <img 
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuDug2KO8aoapksbNiSWJCQ1_yl5_OCJ_lt2WRr2wlYnVbb0coevR6ZKqfdTqClgPOHRARk3nkNc57Dl6czdnBG_mzKHCuwRRgMPzkFvdvLs2H1HLAK8l_4M5AdHzG5_GaAuWfFo2uu-8sg4XZnsnZssrj8362omJmxMdBsNF1zfOdPz8ufskQps1p2Dcw-psTeqXnBlOYFtQ12-0C3IMiYgA8l4BrwaDqMT6xRZh_tWY6Ns3kZ2kn5rFYV1aJvleI0RAghCJjqmhvsP" 
                     alt="Julian Vane - Executive Chef" 
@@ -149,7 +149,7 @@ export default function AboutPage() {
               </div>
               {/* Chef 2 */}
               <div className="group">
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-6 border border-white/5">
+                <div className="relative aspect-3/4 rounded-2xl overflow-hidden mb-6 border border-white/5">
                   <img 
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjVyOlcrQMllBz80Zws5yfqWyrsx048ld0V0CfrJZVheg6cAhMrfPkKLit-sbN0G5A00jBlidG7-d-F--L_hu1v2eSzLUSEt-NBrnIcASXLqmYhai8ouhsiVpj9zHGwICc0Adzs8q1nlS55sAHmdBxcwfqsWFJSvSdTuAE1qSAAU-KkZ05YIOpbp4Y9LJHZo8xlfOUV_4XzmoBrjvkb3aGTK_EVZProFb7mOH4Z5saBBQO1dHtR2EKtuL_KANwaEBxDRDZPmLbKiXm" 
                     alt="Elara Vance - Head Pastry Chef" 
@@ -162,7 +162,7 @@ export default function AboutPage() {
               </div>
               {/* Chef 3 */}
               <div className="group">
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-6 border border-white/5">
+                <div className="relative aspect-3/4 rounded-2xl overflow-hidden mb-6 border border-white/5">
                   <img 
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4mkzp4qKgZzk3Q3abiRZywSw-_9cVu4M9nQp3E5LhITAF5hklQaGSReDsqHpTN8XzpyfJWl-kTlbTmguMwb8koMpA4xc6tF6a-fyKEsBDf90RbT7H6lcFymTQOsOF6AfEccbXmgOHFBgp5mXBTNh7ChbXFNQPeaJXABr4CuE51Y6yYe8mNDvB33rnH-x_PKulmWZE-EwDtG_1XjtpCbN1n-MhULPQUhF86RC2nWFThk_5ZqFnq_KRZySbxJcPi7k5_nh47GrKuMy3" 
                     alt="Marcus Chen - Chef de Cuisine" 
@@ -184,28 +184,28 @@ export default function AboutPage() {
               <div className="relative border-l-2 border-[#84cc16]/30 ml-4 md:ml-1/2 space-y-16 py-8">
                 {/* Milestone 1 */}
                 <div className="relative pl-10 md:pl-12">
-                  <div className="absolute w-4 h-4 rounded-full bg-[#84cc16] shadow-[0_0_15px_rgba(132,204,22,0.6)] -left-[9px] top-1.5"></div>
+                  <div className="absolute w-4 h-4 rounded-full bg-[#84cc16] shadow-[0_0_15px_rgba(132,204,22,0.6)] -left-2.25 top-1.5"></div>
                   <h3 className="text-[#84cc16] font-bold text-lg mb-2">2018</h3>
                   <h4 className="text-2xl font-serif font-medium text-[#e5e2e3] mb-3">The Inception</h4>
                   <p className="text-[#d0c5af]">Lumière opens its doors as a humble 12-seat tasting counter in the historic district, focusing entirely on fire-cooked heritage ingredients.</p>
                 </div>
                 {/* Milestone 2 */}
                 <div className="relative pl-10 md:pl-12">
-                  <div className="absolute w-4 h-4 rounded-full bg-[#131314] border-2 border-[#84cc16] -left-[9px] top-1.5"></div>
+                  <div className="absolute w-4 h-4 rounded-full bg-[#131314] border-2 border-[#84cc16] -left-2.25 top-1.5"></div>
                   <h3 className="text-[#84cc16] font-bold text-lg mb-2">2020</h3>
                   <h4 className="text-2xl font-serif font-medium text-[#e5e2e3] mb-3">First Michelin Star</h4>
                   <p className="text-[#d0c5af]">Recognized for our uncompromising commitment to excellence, Lumière receives its first Michelin Star, putting us on the global culinary map.</p>
                 </div>
                 {/* Milestone 3 */}
                 <div className="relative pl-10 md:pl-12">
-                  <div className="absolute w-4 h-4 rounded-full bg-[#131314] border-2 border-[#84cc16] -left-[9px] top-1.5"></div>
+                  <div className="absolute w-4 h-4 rounded-full bg-[#131314] border-2 border-[#84cc16] -left-2.25 top-1.5"></div>
                   <h3 className="text-[#84cc16] font-bold text-lg mb-2">2022</h3>
                   <h4 className="text-2xl font-serif font-medium text-[#e5e2e3] mb-3">The Expansion</h4>
                   <p className="text-[#d0c5af]">Relocated to our current flagship location, introducing a full dining room, an immersive wine cellar, and a dedicated research kitchen.</p>
                 </div>
                 {/* Milestone 4 */}
                 <div className="relative pl-10 md:pl-12">
-                  <div className="absolute w-4 h-4 rounded-full bg-[#131314] border-2 border-[#84cc16] -left-[9px] top-1.5"></div>
+                  <div className="absolute w-4 h-4 rounded-full bg-[#131314] border-2 border-[#84cc16] -left-2.25 top-1.5"></div>
                   <h3 className="text-[#84cc16] font-bold text-lg mb-2">2024</h3>
                   <h4 className="text-2xl font-serif font-medium text-[#e5e2e3] mb-3">Digital Elevation</h4>
                   <p className="text-[#d0c5af]">Launch of the Lumière Delivery Experience, bringing Michelin-quality plating and temperature-controlled artistry directly to patrons' homes.</p>

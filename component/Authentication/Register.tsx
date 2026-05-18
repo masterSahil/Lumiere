@@ -179,10 +179,9 @@ export default function RegisterPage({ setLoggedIn} : any) {
             {/* Footer */}
             <footer className="absolute bottom-6 w-full px-5 md:px-16 text-center hidden md:block">
               <p className=" text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0]/60 uppercase">
-                © {new Date().getFullYear()} Lumière Modern Gastronomy. All rights reserved.
+                © {new Date().getFullYear()} Lumière Modern Gastronomy.
               </p>
             </footer>
-
           </section>
         </main>
       </div>
