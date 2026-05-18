@@ -7,14 +7,13 @@ export async function GET(req){
     await connectDB();
     
     const token = req.headers.get("authorization")?.split(" ")[1];
-    console.log(token);
-
     if (!token) {
         return NextResponse.json({
             success: false,
             message: "No token provided"
         }, {status: 401});
     }
+    
     try {
         const decoded = jwt.verify(token, process.env.SECRET);
         if (!decoded) {
