@@ -1,16 +1,20 @@
 "use client"
 
-import { LuAtSign, LuLock, LuEye, LuUser } from 'react-icons/lu';
+import { LuAtSign, LuLock, LuEye, LuUser, LuEyeClosed } from 'react-icons/lu';
 import { FaGoogle } from 'react-icons/fa';
 import Link from 'next/link';
 import axios from 'axios';
 import { useState } from 'react';
+import Image from 'next/image';
+import dish from "@/assets/images/auth/dish.png"
 
-export default function RegisterPage() {
+export default function RegisterPage({ setLoggedIn} : any) {
 
   const [formData, setFormData] = useState({
     username: '', email: '', password: ''
   });
+  const [inpPwd, setInpPwd] = useState(true);
+  const EYEIcon = inpPwd ? LuEye : LuEyeClosed;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -24,6 +28,7 @@ export default function RegisterPage() {
       setFormData({
         username: '', email: '', password: ''
       })
+      setLoggedIn(true)
     } catch (error) {
       console.log(error);
     }
@@ -45,12 +50,8 @@ export default function RegisterPage() {
           {/* Cinematic Visual Panel (Hidden on Mobile) */}
           <section className="hidden md:flex md:col-span-7 lg:col-span-8 relative items-center justify-center p-16 overflow-hidden">
             <div className="absolute inset-0 z-0">
-              {/* Note: You can swap this src for a different image to distinguish it from the login page */}
-              <img 
-                alt="Chef meticulously plating a gourmet dish in a dark, moody kitchen" 
-                className="w-full h-full object-cover opacity-60 scale-105" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3MVgQgvjzljAqjUUq32CAZUCTn54QO-gJYEKi5X9JFYsS8bI3Y9AYzPc_C0m1ToHzdiCNfv-MzZhM78jT_1KTjJGjqcuptuv4bpqx-DZaVHHjS8Yz6WZwWnK8N3ibd7GL7DO2DXZMHdfm3wVDYJoJetqrav8Sfrc5uR5ZOLoarW_jSlqH9f2M_ZxmkveVtu38hOWvtd8zScBXgesc6XEKFw8pcbJpXsrmonjCzIhzhPfVCxFSgReUdtlVnL7ryfRFgDTiB3QaxepX" 
-              />
+              <Image src={dish} alt='Chef meticulously plating a gourmet dish in a dark, moody kitchen'
+                      className="w-full h-full object-cover opacity-60 scale-105" />
               <div className="absolute inset-0 bg-linear-to-r from-[#101415] via-transparent to-transparent"></div>
             </div>
             
@@ -130,11 +131,11 @@ export default function RegisterPage() {
                         className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
                         name="password" 
                         placeholder="Create a password" 
-                        type="password" value={formData.password}
+                        type={inpPwd ? "password" : "text"} value={formData.password}
                         onChange={handleChange}
                       />
                       <button className="px-4 group" type="button" aria-label="Toggle password visibility">
-                        <LuEye className="text-[#c1cab0] group-hover:text-[#9ee939] transition-colors text-5" />
+                        <EYEIcon onClick={()=>setInpPwd(!inpPwd)} className="text-[#c1cab0] group-hover:text-[#9ee939] transition-colors text-5" />
                       </button>
                     </div>
                   </div>

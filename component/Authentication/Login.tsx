@@ -1,17 +1,20 @@
 "use client"
-import { LuAtSign, LuLock, LuEye } from 'react-icons/lu';
+import { LuAtSign, LuLock, LuEye, LuEyeClosed } from 'react-icons/lu';
 import { FaGoogle } from 'react-icons/fa';
 import Link from 'next/link';
 import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import dish from "@/assets/images/auth/dish.png"
 
 export default function LoginPage() {
 
   const [formData, setFormData] = useState({
     email: '', password: '',
   })
-
+  const [inpPwd, setInpPwd] = useState(true);
+  const EyeIcon = inpPwd ? LuEye : LuEyeClosed;
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,13 +47,15 @@ export default function LoginPage() {
         <main className="relative min-h-screen grid grid-cols-1 md:grid-cols-12 overflow-hidden z-10">
           
           {/* Cinematic Visual Panel (Hidden on Mobile) */}
-          <section className="hidden md:flex md:col-span-6 lg:col-span-7 relative items-center justify-center p-16 overflow-hidden">
+          <section className="hidden md:flex md:col-span-7 lg:col-span-8 relative items-center justify-center p-16 overflow-hidden">
             <div className="absolute inset-0 z-0">
-              <img 
+              {/* <img 
                 alt="Cinematic close-up of a Michelin-star dish" 
                 className="w-full h-full object-cover opacity-60 scale-105" 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3MVgQgvjzljAqjUUq32CAZUCTn54QO-gJYEKi5X9JFYsS8bI3Y9AYzPc_C0m1ToHzdiCNfv-MzZhM78jT_1KTjJGjqcuptuv4bpqx-DZaVHHjS8Yz6WZwWnK8N3ibd7GL7DO2DXZMHdfm3wVDYJoJetqrav8Sfrc5uR5ZOLoarW_jSlqH9f2M_ZxmkveVtu38hOWvtd8zScBXgesc6XEKFw8pcbJpXsrmonjCzIhzhPfVCxFSgReUdtlVnL7ryfRFgDTiB3QaxepX" 
-              />
+              /> */}
+              <Image src={dish} alt='Chef meticulously plating a gourmet dish in a dark, moody kitchen'
+                      className="w-full h-full object-cover opacity-60 scale-105" />
               <div className="absolute inset-0 bg-linear-to-r from-[#101415] via-transparent to-transparent"></div>
             </div>
             
@@ -65,7 +70,7 @@ export default function LoginPage() {
           </section>
 
           {/* Login Panel */}
-          <section className="col-span-1 md:col-span-6 lg:col-span-5 flex flex-col items-center justify-center p-5 md:p-16 bg-[#0b0f10] relative z-10 border-l border-white/5">
+          <section className="col-span-1 md:col-span-5 lg:col-span-4 flex flex-col items-center justify-center p-5 md:p-16 bg-[#0b0f10] relative z-10 border-l border-white/5">
             
             {/* Header */}
             <header className="absolute top-0 left-0 w-full flex justify-between items-center px-5 md:px-16 h-20 z-50">
@@ -112,10 +117,10 @@ export default function LoginPage() {
                         className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
                         value={formData.password}
                         placeholder="••••••••" name='password'
-                        type="password" onChange={handleChange}
+                        type={inpPwd ?"password" : "text"} onChange={handleChange}
                       />
                       <button className="px-4 group" type="button" aria-label="Toggle password visibility">
-                        <LuEye className="text-[#c1cab0] group-hover:text-[#9ee939] transition-colors text-5" />
+                        <EyeIcon onClick={()=>setInpPwd(!inpPwd)} className="text-[#c1cab0] group-hover:text-[#9ee939] transition-colors text-5" />
                       </button>
                     </div>
                   </div>

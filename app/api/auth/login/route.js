@@ -27,8 +27,7 @@ export async function POST(req){
         }
 
         const username = user.username, userId = user._id;
-        const hash = await bcrypt.hash(password, 10);
-        const token = await jwt.sign({email, username, userId}, process.env.SECRET);
+        const token = await jwt.sign({email, username, userId, role: user.role}, process.env.SECRET);
 
         return NextResponse.json({
             success: true,

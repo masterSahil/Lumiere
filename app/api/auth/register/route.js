@@ -22,7 +22,7 @@ export async function POST(req){
         const registeredUser = await Users.create({username, email, password: hash});
         const registeredUserId = registeredUser._id;
 
-        const token = await jwt.sign({username, email, registeredUserId}, process.env.SECRET)
+        const token = await jwt.sign({username, email, registeredUserId, role: registeredUser.role}, process.env.SECRET)
 
         return NextResponse.json({
             success: true,
