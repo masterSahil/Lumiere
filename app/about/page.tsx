@@ -1,5 +1,6 @@
 import Footer from '@/component/Home/Footer';
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function AboutPage() {
   return (
@@ -38,11 +39,11 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <div className="text-2xl font-bold tracking-widest text-[#84cc16] uppercase font-serif">Lumière</div>
             <div className="hidden md:flex gap-8">
-              <a className="text-sm uppercase tracking-widest hover:text-[#84cc16] transition-colors font-semibold text-[#e5e2e3]" href="#">Menu</a>
-              <a className="text-sm uppercase tracking-widest text-[#84cc16] border-b-2 border-[#84cc16] pb-1 font-semibold" href="#">About</a>
-              <a className="text-sm uppercase tracking-widest hover:text-[#84cc16] transition-colors font-semibold text-[#e5e2e3]" href="#">Reservations</a>
+              <Link className="text-sm uppercase tracking-widest hover:text-[#84cc16] transition-colors font-semibold text-[#e5e2e3]" href="/menu">Menu</Link>
+              <Link className="text-sm uppercase tracking-widest text-[#84cc16] border-b-2 border-[#84cc16] pb-1 font-semibold" href="/about">About</Link>
+              <Link className="text-sm uppercase tracking-widest hover:text-[#84cc16] transition-colors font-semibold text-[#e5e2e3]" href="reservations">Reservations</Link>
             </div>
-            <a className="text-sm uppercase tracking-widest hover:text-[#84cc16] transition-colors border border-[#84cc16]/50 px-4 py-2 rounded-lg text-[#84cc16]" href="#">Order Now</a>
+            <a className="text-sm uppercase tracking-widest hover:text-[#84cc16] transition-colors border border-[#84cc16]/50 px-4 py-2 rounded-lg text-[#84cc16]" href="/orders">Order Now</a>
           </div>
         </header>
 

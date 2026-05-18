@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import bannerImg from '@/assets/images/about/banner.png'
+import Image from 'next/image';
 
 export default function AboutPage() {
   return (
@@ -49,13 +51,11 @@ export default function AboutPage() {
           {/* Hero Banner Section */}
           <section className="relative pt-48 pb-32 flex flex-col items-center text-center border-b border-[#4d4635]/30 overflow-hidden">
             <div className="absolute inset-0 z-0">
-              <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7uJfCyuWZZ-oWNcOyjyrWGsmrqqvfmc2Dhq4oOVG2POP-f6g8dO7xJGJ7hGrLtM4RmG70I1FMI9QiRXBh-yE6IuWEqTXHXLS0NRlK-QqkO1KfQpBmDnztMdS_wZ1Xj1ZMpKr3FIoxXPZxxZzcp0RAQrZWpvx8KJBFB4IjHqlzSeQmYgGJq691fvLQWdoDxg61A11CVdXFE6GlK1qLLLIDFZ_fdYk_XGuGr6IOtRH0Sm4QoIFc7tz8bEvrv0kmfDE737Ayp62SWyXd" 
+              <Image src={bannerImg} 
                 alt="Lumiere Banner Background" 
                 className="w-full h-full object-cover opacity-90 scale-105" 
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#131314] via-[#131314]/80 to-transparent"></div>
-              {/* <div className="absolute inset-0 bg-gradient-to-b from-[#131314] via-transparent to-transparent"></div> */}
             </div>
             
             <div className="relative z-10 px-6 md:px-12 max-w-7xl mx-auto">

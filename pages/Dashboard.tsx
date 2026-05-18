@@ -6,14 +6,15 @@ import {
   LuShoppingBag, LuUsers, LuClock, LuCalendar, LuSearch, 
   LuEllipsisVertical, LuStar, LuUser, LuMenu, LuX
 } from 'react-icons/lu';
+import Link from 'next/link';
 
 // --- DATA CONFIGURATION ---
 const NAV_ITEMS = [
-  { label: 'Analytics', icon: LuChartColumnIncreasing, active: true },
-  { label: 'Orders', icon: LuReceipt },
-  { label: 'Menu CMS', icon: LuUtensils },
-  { label: 'Branding', icon: LuPalette },
-  { label: 'Settings', icon: LuSettings },
+  { link: '/', label: 'Analytics', icon: LuChartColumnIncreasing, active: true },
+  { link: '/', label: 'Orders', icon: LuReceipt },
+  { link: '/menu', label: 'Menu CMS', icon: LuUtensils },
+  { link: '/', label: 'Branding', icon: LuPalette },
+  { link: '/', label: 'Settings', icon: LuSettings },
 ];
 
 const STATS = [
@@ -96,10 +97,10 @@ export default function AdminDashboard() {
 
           <nav className="flex-1 space-y-3">
             {NAV_ITEMS.map((item, idx) => (
-              <a key={idx} href="#" className={`flex items-center gap-4 py-3 px-4 rounded-xl transition-all font-medium text-sm ${item.active ? 'bg-[#7ae749]/10 text-[#7ae749]' : 'text-[#d0c5af] hover:bg-white/5 hover:text-white'}`}>
+              <Link key={idx} href={item.link} className={`flex items-center gap-4 py-3 px-4 rounded-xl transition-all font-medium text-sm ${item.active ? 'bg-[#7ae749]/10 text-[#7ae749]' : 'text-[#d0c5af] hover:bg-white/5 hover:text-white'}`}>
                 <item.icon className="text-xl" />
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
