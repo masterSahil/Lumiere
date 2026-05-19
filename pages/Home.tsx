@@ -1,4 +1,7 @@
+import Navbar from '@/component/Home/Navbar';
 import Head from 'next/head';
+import HeroImg from '@/assets/images/home/main.png'
+import Image from 'next/image';
 
 export default function LumiereDining() {
   return (
@@ -8,69 +11,18 @@ export default function LumiereDining() {
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </Head>
 
-      {/* Embedded Custom CSS to avoid external stylesheets */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        body {
-          background-color: #131314;
-          color: #e5e2e3;
-          overflow-x: hidden;
-        }
-        .glass-card {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(20px);
-          border: 1px solid transparent;
-          border-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(212, 175, 55, 0.3) 100%) 1;
-        }
-        .gold-glow {
-          box-shadow: 0 0 40px 0 rgba(212, 175, 55, 0.15);
-        }
-        .text-shadow-hero {
-          text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-          height: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255,255,255,0.05);
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #d4af37;
-        }
-      `}} />
-
       <div className="font-sans text-4 leading-6 selection:bg-[#5fca2d] selection:text-[#1a5000] dark min-h-screen bg-[#131314]">
         {/* Top Navigation Bar */}
-        <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl border-b border-white/10">
-          <div className="flex justify-between items-center px-5 md:px-20 py-4 w-full max-w-360 mx-auto">
-            <div className="font-serif text-[32px] md:text-[48px] leading-10 md:leading-14 font-bold text-[#72df41]">
-              Lumière Dining
-            </div>
-            <div className="hidden md:flex items-center gap-10">
-              <a className="text-[#7ae749] border-b-2 border-[#7ae749] pb-1 font-sans text-[14px] leading-5 tracking-wider font-semibold" href="#">Menu</a>
-              <a className="text-[#e5e2e3]/70 hover:text-[#7ae749] transition-colors duration-300 font-sans text-[14px] leading-5 tracking-wider font-semibold" href="#">About</a>
-              <a className="text-[#e5e2e3]/70 hover:text-[#7ae749] transition-colors duration-300 font-sans text-[14px] leading-5 tracking-wider font-semibold" href="#">Reservations</a>
-              <a className="text-[#e5e2e3]/70 hover:text-[#7ae749] transition-colors duration-300 font-sans text-[14px] leading-5 tracking-wider font-semibold" href="#">Contact</a>
-            </div>
-            <div className="flex items-center gap-6">
-              <button className="hidden md:block text-[#72df41] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-5 tracking-wider font-semibold">Sign In</button>
-              <button className="bg-[#5fca2d] text-[#1a5000] px-6 py-2.5 rounded-full font-sans text-[14px] leading-5 tracking-wider font-semibold hover:bg-[#7ae749] transition-all duration-300 shadow-lg shadow-[#7ae749]/20">
-                Order Now
-              </button>
-              <button className="md:hidden text-[#e5e2e3]">
-                <span className="material-symbols-outlined">menu</span>
-              </button>
-            </div>
-          </div>
-        </nav>
+        <Navbar />
 
         <main>
           {/* Hero Section */}
           <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
             <div className="absolute inset-0 z-0">
-              <img 
+              <Image 
                 alt="A high-end cinematic close-up of a gourmet dish" 
                 className="w-full h-full object-cover opacity-60 scale-105" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrmJ0Eu865lci0BZ7y6IjW0rhATHlDjD8tD39l3d5bUTiXiDIC2Rj46a2_ZO8RRC4klNgFd-qHJDQE5wvXINj0Ro3N5tTrww78pIh3dS2niktMsra2SIk8eun9JMOhHgDtSrsZl3o4Nr2kFm7HElo1pNQNzdzLMA7Hv6HG7ozIlsVscI8UyER3SpMAd1YMGKPepz7OkiHi8wFMLZg8SkeaRZmDKhv1GBiZlPWu3pAY1oA9x1K03e6Rzc_eYA6Gdgyj7gzAhy3KLU_c" 
+                src={HeroImg}
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#131314] via-transparent to-transparent"></div>
               <div className="absolute inset-0 bg-linear-to-r from-[#131314]/80 via-transparent to-transparent"></div>

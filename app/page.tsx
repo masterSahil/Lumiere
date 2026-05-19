@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loader from "./loading";
+import LumiereDining from "@/pages/Home";
 
 export default function Page() {
 
@@ -51,7 +52,7 @@ export default function Page() {
   return (
     <main>
       {
-        loggedIn ? <AdminDashboard /> : <RegisterPage setLoggedIn={setLoggedIn} />
+        loggedIn ? <LumiereDining /> : <RegisterPage setLoggedIn={setLoggedIn} />
       }
     </main>
   );

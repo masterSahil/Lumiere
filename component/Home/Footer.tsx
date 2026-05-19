@@ -1,51 +1,113 @@
-import React from 'react';
+import Link from 'next/link';
+import { MdEmail, MdPublic } from 'react-icons/md';
+import mapImage from "@/assets/images/footer/map.png"
+import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-slate-300 pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          {/* Brand Col */}
-          <div className="col-span-1 md:col-span-2">
-            <span className="font-serif text-2xl font-bold tracking-wider text-white mb-6 block">
-              LUXE<span className="text-amber-600">BISTRO</span>
-            </span>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Redefining the modern culinary landscape through precision, minimalism, and extraordinary flavors.
-            </p>
+    <footer className="w-full py-12 px-5 md:px-20 border-t border-white/5 bg-[#0e0e0f]">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-360 mx-auto mb-12">
+        
+        {/* Brand & Socials */}
+        <div className="space-y-6">
+          <div className="font-serif text-[32px] leading-10 font-medium text-[#72df41]">
+            Lumière Dining
           </div>
-          
-          {/* Links Col 1 */}
-          <div>
-            <h4 className="text-white font-semibold mb-6 text-sm tracking-wider uppercase">Legal</h4>
-            <ul className="space-y-4 text-sm text-slate-400">
-              <li><a href="#" className="hover:text-amber-500 transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-amber-500 transition-colors">Terms of Service</a></li>
-            </ul>
-          </div>
-
-          {/* Links Col 2 */}
-          <div>
-            <h4 className="text-white font-semibold mb-6 text-sm tracking-wider uppercase">Connect</h4>
-            <ul className="space-y-4 text-sm text-slate-400">
-              <li><a href="#" className="hover:text-amber-500 transition-colors">Contact Us</a></li>
-              <li><a href="#" className="hover:text-amber-500 transition-colors">Locations</a></li>
-            </ul>
+          <p className="text-[#d0c5af] font-sans text-[14px] leading-5 tracking-wider font-semibold">
+            Setting the global standard for elite food delivery experiences since 2024.
+          </p>
+          <div className="flex gap-4">
+            <Link href="/" aria-label="Social Media or Location"
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:text-[#7ae749] transition-all">
+              <MdPublic />
+            </Link>
+            <Link href="mailto:contact@lumieredining.com" 
+              aria-label="Email Us" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:text-[#7ae749] transition-all">
+              <MdEmail />
+            </Link>
           </div>
         </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Luxe Bistro. All rights reserved.</p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            {/* Social Icons placeholders */}
-            <a href="#" className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center hover:bg-amber-600 hover:text-slate-900 transition-all">
-              IN
-            </a>
-            <a href="#" className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center hover:bg-amber-600 hover:text-slate-900 transition-all">
-              FB
-            </a>
+        
+        {/* Experience Links */}
+        <div className="space-y-4">
+          <h5 className="text-white font-sans text-[14px] leading-5 tracking-wider font-semibold uppercase">Experience</h5>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/menu" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+                Menu
+              </Link>
+            </li>
+            <li>
+              <Link href="/reservations" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+                Reservations
+              </Link>
+            </li>
+            <li>
+              <Link href="/gift-cards" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+                Gift Cards
+              </Link>
+            </li>
+            <li>
+              <Link href="/careers" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+                Careers
+              </Link>
+            </li>
+          </ul>
+        </div>
+        
+        {/* Support Links */}
+        <div className="space-y-4">
+          <h5 className="text-white font-sans text-[14px] leading-5 tracking-wider font-semibold uppercase">Support</h5>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/privacy" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+                Terms of Service
+              </Link>
+            </li>
+            <li>
+              <Link href="/sustainability" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+                Sustainability
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+                Contact Us
+              </Link>
+            </li>
+          </ul>
+        </div>
+        
+        {/* Location Section */}
+        <div className="space-y-4">
+          <h5 className="text-white font-sans text-[14px] leading-5 tracking-wider font-semibold uppercase">Location</h5>
+          <p className="text-[#d0c5af] font-sans text-[14px] leading-5 tracking-wider font-semibold">
+            88 Golden Plaza, Mayfair<br />
+            London, W1J 8AQ<br />
+            United Kingdom
+          </p>
+          <div className="mt-4">
+            <Image 
+              src={mapImage}
+              alt="Map detail of the London Mayfair district" 
+              className="w-full h-32 object-cover rounded-lg opacity-60 grayscale hover:grayscale-0 transition-all duration-500" 
+            />
           </div>
+        </div>
+      </div>
+      
+      {/* Bottom Copyright Bar */}
+      <div className="max-w-360 mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p className="text-[#d0c5af] font-sans text-[12px] leading-4 tracking-[0.03em] font-medium">
+          © {new Date().getFullYear()} Lumière Dining. All Rights Reserved.
+        </p>
+        <div className="flex gap-8">
+          <span className="text-[#d0c5af] font-sans text-[12px] leading-4 tracking-[0.03em] font-medium">Designed with Excellence</span>
+          <span className="text-[#d0c5af] font-sans text-[12px] leading-4 tracking-[0.03em] font-medium">English (UK)</span>
         </div>
       </div>
     </footer>

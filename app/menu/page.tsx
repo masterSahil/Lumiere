@@ -1,12 +1,18 @@
+import Footer from '@/component/Home/Footer';
+import Navbar from '@/component/Home/Navbar';
 import Head from 'next/head';
+import dishImg1 from "@/assets/images/menu/dishes/dish1.png"
+import dishImg2 from "@/assets/images/menu/dishes/dish2.png"
+import dishImg3 from "@/assets/images/menu/dishes/dish3.png"
+import dishImg4 from "@/assets/images/menu/dishes/dish4.png"
+import dishImg5 from "@/assets/images/menu/dishes/dish5.png"
+import dishImg6 from "@/assets/images/menu/dishes/dish6.png"
+import special from "@/assets/images/menu/special/main.png"
+import Image from 'next/image';
 
 export default function MenuPage() {
   return (
     <>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-      </Head>
 
       <style dangerouslySetInnerHTML={{ __html: `
         body {
@@ -30,36 +36,7 @@ export default function MenuPage() {
       <div className="font-sans text-4 leading-6 selection:bg-[#bcfb4b] selection:text-[#0a1f00] min-h-screen bg-[#121212]">
         
         {/* Top Navigation Bar */}
-        <nav className="w-full z-50 bg-[#121212] border-b border-white/5 py-4">
-          <div className="flex justify-between items-center px-5 md:px-20 w-full max-w-360 mx-auto">
-            <div className="font-serif text-7 font-bold text-[#bcfb4b]">
-              Lumière Dining
-            </div>
-            <div className="hidden lg:flex items-center gap-10">
-              <a className="text-[#bcfb4b] border-b-2 border-[#bcfb4b] pb-1 font-sans text-[14px] tracking-wide font-semibold" href="#">Menu</a>
-              <a className="text-gray-400 hover:text-white transition-colors duration-300 font-sans text-[14px] tracking-wide font-medium" href="#">About</a>
-              <a className="text-gray-400 hover:text-white transition-colors duration-300 font-sans text-[14px] tracking-wide font-medium" href="#">Reservations</a>
-              <a className="text-gray-400 hover:text-white transition-colors duration-300 font-sans text-[14px] tracking-wide font-medium" href="#">Contact</a>
-            </div>
-            <div className="hidden md:flex items-center gap-6">
-              <div className="relative">
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-5">search</span>
-                <input 
-                  type="text" 
-                  placeholder="Search our canvas..." 
-                  className="bg-[#1e1e1e] border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-[#bcfb4b] text-white w-64 transition-colors"
-                />
-              </div>
-              <button className="text-gray-300 hover:text-white transition-colors text-[14px] font-medium">Sign In</button>
-              <button className="bg-[#bcfb4b] text-[#0a1f00] px-6 py-2 rounded-full text-[14px] font-bold hover:bg-[#a2dd3b] transition-all">
-                Order Now
-              </button>
-            </div>
-            <button className="lg:hidden text-white">
-              <span className="material-symbols-outlined">menu</span>
-            </button>
-          </div>
-        </nav>
+        <Navbar />
 
         <main className="px-5 md:px-20 max-w-360 mx-auto py-12">
           
@@ -110,7 +87,7 @@ export default function MenuPage() {
             {/* Card 1 */}
             <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
               <div className="relative h-64 overflow-hidden">
-                <img src="/api/placeholder/400/300" alt="Saffron Gold Tagliatelle" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <Image src={dishImg1} alt="Saffron Gold Tagliatelle" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute top-4 left-4 bg-[#0a1f00]/80 backdrop-blur-sm border border-[#bcfb4b]/30 text-[#bcfb4b] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   Signature Dish
                 </div>
@@ -136,7 +113,7 @@ export default function MenuPage() {
             {/* Card 2 (Active State) */}
             <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
               <div className="relative h-64 overflow-hidden">
-                <img src="/api/placeholder/400/300" alt="A5 Wagyu Obsidian" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <Image src={dishImg2} alt="A5 Wagyu Obsidian" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute top-4 left-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   Seasonal Special
                 </div>
@@ -165,7 +142,7 @@ export default function MenuPage() {
             {/* Card 3 */}
             <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
               <div className="relative h-64 overflow-hidden">
-                <img src="/api/placeholder/400/300" alt="Zen Matcha Clouds" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <Image src={dishImg3} alt="Zen Matcha Clouds" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
@@ -188,7 +165,7 @@ export default function MenuPage() {
             {/* Card 4 */}
             <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
               <div className="relative h-64 overflow-hidden">
-                <img src="/api/placeholder/400/300" alt="Lumière Elixir" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <Image src={dishImg4} alt="Lumière Elixir" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
@@ -211,7 +188,7 @@ export default function MenuPage() {
             {/* Card 5 */}
             <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
               <div className="relative h-64 overflow-hidden">
-                <img src="/api/placeholder/400/300" alt="Heirloom Prism Salad" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <Image src={dishImg5} alt="Heirloom Prism Salad" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
@@ -234,7 +211,7 @@ export default function MenuPage() {
             {/* Card 6 */}
             <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
               <div className="relative h-64 overflow-hidden">
-                <img src="/api/placeholder/400/300" alt="Veridian Atlantic Salmon" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <Image src={dishImg6} alt="Veridian Atlantic Salmon" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="p-6 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
@@ -259,7 +236,7 @@ export default function MenuPage() {
           {/* Dish Spotlight */}
           <div className="glass-card rounded-3xl overflow-hidden flex flex-col lg:flex-row mb-12">
             <div className="lg:w-1/2 relative h-80 lg:h-auto">
-              <img src="/api/placeholder/800/600" alt="Dish Spotlight" className="absolute inset-0 w-full h-full object-cover" />
+              <Image src={special} alt="Dish Spotlight" className="absolute inset-0 w-full h-full object-cover" />
             </div>
             <div className="lg:w-1/2 p-10 md:p-16 flex flex-col justify-center">
               <h4 className="text-[#bcfb4b] text-[12px] font-bold tracking-widest uppercase mb-4">Dish Spotlight</h4>
@@ -283,67 +260,7 @@ export default function MenuPage() {
         </main>
 
         {/* Footer */}
-        <footer className="w-full bg-[#0a0a0a] pt-16 pb-8 border-t border-white/5">
-          <div className="px-5 md:px-20 max-w-360 mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-              <div className="space-y-6">
-                <div className="font-serif text-7 font-bold text-[#bcfb4b]">Lumière Dining</div>
-                <p className="text-gray-400 text-[14px] leading-relaxed">Experience the convergence of light, art, and the world's finest culinary traditions.</p>
-                <div className="flex gap-4">
-                  <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:border-[#bcfb4b] hover:text-[#bcfb4b] transition-all">
-                    <span className="material-symbols-outlined text-5">public</span>
-                  </a>
-                  <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:border-[#bcfb4b] hover:text-[#bcfb4b] transition-all">
-                    <span className="material-symbols-outlined text-5">share</span>
-                  </a>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <h5 className="text-white text-[14px] font-bold uppercase tracking-wider">Explore</h5>
-                <ul className="space-y-3">
-                  <li><a href="#" className="text-gray-400 hover:text-[#bcfb4b] text-[14px] transition-colors">Our Story</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-[#bcfb4b] text-[14px] transition-colors">Chef's Table</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-[#bcfb4b] text-[14px] transition-colors">Gift Cards</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-[#bcfb4b] text-[14px] transition-colors">Private Events</a></li>
-                </ul>
-              </div>
-              
-              <div className="space-y-6">
-                <h5 className="text-white text-[14px] font-bold uppercase tracking-wider">Support</h5>
-                <ul className="space-y-3">
-                  <li><a href="#" className="text-gray-400 hover:text-[#bcfb4b] text-[14px] transition-colors">Privacy Policy</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-[#bcfb4b] text-[14px] transition-colors">Terms of Service</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-[#bcfb4b] text-[14px] transition-colors">Sustainability</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-[#bcfb4b] text-[14px] transition-colors">Careers</a></li>
-                </ul>
-              </div>
-              
-              <div className="space-y-6">
-                <h5 className="text-white text-[14px] font-bold uppercase tracking-wider">Lumière Newsletter</h5>
-                <p className="text-gray-400 text-[14px] leading-relaxed">Join our inner circle for exclusive seasonal reveals.</p>
-                <div className="flex">
-                  <input 
-                    type="email" 
-                    placeholder="Email address" 
-                    className="bg-[#1e1e1e] border border-white/10 rounded-l-lg py-3 px-4 text-sm focus:outline-none focus:border-[#bcfb4b] text-white w-full"
-                  />
-                  <button className="bg-[#bcfb4b] text-[#0a1f00] px-6 py-3 rounded-r-lg text-[14px] font-bold hover:bg-[#a2dd3b] transition-colors">
-                    Join
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-gray-500 text-[12px]">© {new Date().getFullYear()} Lumière Dining. All rights reserved.</p>
-              <div className="flex gap-2 items-center text-gray-500 text-[12px]">
-                <span className="w-2 h-2 rounded-full bg-[#bcfb4b]"></span> Paris · New York · Tokyo
-              </div>
-            </div>
-          </div>
-        </footer>
-
+        <Footer />
       </div>
     </>
   );
