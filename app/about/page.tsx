@@ -1,3 +1,6 @@
+import AboutBrand from '@/component/About/AboutBrand';
+import AboutHero from '@/component/About/AboutHero';
+import AboutMission from '@/component/About/AboutMission';
 import Footer from '@/component/Home/Footer';
 import Navbar from '@/component/Home/Navbar';
 import Head from 'next/head';
@@ -40,83 +43,13 @@ export default function AboutPage() {
 
         <main>
           {/* Hero Banner Section */}
-          <section className="relative pt-48 pb-32 flex flex-col items-center text-center border-b border-[#4d4635]/30 overflow-hidden">
-            <div className="absolute inset-0 z-0">
-              <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7uJfCyuWZZ-oWNcOyjyrWGsmrqqvfmc2Dhq4oOVG2POP-f6g8dO7xJGJ7hGrLtM4RmG70I1FMI9QiRXBh-yE6IuWEqTXHXLS0NRlK-QqkO1KfQpBmDnztMdS_wZ1Xj1ZMpKr3FIoxXPZxxZzcp0RAQrZWpvx8KJBFB4IjHqlzSeQmYgGJq691fvLQWdoDxg61A11CVdXFE6GlK1qLLLIDFZ_fdYk_XGuGr6IOtRH0Sm4QoIFc7tz8bEvrv0kmfDE737Ayp62SWyXd" 
-                alt="Lumiere Banner Background" 
-                className="w-full h-full object-cover opacity-90 scale-105" 
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-[#131314] via-[#131314]/80 to-transparent"></div>
-              {/* <div className="absolute inset-0 bg-gradient-to-b from-[#131314] via-transparent to-transparent"></div> */}
-            </div>
-            
-            <div className="relative z-10 px-6 md:px-12 max-w-7xl mx-auto">
-              <h4 className="text-[#84cc16] text-xs font-bold uppercase tracking-[0.3em] mb-6 drop-shadow-md">Discover Our Essence</h4>
-              <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight text-[#e5e2e3] drop-shadow-xl">
-                A Symphony of <br className="hidden md:block"/> Light & Flavor
-              </h1>
-              <p className="max-w-2xl text-[#d0c5af] text-lg leading-relaxed mx-auto">
-                Lumière was born from a singular vision: to illuminate the finest ingredients through masterful technique, creating an unforgettable sensory journey.
-              </p>
-            </div>
-          </section>
+          <AboutHero />
 
           {/* Restaurant Story & Mission */}
-          <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div className="relative h-125 w-full rounded-2xl overflow-hidden group border border-white/5">
-              <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzGiD3zEp6PP5Lr3YA3g-YT2Cg4PH5UkF4zfFA4tREoEAVRjJafxRmAP2l5aIckKQmolYjq1LIU7kBpZ0BdaXpiab_MWRvM61meQYTD3cMYM8ZhjcVsbFHV_DzFmTjbZMefUPHC2cDq3rznAgNCszqhS4aBMGq-6kwdj2IZNOktl-qT9JXsp45HOZforDMbdHytcXtEcHsWQsUoxmQbO4m4EweXsU4bLL7em23Rg66T_HT7xfJFCqVZ7SCG3g8cJic8eR0_U2WDlSi" 
-                alt="Our Culinary Story" 
-                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" 
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-[#131314] via-transparent to-transparent opacity-80"></div>
-            </div>
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-4xl font-serif font-medium mb-4 text-[#e5e2e3]">Our Story</h2>
-                <p className="text-[#d0c5af] leading-relaxed mb-4">
-                  Founded in 2018 in the heart of the culinary district, Lumière started as an intimate 12-seat chef's counter. Our founders, driven by a relentless pursuit of perfection, sought to strip away the pretense of fine dining while elevating the artistry of the plate.
-                </p>
-                <p className="text-[#d0c5af] leading-relaxed">
-                  Today, Lumière stands as a beacon of modern gastronomy, blending heritage recipes with avant-garde execution. Every dish tells a story of local terroir and global inspiration.
-                </p>
-              </div>
-              
-              <div className="glass-card p-8 rounded-2xl border-l-4 border-l-[#84cc16]">
-                <h3 className="text-xl font-serif font-medium mb-3 text-[#e5e2e3]">Our Mission</h3>
-                <p className="text-[#d0c5af] italic">
-                  "To curate profound dining experiences that honor the earth's bounty, champion culinary innovation, and leave a luminous, lasting memory for every guest who walks through our doors."
-                </p>
-              </div>
-            </div>
-          </section>
+          <AboutMission />
 
           {/* Brand Values */}
-          <section className="py-24 bg-[#1c1b1c] border-y border-[#4d4635]/30">
-            <div className="max-w-7xl mx-auto px-6 md:px-12">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl font-serif font-medium text-[#e5e2e3]">Our Core Values</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="glass-card p-8 rounded-2xl text-center flex flex-col items-center">
-                  <span className="material-symbols-outlined text-4xl text-[#84cc16] mb-6">psychiatry</span>
-                  <h4 className="text-xl font-serif font-medium mb-3 text-[#e5e2e3]">Sustainable Sourcing</h4>
-                  <p className="text-[#d0c5af] text-sm leading-relaxed">We partner exclusively with ethical fisheries, regenerative farms, and local foragers to ensure every ingredient honors the ecosystem.</p>
-                </div>
-                <div className="glass-card p-8 rounded-2xl text-center flex flex-col items-center">
-                  <span className="material-symbols-outlined text-4xl text-[#84cc16] mb-6">palette</span>
-                  <h4 className="text-xl font-serif font-medium mb-3 text-[#e5e2e3]">Artistic Precision</h4>
-                  <p className="text-[#d0c5af] text-sm leading-relaxed">Cooking is our canvas. We approach every plating with meticulous attention to color, texture, and architectural balance.</p>
-                </div>
-                <div className="glass-card p-8 rounded-2xl text-center flex flex-col items-center">
-                  <span className="material-symbols-outlined text-4xl text-[#84cc16] mb-6">volunteer_activism</span>
-                  <h4 className="text-xl font-serif font-medium mb-3 text-[#e5e2e3]">Unrivaled Hospitality</h4>
-                  <p className="text-[#d0c5af] text-sm leading-relaxed">Service should be invisible yet omnipresent. We strive to anticipate needs and craft an atmosphere of profound warmth and luxury.</p>
-                </div>
-              </div>
-            </div>
-          </section>
+          <AboutBrand />
 
           {/* Chef Team */}
           <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
@@ -204,29 +137,7 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
-
-          {/* Awards Section */}
-          <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto text-center">
-            <h4 className="text-[#84cc16] text-xs font-bold uppercase tracking-[0.3em] mb-12">Accolades & Recognition</h4>
-            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24">
-              <div className="flex flex-col items-center opacity-80 hover:opacity-100 transition-opacity">
-                <span className="material-symbols-outlined text-5xl text-[#d4af37] mb-4">stars</span>
-                <p className="font-serif text-lg text-[#e5e2e3]">Two Michelin Stars</p>
-                <p className="text-xs text-[#d0c5af] mt-1">2020 - 2024</p>
-              </div>
-              <div className="flex flex-col items-center opacity-80 hover:opacity-100 transition-opacity">
-                <span className="material-symbols-outlined text-5xl text-[#d4af37] mb-4">restaurant</span>
-                <p className="font-serif text-lg text-[#e5e2e3]">James Beard Award</p>
-                <p className="text-xs text-[#d0c5af] mt-1">Best Chef 2022</p>
-              </div>
-              <div className="flex flex-col items-center opacity-80 hover:opacity-100 transition-opacity">
-                <span className="material-symbols-outlined text-5xl text-[#d4af37] mb-4">diamond</span>
-                <p className="font-serif text-lg text-[#e5e2e3]">AAA Five Diamond</p>
-                <p className="text-xs text-[#d0c5af] mt-1">2023</p>
-              </div>
-            </div>
-          </section>
-
+          
           {/* Gallery Section */}
           <section className="py-24 bg-[#1c1b1c]">
             <div className="max-w-7xl mx-auto px-6 md:px-12">

@@ -63,7 +63,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="font-serif text-[32px] md:text-[48px] leading-10 md:leading-14 font-bold text-[#72df41]">
           <Link href="/">
-            Lumière Dining
+            Lumière
           </Link>
         </div>
 

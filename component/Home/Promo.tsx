@@ -1,38 +1,20 @@
-import React from 'react';
-
-export default function Promo() {
+export default function PromoBanner() {
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="relative rounded-3xl overflow-hidden bg-slate-900 shadow-2xl flex flex-col md:flex-row">
-          
-          {/* Text Content Area */}
-          <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center relative z-10">
-            <div className="absolute inset-0 bg-linear-to-r from-slate-900 via-slate-900 to-transparent z-0 hidden md:block"></div>
-            <div className="relative z-10">
-              <span className="text-amber-500 text-xs font-bold tracking-widest uppercase mb-3 block">Limited Time Experience</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
-                The Executive <br/> Lunch Tasting
-              </h2>
-              <p className="text-slate-300 mb-8 max-w-md text-sm md:text-base leading-relaxed">
-                Elevate your midday break. A masterfully curated three-course experience designed to be served precisely within 45 minutes. Efficiency meets uncompromising quality.
-              </p>
-              <button className="self-start px-8 py-3.5 bg-amber-500 text-slate-900 font-semibold rounded-full hover:bg-amber-400 transition-all shadow-lg transform hover:-translate-y-1">
-                Reserve a Table
-              </button>
-            </div>
-          </div>
-
-          {/* Image Area */}
-          <div className="w-full md:w-1/2 h-64 md:h-auto relative">
-            {/* Soft gradient blend for desktop */}
-            <div className="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-slate-900 to-transparent z-10 hidden md:block"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1200&auto=format&fit=crop" 
-              alt="Executive Lunch" 
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </div>
+    <section className="py-24 px-5 md:px-20 bg-[#131314]">
+      <div className="max-w-360 mx-auto relative glass-card p-12 md:p-20 overflow-hidden text-center gold-glow rounded-3xl">
+        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#5fca2d] rounded-full blur-[120px]"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#ffbfb7] rounded-full blur-[120px]"></div>
+        </div>
+        <div className="relative z-10">
+          <h3 className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-[#7ae749] uppercase mb-4">Limited Availability</h3>
+          <h2 className="font-serif text-[48px] leading-13 md:leading-14 font-bold md:font-semibold text-white mb-8">The Moonlight Gala Menu</h2>
+          <p className="text-[#d0c5af] max-w-2xl mx-auto font-sans text-[18px] leading-7 mb-10">
+            A strictly limited 12-course experience curated by our Michelin-starred executive chef. Pre-order now to secure your delivery window for this weekend.
+          </p>
+          <button className="bg-[#7ae749] text-[#103900] px-12 py-5 rounded-full font-sans text-[14px] leading-5 tracking-wider font-semibold hover:scale-105 transition-all">
+            Reserve Your Experience
+          </button>
         </div>
       </div>
     </section>
