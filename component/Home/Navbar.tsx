@@ -1,6 +1,9 @@
 "use client";
+import Loading from '@/app/loading';
+import axios from 'axios';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -11,6 +14,48 @@ export default function Navbar() {
     { name: 'Reservations', href: '/reservations' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  const VerifyLogin = async () => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      return setLoggedIn(false);
+    }
+
+    try {
+      setLoading(true);
+      await axios.get("/api/auth/verify", {
+        headers: {
+          Authorization: `bearer ${token}`
+        }
+      })
+
+      setLoggedIn(true);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    VerifyLogin();
+  }, [])
+
+  const logout = () => {
+    sessionStorage.removeItem("token");
+    setLoggedIn(false);
+    router.push("/login");
+  }
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl border-b border-white/10">
@@ -46,12 +91,16 @@ export default function Navbar() {
 
         {/* Call to Action & Mobile Menu */}
         <div className="flex items-center gap-6">
-          <button className="hidden md:block text-[#72df41] hover:text-[#7ae749] transition-colors font-sans text-[14px] leading-5 tracking-wider font-semibold">
-            Sign In
-          </button>
-          <button className="bg-[#5fca2d] text-[#1a5000] px-6 py-2.5 rounded-full font-sans text-[14px] leading-5 tracking-wider font-semibold hover:bg-[#7ae749] transition-all duration-300 shadow-lg shadow-[#7ae749]/20">
-            Order Now
-          </button>
+          {
+            loggedIn ? 
+              <button onClick={logout} className="bg-[#5fca2d] text-[#1a5000] px-6 py-2.5 rounded-full font-sans text-[14px] leading-5 tracking-wider font-semibold hover:bg-[#7ae749] transition-all duration-300 shadow-lg shadow-[#7ae749]/20">
+                Logout
+              </button>
+              :
+              <button onClick={()=>router.push("/login")} className="bg-[#5fca2d] text-[#1a5000] px-6 py-2.5 rounded-full font-sans text-[14px] leading-5 tracking-wider font-semibold hover:bg-[#7ae749] transition-all duration-300 shadow-lg shadow-[#7ae749]/20">
+                Sign In
+              </button>
+          }
           
           {/* Mobile Hamburger Icon */}
           <button className="md:hidden text-[#e5e2e3]" aria-label="Toggle Menu">

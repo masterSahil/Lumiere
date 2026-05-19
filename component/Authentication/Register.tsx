@@ -7,8 +7,9 @@ import axios from 'axios';
 import { useState } from 'react';
 import Image from 'next/image';
 import dish from "@/assets/images/auth/dish.png"
+import { useRouter } from 'next/navigation';
 
-export default function RegisterPage({ setLoggedIn} : any) {
+export default function RegisterPage() {
 
   const [formData, setFormData] = useState({
     username: '', email: '', password: ''
@@ -20,6 +21,8 @@ export default function RegisterPage({ setLoggedIn} : any) {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+  const router = useRouter();
+
   const Register = async (e: React.FormEvent) => {
     try {
       e.preventDefault();
@@ -28,7 +31,7 @@ export default function RegisterPage({ setLoggedIn} : any) {
       setFormData({
         username: '', email: '', password: ''
       })
-      setLoggedIn(true)
+      router.push("/");
     } catch (error: any) {
       console.log("FULL ERROR:", error);
 
@@ -62,8 +65,8 @@ export default function RegisterPage({ setLoggedIn} : any) {
             </div>
             
             <div className="relative z-10 w-full max-w-2xl">
-              <h2 className="font-['Playfair_Display'] text-[64px] leading-[1.1] tracking-[-0.02em] font-bold text-white mb-6">
-                Begin your <span className="text-[#9ee939]">culinary</span> journey.
+              <h2 className=" text-[64px] leading-[1.1] tracking-[-0.02em] font-bold text-white mb-6">
+                Begin your <span className="font-['Playfair_Display'] text-[#9ee939]">culinary</span> journey.
               </h2>
               <p className=" text-[18px] leading-[1.6] text-[#c1cab0] max-w-lg">
                 Join our exclusive community. Create an account to manage your reservations, tailor your dietary preferences, and receive priority booking access.
@@ -76,9 +79,9 @@ export default function RegisterPage({ setLoggedIn} : any) {
             
             {/* Header */}
             <header className="absolute top-0 left-0 w-full flex justify-between items-center px-5 md:px-16 h-20 z-50">
-              <div className="font-['Playfair_Display'] text-6 leading-[1.4] font-semibold text-[#9ee939] uppercase tracking-widest">
+              <Link href="/" className="font-['Playfair_Display'] text-xl leading-[1.4] font-semibold text-[#9ee939] uppercase tracking-widest">
                 Lumière
-              </div>
+              </Link>
             </header>
 
             <div className="w-full max-w-md space-y-8">

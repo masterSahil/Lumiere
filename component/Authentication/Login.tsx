@@ -69,9 +69,9 @@ export default function LoginPage() {
             
             {/* Header */}
             <header className="absolute top-0 left-0 w-full flex justify-between items-center px-5 md:px-16 h-20 z-50">
-              <div className="font-['Playfair_Display'] text-6 leading-[1.4] font-semibold text-[#9ee939] uppercase tracking-widest">
+              <Link href="/" className="font-['Playfair_Display'] text-xl leading-[1.4] font-semibold text-[#9ee939] uppercase tracking-widest">
                 Lumière
-              </div>
+              </Link>
             </header>
 
             <div className="w-full max-w-md space-y-11">
@@ -152,12 +152,12 @@ export default function LoginPage() {
 
               <p className="text-center text-4 text-[#c1cab0]">
                 Don't have an account?{' '}
-                <Link href="/" className="text-[#9ee939] font-semibold hover:underline">Request Access</Link>
+                <Link href="/register" className="text-[#9ee939] font-semibold hover:underline">Request Access</Link>
               </p>
             </div>
 
             {/* Footer */}
-            <footer className="absolute bottom-6 w-full px-5 md:px-16 text-center hidden">
+            <footer className="absolute bottom-6 w-full px-5 md:px-16 text-center hidden md:block">
               <p className="  text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0]/60 uppercase">
                 © {new Date().getFullYear()} Lumière Modern Gastronomy.
               </p>
