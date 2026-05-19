@@ -1,6 +1,5 @@
 import Footer from '@/component/Home/Footer';
 import Navbar from '@/component/Home/Navbar';
-import Head from 'next/head';
 import dishImg1 from "@/assets/images/menu/dishes/dish1.png"
 import dishImg2 from "@/assets/images/menu/dishes/dish2.png"
 import dishImg3 from "@/assets/images/menu/dishes/dish3.png"

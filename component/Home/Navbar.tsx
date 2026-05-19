@@ -35,7 +35,6 @@ export default function Navbar() {
       })
 
       setLoggedIn(true);
-      router.push("/");
     } catch (error) {
       console.log(error);
     } finally {
