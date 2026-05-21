@@ -8,30 +8,12 @@ import dishImg5 from "@/assets/images/menu/dishes/dish5.png"
 import dishImg6 from "@/assets/images/menu/dishes/dish6.png"
 import special from "@/assets/images/menu/special/main.png"
 import Image from 'next/image';
+import { LuShoppingBag } from 'react-icons/lu';
+import { MinusCircle, PlusCircle } from 'lucide-react';
 
 export default function MenuPage() {
   return (
     <>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        body {
-          background-color: #121212;
-          color: #f3f4f6;
-          overflow-x: hidden;
-        }
-        .glass-card {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .toggle-checkbox:checked {
-          right: 0;
-          border-color: #bcfb4b;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-          background-color: #bcfb4b;
-        }
-      `}} />
-
       <div className="font-sans text-4 leading-6 selection:bg-[#bcfb4b] selection:text-[#0a1f00] min-h-screen bg-[#121212]">
         
         {/* Top Navigation Bar */}
@@ -52,30 +34,47 @@ export default function MenuPage() {
 
           {/* Filters & Toggles */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+            {/* Category Buttons */}
             <div className="flex flex-wrap gap-3">
-              <button className="bg-[#bcfb4b] text-[#0a1f00] px-6 py-2 rounded-full text-[14px] font-semibold">All</button>
-              <button className="border border-white/20 text-gray-300 hover:border-[#bcfb4b] hover:text-white px-6 py-2 rounded-full text-[14px] transition-colors">Signature</button>
-              <button className="border border-white/20 text-gray-300 hover:border-[#bcfb4b] hover:text-white px-6 py-2 rounded-full text-[14px] transition-colors">Appetizers</button>
-              <button className="border border-white/20 text-gray-300 hover:border-[#bcfb4b] hover:text-white px-6 py-2 rounded-full text-[14px] transition-colors">Main Course</button>
-              <button className="border border-white/20 text-gray-300 hover:border-[#bcfb4b] hover:text-white px-6 py-2 rounded-full text-[14px] transition-colors">Desserts</button>
-              <button className="border border-white/20 text-gray-300 hover:border-[#bcfb4b] hover:text-white px-6 py-2 rounded-full text-[14px] transition-colors">Drinks</button>
+              <button className="bg-[#bcfb4b] text-[#0a1f00] px-6 py-2 rounded-full text-sm font-semibold">
+                All
+              </button>
+
+              {["Signature", "Appetizers", "Main Course", "Desserts", "Drinks"].map(
+                (item) => (
+                  <button key={item}
+                    className="px-6 py-2 rounded-full text-sm text-gray-300 border border-white/20 hover:border-[#bcfb4b] hover:text-white transition-all duration-300">
+                    {item}
+                  </button>
+                )
+              )}
             </div>
-            <div className="flex items-center gap-6 border-l border-white/10 pl-6">
-              {/* Veg Toggle */}
-              <div className="flex items-center gap-2">
-                <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                  <input type="checkbox" name="toggle" id="veg-toggle" className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-[#1e1e1e] appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" />
-                  <label htmlFor="veg-toggle" className="toggle-label block overflow-hidden h-5 rounded-full bg-[#1e1e1e] cursor-pointer"></label>
-                </div>
+
+            {/* Filters */}
+            <div className="flex items-center gap-6 md:border-l border-white/10 md:pl-6">
+
+              {/* VEG Toggle */}
+              <div className="flex items-center gap-3">
+                <label htmlFor="veg-toggle" className="relative inline-flex h-5 w-10 cursor-pointer">
+                  <input id="veg-toggle" type="checkbox" className="peer sr-only"/>
+
+                  <span className="absolute inset-0 rounded-full bg-[#1e1e1e] transition-colors duration-300 peer-checked:bg-[#bcfb4b]" />
+                  <span className="absolute left-0 top-0 h-5 w-5 rounded-full border-4 border-[#1e1e1e] bg-white transition-all duration-300 peer-checked:translate-x-5 peer-checked:border-[#bcfb4b]"/>
+                </label>
+
                 <span className="text-[12px] font-bold tracking-wider text-gray-400">VEG</span>
               </div>
+
               {/* GF Toggle */}
-              <div className="flex items-center gap-2">
-                <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                  <input type="checkbox" name="toggle" id="gf-toggle" className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-[#1e1e1e] appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" />
-                  <label htmlFor="gf-toggle" className="toggle-label block overflow-hidden h-5 rounded-full bg-[#1e1e1e] cursor-pointer"></label>
-                </div>
-                <span className="text-[12px] font-bold tracking-wider text-gray-400">GF</span>
+              <div className="flex items-center gap-3">
+                <label htmlFor="gf-toggle" className="relative inline-flex h-5 w-10 cursor-pointer">
+                  <input id="gf-toggle" type="checkbox" className="peer sr-only"/>
+
+                  <span className="absolute inset-0 rounded-full bg-[#1e1e1e] transition-colors duration-300 peer-checked:bg-[#bcfb4b]" />
+                  <span className="absolute left-0 top-0 h-5 w-5 rounded-full border-4 border-[#1e1e1e] bg-white transition-all duration-300 peer-checked:translate-x-5 peer-checked:border-[#bcfb4b]" />
+                </label>
+
+                <span className="text-[12px] font-bold tracking-wider text-gray-400">Non Veg</span>
               </div>
             </div>
           </div>
@@ -104,7 +103,7 @@ export default function MenuPage() {
                   Hand-rolled pasta infused with Iranian saffron, finished with a 24k gold leaf and truffle-infused emulsion.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <span className="material-symbols-outlined text-[18px]">shopping_cart</span> Add to Cart
+                  <LuShoppingBag size={18} /> Add to Cart
                 </button>
               </div>
             </div>
@@ -131,9 +130,9 @@ export default function MenuPage() {
                 </p>
                 {/* Quantity Selector State */}
                 <div className="w-full border border-[#bcfb4b] bg-[#121212] py-2 px-4 rounded-xl flex items-center justify-between">
-                  <button className="text-[#bcfb4b] hover:text-white transition-colors"><span className="material-symbols-outlined">remove</span></button>
+                  <button className="text-[#bcfb4b] hover:text-white transition-colors"><span className="material-symbols-outlined"><MinusCircle /> </span></button>
                   <span className="text-[#bcfb4b] font-bold">1</span>
-                  <button className="text-[#bcfb4b] hover:text-white transition-colors"><span className="material-symbols-outlined">add</span></button>
+                  <button className="text-[#bcfb4b] hover:text-white transition-colors"><span className="material-symbols-outlined"><PlusCircle /> </span></button>
                 </div>
               </div>
             </div>
@@ -156,7 +155,7 @@ export default function MenuPage() {
                   Deconstructed ceremonial matcha tiramisu with white chocolate pearls and yuzu-infused mascarpone.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <span className="material-symbols-outlined text-[18px]">shopping_cart</span> Add to Cart
+                  <LuShoppingBag size={18} /> Add to Cart
                 </button>
               </div>
             </div>
@@ -179,7 +178,7 @@ export default function MenuPage() {
                   Gin infused with cucumber and basil, clarified through milk, and finished with a citrus-mint vapor cloud.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <span className="material-symbols-outlined text-[18px]">shopping_cart</span> Add to Cart
+                  <LuShoppingBag size={18} /> Add to Cart
                 </button>
               </div>
             </div>
@@ -202,7 +201,7 @@ export default function MenuPage() {
                   Shaved heritage roots, compressed melon, and wildflower honey-lime drizzle over organic wild greens.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <span className="material-symbols-outlined text-[18px]">shopping_cart</span> Add to Cart
+                  <LuShoppingBag size={18} /> Add to Cart
                 </button>
               </div>
             </div>
@@ -225,7 +224,7 @@ export default function MenuPage() {
                   Sustainably sourced salmon with a pea and mint velouté, accompanied by charred seasonal greens.
                 </p>
                 <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <span className="material-symbols-outlined text-[18px]">shopping_cart</span> Add to Cart
+                  <LuShoppingBag size={18} /> Add to Cart
                 </button>
               </div>
             </div>
@@ -233,7 +232,7 @@ export default function MenuPage() {
           </div>
 
           {/* Dish Spotlight */}
-          <div className="glass-card rounded-3xl overflow-hidden flex flex-col lg:flex-row mb-12">
+          <div className="rounded-3xl overflow-hidden flex flex-col lg:flex-row mb-12">
             <div className="lg:w-1/2 relative h-80 lg:h-auto">
               <Image src={special} alt="Dish Spotlight" className="absolute inset-0 w-full h-full object-cover" />
             </div>
