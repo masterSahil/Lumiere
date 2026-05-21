@@ -7,6 +7,7 @@ import {
   LuPlus, LuSearch, LuStar, LuUsers, LuMenu, LuX, LuArrowLeft, LuUpload,
   LuBell, LuHandHelping, LuChevronDown, LuFlame, LuLeaf, LuCheck, LuLayoutGrid
 } from 'react-icons/lu';
+import Sidebar from '@/component/Home/Sidebar';
 
 export default function AddFood() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -64,46 +65,7 @@ export default function AddFood() {
           </button>
         </div>
 
-        {/* Sidebar Navigation */}
-        <aside className={`fixed h-screen w-64 left-0 top-0 border-r border-white/10 bg-[#131314]/80 backdrop-blur-xl shadow-2xl flex flex-col py-8 z-40 transition-all duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0 mt-16 lg:mt-0' : '-translate-x-full lg:translate-x-0'}`}>
-          <div className="px-6 mb-10 hidden lg:block">
-            <h1 className="font-display text-2xl font-bold tracking-tight text-[#7ae749]">Lumière Admin</h1>
-            <p className="text-[#90d883] text-[12px] font-medium uppercase tracking-widest mt-1">Executive Portal</p>
-          </div>
-          
-          <nav className="flex-1 px-4 space-y-2">
-            {[
-              { icon: LuChartColumnIncreasing, label: 'Dashboard', active: false },
-              { icon: LuShoppingBag, label: 'Orders', active: false },
-              { icon: LuUtensils, label: 'Foods', active: true },
-              { icon: LuLayoutGrid, label: 'Categories', active: false },
-              { icon: LuStar, label: 'Promotions', active: false },
-              { icon: LuUsers, label: 'Customers', active: false },
-              { icon: LuChartColumnIncreasing, label: 'Analytics', active: false },
-            ].map((item, idx) => (
-              <a key={idx} href="#" className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${item.active ? 'text-[#7ae749] font-bold border-r-2 border-[#7ae749] bg-[#7ae749]/10' : 'text-[#90d883] hover:text-[#7ae749] hover:bg-[#7ae749]/10'}`}>
-                <item.icon className="text-[20px]" />
-                <span className="font-body text-[16px]">{item.label}</span>
-              </a>
-            ))}
-          </nav>
-          
-          <div className="px-4 mt-auto space-y-2">
-            <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-lg text-[#90d883] hover:text-[#7ae749] hover:bg-[#7ae749]/10 transition-colors">
-              <LuSettings className="text-[20px]" />
-              <span className="font-body text-[16px]">Settings</span>
-            </a>
-            <div className="pt-6 border-t border-white/5 flex items-center gap-3 px-4">
-              <div className="w-10 h-10 rounded-full bg-[#353436] overflow-hidden border border-white/10 shrink-0">
-                <img alt="Jean Luc" src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=150&q=80" className="w-full h-full object-cover" />
-              </div>
-              <div className="truncate">
-                <p className="text-[#e5e2e3] font-bold text-[14px]">Jean Luc</p>
-                <p className="text-[#90d883] text-[12px] truncate">Executive Chef</p>
-              </div>
-            </div>
-          </div>
-        </aside>
+        <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 
         {/* Top Navigation */}
         <header className="hidden lg:flex fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-[#131314]/90 backdrop-blur-md border-b border-white/5 items-center justify-between px-8 xl:px-20 z-30">
