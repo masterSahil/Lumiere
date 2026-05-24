@@ -4,7 +4,8 @@ const UserSchema = new Schema({
     username: {type: String},
     email: {type: String},
     password: {type: String},
-    role: {type: String, enum: ["user", "admin"], default: "user"}
+    role: {type: String, enum: ["user", "admin"], default: "user"},
+    isDeleted: {type: Boolean, default: false},
 }, {
     timestamps: true,
 })
