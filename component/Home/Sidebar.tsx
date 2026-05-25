@@ -187,7 +187,7 @@ export default function Sidebar({
                             >
                               {/* Horizontal branch line effect on hover/active */}
                               <span 
-                                className={`absolute left-[-17px] top-1/2 -translate-y-1/2 w-3 h-[1px] transition-colors ${
+                                className={`absolute -left-4.25 top-1/2 -translate-y-1/2 w-3 h-px transition-colors ${
                                   isSubActive ? 'bg-[#7ae749]' : 'bg-transparent group-hover:bg-white/20'
                                 }`} 
                               />
