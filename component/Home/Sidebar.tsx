@@ -3,18 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  LuChartColumnIncreasing,
-  LuShoppingBag,
-  LuUtensils,
-  LuLayoutGrid,
-  LuStar,
-  LuUsers,
-  LuSettings,
-  LuLogOut,
-  LuChevronDown,
-  LuBox,
-} from 'react-icons/lu';
+import { LuChartColumnIncreasing, LuShoppingBag, LuUtensils, LuLayoutGrid, LuStar, LuUsers, LuSettings, LuLogOut, LuChevronDown } from 'react-icons/lu';
 
 // Define the types for our navigation items
 interface SubItem {
@@ -32,15 +21,6 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { link: '/', label: 'Dashboard', icon: LuLayoutGrid },
   {
-    label: 'Customers',
-    icon: LuUsers,
-    subItems: [
-      { link: '/customers/add', label: '1. Add Customers' },
-      { link: '/customers/manage', label: '2. Manage Customers' },
-      { link: '/customers/trash', label: '3. Trash Customers' },
-    ],
-  },
-  {
     label: 'Menu',
     icon: LuUtensils,
     subItems: [
@@ -49,6 +29,7 @@ const NAV_ITEMS: NavItem[] = [
       { link: '/menu/trash', label: '3. Trash Menu' },
     ],
   },
+  { link: '/customers', label: 'Customers', icon: LuUsers },
   { link: '/orders', label: 'Orders', icon: LuShoppingBag },
   { link: '/promotions', label: 'Promotions', icon: LuStar },
   { link: '/analytics', label: 'Analytics', icon: LuChartColumnIncreasing },
