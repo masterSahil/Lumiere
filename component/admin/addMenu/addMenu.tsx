@@ -9,7 +9,7 @@ import {
 } from 'react-icons/lu';
 import Sidebar from '@/component/Home/Sidebar';
 
-export default function AddFood() {
+export default function AddMenu() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
   // State for toggles and attributes to make them interactive
@@ -18,48 +18,11 @@ export default function AddFood() {
 
   return (
     <>
-      <Head>
-        <title>Lumière Admin | Add Food</title>
-        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
-      </Head>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        html, body { 
-            max-width: 100vw; 
-            overflow-x: hidden; 
-            background: #131314 !important; 
-            color: #e5e2e3; 
-            font-family: 'Manrope', sans-serif; 
-            margin: 0; 
-            padding: 0; 
-        }
-        
-        /* Font classes mapping */
-        .font-display { font-family: 'Playfair Display', serif; }
-        .font-body { font-family: 'Manrope', sans-serif; }
-        
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid transparent;
-            border-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(122, 231, 73, 0.2) 100%) 1;
-        }
-        
-        .verdant-glow {
-            box-shadow: 0 0 40px 0 rgba(114, 223, 65, 0.15);
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(122, 231, 73, 0.3); border-radius: 10px; }
-      `}} />
-
-      <div className="min-h-screen selection:bg-[#7ae749] selection:text-[#062100]">
+      <div className="min-h-screen bg-[#131314] selection:bg-[#7ae749] selection:text-[#062100]">
         
         {/* Mobile Sidebar Toggle Overlay */}
         <div className="lg:hidden fixed top-0 inset-x-0 bg-[#131314]/90 backdrop-blur-md z-50 p-4 flex justify-between items-center border-b border-white/10">
-          <h1 className="font-display font-bold text-2xl text-[#7ae749]">Lumière Admin</h1>
+          <h1 className="font-bold text-2xl text-[#7ae749]">Lumière Admin</h1>
           <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-2xl p-2 text-white outline-none">
             {isSidebarOpen ? <LuX /> : <LuMenu />}
           </button>
@@ -81,7 +44,7 @@ export default function AddFood() {
             <button className="text-[#90d883] hover:text-[#7ae749] transition-transform scale-95 active:scale-90 outline-none">
               <LuHandHelping className="text-[20px]" />
             </button>
-            <div className="h-8 w-[1px] bg-white/10"></div>
+            <div className="h-8 w-px bg-white/10"></div>
             <button className="bg-[#7ae749] text-[#103900] font-bold px-6 py-2 rounded-full text-[14px] hover:brightness-110 transition-all outline-none">
               View Live Site
             </button>
@@ -99,13 +62,13 @@ export default function AddFood() {
                   <LuArrowLeft className="text-[20px]" />
                 </Link>
                 <div>
-                  <h2 className="font-display text-3xl sm:text-4xl text-[#e5e2e3] font-semibold tracking-tight">Create Culinary Masterpiece</h2>
+                  <h2 className="text-3xl sm:text-4xl text-[#e5e2e3] font-semibold tracking-tight">Create Culinary Masterpiece</h2>
                   <p className="text-[#90d883] text-[12px] font-medium uppercase tracking-widest mt-1">Lumière Gastronomy • New Entry</p>
                 </div>
               </div>
               <div className="flex gap-4 w-full md:w-auto">
                 <button className="flex-1 md:flex-none px-8 py-3 rounded-full border border-white/10 text-[#e5e2e3] font-bold hover:bg-white/5 transition-all text-[15px]">Discard</button>
-                <button className="flex-1 md:flex-none bg-[#7ae749] text-[#062100] px-8 py-3 rounded-full font-bold verdant-glow transition-all hover:scale-[1.02] active:scale-[0.98] text-[15px]">Publish to Menu</button>
+                <button className="flex-1 md:flex-none bg-[#7ae749] text-[#062100] px-8 py-3 rounded-full font-bold transition-all hover:bg-[#4abe15] text-[15px]">Publish to Menu</button>
               </div>
             </div>
 
@@ -119,7 +82,7 @@ export default function AddFood() {
                     <label className="text-[14px] font-semibold text-[#d0c5af] tracking-wide">Primary Cover</label>
                     <span className="text-[12px] text-[#d0c5af] opacity-60">1080x1080px</span>
                   </div>
-                  <div className="relative group cursor-pointer h-[400px] border-2 border-dashed border-white/10 rounded-2xl overflow-hidden bg-white/5 flex flex-col items-center justify-center transition-all hover:border-[#7ae749]/50">
+                  <div className="relative group cursor-pointer h-100 border-2 border-dashed border-white/10 rounded-2xl overflow-hidden bg-white/5 flex flex-col items-center justify-center transition-all hover:border-[#7ae749]/50">
                     <img className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity" src="https://images.unsplash.com/photo-1599084942896-67b17eaf4125?w=600&q=80" alt="Cover Preview" />
                     <div className="relative z-10 flex flex-col items-center">
                       <LuUpload className="text-4xl text-[#7ae749] mb-4 group-hover:scale-110 transition-transform" />
@@ -146,7 +109,7 @@ export default function AddFood() {
                   
                   <div className="sm:col-span-2 space-y-2 group">
                     <label className="text-[14px] font-semibold text-[#d0c5af] tracking-wide group-focus-within:text-[#7ae749] transition-colors">Food Name</label>
-                    <input type="text" placeholder="e.g., Truffle-Infused Ribeye" className="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#7ae749] focus:ring-0 text-2xl sm:text-3xl text-[#e5e2e3] px-0 py-2 transition-all placeholder:text-white/20 outline-none font-display font-medium" />
+                    <input type="text" placeholder="e.g., Truffle-Infused Ribeye" className="w-full bg-transparent border-0 border-b border-white/20 focus:border-[#7ae749] focus:ring-0 text-2xl sm:text-3xl text-[#e5e2e3] px-0 py-2 transition-all placeholder:text-white/20 outline-none font-medium" />
                   </div>
 
                   <div className="space-y-2 group">
@@ -192,7 +155,7 @@ export default function AddFood() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-8 border-t border-white/5">
                   
                   {/* Toggle 1 */}
-                  <div className="flex items-center justify-between p-5 glass-panel rounded-2xl cursor-pointer" onClick={() => setToggles({...toggles, popular: !toggles.popular})}>
+                  <div className="flex items-center justify-between p-5 bg-[rgb(254,250,250)]/5 rounded-2xl cursor-pointer" onClick={() => setToggles({...toggles, popular: !toggles.popular})}>
                     <div>
                       <p className="text-[#e5e2e3] font-bold text-[15px]">Mark Popular</p>
                       <p className="text-[#90d883] text-[12px] mt-0.5">Featured in top picks</p>
@@ -205,7 +168,7 @@ export default function AddFood() {
                   </div>
 
                   {/* Toggle 2 */}
-                  <div className="flex items-center justify-between p-5 glass-panel rounded-2xl cursor-pointer" onClick={() => setToggles({...toggles, availability: !toggles.availability})}>
+                  <div className="flex items-center justify-between p-5 bg-[rgb(254,250,250)]/5 rounded-2xl cursor-pointer" onClick={() => setToggles({...toggles, availability: !toggles.availability})}>
                     <div>
                       <p className="text-[#e5e2e3] font-bold text-[15px]">Availability</p>
                       <p className="text-[#90d883] text-[12px] mt-0.5">In stock & ready</p>
