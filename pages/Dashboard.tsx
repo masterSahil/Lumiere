@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { 
-  LuChartColumnIncreasing, LuReceipt, LuUtensils, LuPalette, LuSettings, 
-  LuPlus, LuTrendingUp, LuTrendingDown, LuCircleDollarSign, 
+  LuTrendingUp, LuTrendingDown, LuCircleDollarSign, 
   LuShoppingBag, LuUsers, LuClock, LuCalendar, LuSearch, 
-  LuEllipsisVertical, LuStar, LuUser, LuMenu, LuX
+  LuEllipsisVertical, LuStar, LuUser, LuMenu, LuX, LuUtensils
 } from 'react-icons/lu';
-import Link from 'next/link';
+import Sidebar from '@/component/Home/Sidebar';
 
 // --- DATA CONFIGURATION ---
-const NAV_ITEMS = [
-  { link: '/', label: 'Analytics', icon: LuChartColumnIncreasing, active: true },
-  { link: '/', label: 'Orders', icon: LuReceipt },
-  { link: '/menu', label: 'Menu CMS', icon: LuUtensils },
-  { link: '/', label: 'Branding', icon: LuPalette },
-  { link: '/', label: 'Settings', icon: LuSettings },
-];
-
 const STATS = [
   { title: 'Total Revenue', value: '$142,850.00', trend: '12.5%', isUp: true, Icon: LuCircleDollarSign, color: 'text-[#7ae749]' },
   { title: 'Total Orders', value: '1,284', trend: '8.2%', isUp: true, Icon: LuShoppingBag, color: 'text-[#7ae749]' },
@@ -88,35 +79,7 @@ export default function AdminDashboard() {
           </button>
         </div>
 
-        {/* Sidebar */}
-        <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#131314]/95 backdrop-blur-2xl border-r border-white/5 flex flex-col py-8 px-6 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
-          <div className="mb-10 mt-10 lg:mt-0">
-            <h1 className="font-serif text-4xl text-[#7ae749] tracking-tight">Lumière</h1>
-            <p className="text-[#d0c5af] text-xs uppercase tracking-widest mt-2 opacity-60">Admin Panel</p>
-          </div>
-
-          <nav className="flex-1 space-y-3">
-            {NAV_ITEMS.map((item, idx) => (
-              <Link key={idx} href={item.link} className={`flex items-center gap-4 py-3 px-4 rounded-xl transition-all font-medium text-sm ${item.active ? 'bg-[#7ae749]/10 text-[#7ae749]' : 'text-[#d0c5af] hover:bg-white/5 hover:text-white'}`}>
-                <item.icon className="text-xl" />
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="mt-auto pt-8 border-t border-white/5 space-y-6">
-            <button className="w-full py-3 bg-[#7ae749] text-[#103900] text-sm font-bold rounded-xl hover:bg-[#8dfc5b] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(122,231,73,0.2)]">
-              <LuPlus className="text-lg" /> Add New Item
-            </button>
-            <div className="flex items-center gap-4">
-              <img alt="Admin" src="https://i.pravatar.cc/150?img=33" className="w-10 h-10 rounded-full border-2 border-white/10 object-cover" />
-              <div>
-                <p className="text-sm font-bold">Alexandre L.</p>
-                <p className="text-xs text-[#d0c5af] opacity-80">Master Admin</p>
-              </div>
-            </div>
-          </div>
-        </aside>
+        <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 
         {/* Main Content Area */}
         <main className="lg:ml-64 p-4 sm:p-8 lg:p-12 pt-24 lg:pt-12 min-h-screen flex flex-col">
