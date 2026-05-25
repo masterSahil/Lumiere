@@ -1,175 +1,314 @@
 'use client'
 import React, { useState } from 'react';
-import Head from 'next/head';
-import { 
-  LuChartColumnIncreasing, LuReceipt, LuUtensils, LuPalette, LuSettings, 
-  LuPlus, LuSearch, LuEllipsisVertical, LuUser, LuMenu, LuX, LuFilter, 
-   LuTrash2
-} from 'react-icons/lu';
 import Link from 'next/link';
-import { Edit } from 'lucide-react';
+import { LuSearch, LuBell, LuHandHelping, LuMenu, LuX, LuPlus, LuLayoutGrid, LuList, LuTrash2, LuFlame, LuLeaf, LuUtensils, LuStar, LuPen } from 'react-icons/lu';
+import Sidebar from '@/component/Home/Sidebar';
 
-const NAV_ITEMS = [
-  { link: '/', label: 'Analytics', icon: LuChartColumnIncreasing, active: false },
-  { link: '/orders', label: 'Orders', icon: LuReceipt, active: false },
-  { link: '/menu', label: 'Menu CMS', icon: LuUtensils, active: true },
-  { link: '/branding', label: 'Branding', icon: LuPalette, active: false },
-  { link: '/settings', label: 'Settings', icon: LuSettings, active: false },
-];
-
+// --- MOCK DATA ---
 const MENU_ITEMS = [
-  { id: '#ITM-01', name: 'Signature Lobster Thermidor', category: 'Main Course', price: '$185.00', status: 'Available', img: 'https://images.unsplash.com/photo-1599084942896-67b17eaf4125?w=150&q=80', stock: 12 },
-  { id: '#ITM-02', name: 'Black Truffle Risotto', category: 'Main Course', price: '$85.00', status: 'Available', img: 'https://images.unsplash.com/photo-1633337474564-1d9e7235284f?w=150&q=80', stock: 24 },
-  { id: '#ITM-03', name: 'Vintage Wine Selection (3)', category: 'Beverage', price: '$420.00', status: 'Low Stock', img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=150&q=80', stock: 4 },
-  { id: '#ITM-04', name: 'Wagyu Beef Wellington', category: 'Main Course', price: '$125.00', status: 'Available', img: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=150&q=80', stock: 18 },
-  { id: '#ITM-05', name: 'Autumn Gold Tasting Series', category: 'Dessert', price: '$45.00', status: 'Sold Out', img: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=150&q=80', stock: 0 },
+  {
+    id: '1',
+    name: 'Truffle-Infused Ribeye',
+    category: 'Signature Entrees',
+    price: 85.00,
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80',
+    attributes: { spicy: false, veg: false, nonVeg: true },
+    isPopular: true,
+    isAvailable: true,
+  },
+  {
+    id: '2',
+    name: 'Wild Mushroom Risotto',
+    category: 'Signature Entrees',
+    price: 34.00,
+    image: 'https://images.unsplash.com/photo-1633337474563-1d01f582f3fb?w=600&q=80',
+    attributes: { spicy: false, veg: true, nonVeg: false },
+    isPopular: false,
+    isAvailable: true,
+  },
+  {
+    id: '3',
+    name: 'Spicy Wagyu Tartare',
+    category: 'Appetizers',
+    price: 42.00,
+    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80',
+    attributes: { spicy: true, veg: false, nonVeg: true },
+    isPopular: true,
+    isAvailable: false,
+  },
+  {
+    id: '4',
+    name: 'Artisanal Burrata Pizza',
+    category: 'Artisanal Pizza',
+    price: 28.00,
+    image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80',
+    attributes: { spicy: false, veg: true, nonVeg: false },
+    isPopular: true,
+    isAvailable: true,
+  },
+  {
+    id: '5',
+    name: 'Dark Chocolate Lava Cake',
+    category: 'Dessert Mastery',
+    price: 18.00,
+    image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80',
+    attributes: { spicy: false, veg: true, nonVeg: false },
+    isPopular: false,
+    isAvailable: true,
+  },
+  {
+    id: '6',
+    name: 'Fire-Roasted Lobster',
+    category: 'Signature Entrees',
+    price: 120.00,
+    image: 'https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80',
+    attributes: { spicy: true, veg: false, nonVeg: true },
+    isPopular: true,
+    isAvailable: true,
+  }
 ];
 
-export default function FoodManagement() {
+export default function ManageMenu() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  const categories = ['All', 'Signature Entrees', 'Appetizers', 'Artisanal Pizza', 'Dessert Mastery'];
+
+  // Filter items based on category
+  const filteredItems = MENU_ITEMS.filter(item => 
+    activeCategory === 'All' ? true : item.category === activeCategory
+  );
 
   return (
     <>
-      <Head>
-        <title>Lumière | Menu Management</title>
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
-      </Head>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        html, body { max-width: 100vw; overflow-x: hidden; background: #131314 !important; background-image: none !important; color: #e5e2e3; font-family: 'Manrope', sans-serif; margin: 0; padding: 0; }
-        body::before, body::after { display: none !important; }
-        h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
-        .glass2 { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(122, 231, 73, 0.5); }
-      `}} />
-
-      <div className="min-h-screen selection:bg-[#7ae749] selection:text-[#103900]">
+      <div className="min-h-screen bg-[#131314] selection:bg-[#7ae749] selection:text-[#062100]">
         
-        {/* Mobile Header */}
-        <div className="lg:hidden fixed top-0 inset-x-0 bg-[#131314]/80 backdrop-blur-md z-40 p-4 flex justify-between items-center border-b border-white/10">
-          <h1 className="font-serif text-2xl text-[#7ae749]">Lumière</h1>
+        {/* Mobile Sidebar Toggle Overlay */}
+        <div className="lg:hidden fixed top-0 inset-x-0 bg-[#131314]/90 backdrop-blur-md z-50 p-4 flex justify-between items-center border-b border-white/10">
+          <h1 className="font-bold text-2xl text-[#7ae749]">Lumière Admin</h1>
           <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-2xl p-2 text-white outline-none">
             {isSidebarOpen ? <LuX /> : <LuMenu />}
           </button>
         </div>
 
-        {/* Sidebar */}
-        <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#131314]/95 backdrop-blur-2xl border-r border-white/5 flex flex-col py-8 px-6 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
-          <div className="mb-10 mt-10 lg:mt-0">
-            <h1 className="font-serif text-4xl text-[#7ae749] tracking-tight">Lumière</h1>
-            <p className="text-[#d0c5af] text-xs uppercase tracking-widest mt-2 opacity-60">Admin Panel</p>
+        <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+
+        {/* Top Navigation */}
+        <header className="hidden lg:flex fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-[#131314]/90 backdrop-blur-md border-b border-white/5 items-center justify-between px-8 xl:px-12 z-30">
+          <div className="flex items-center bg-[#2a2a2b] rounded-full px-4 py-1.5 w-96 border border-transparent focus-within:border-white/10 transition-colors">
+            <LuSearch className="text-[#99907c] text-[18px]" />
+            <input type="text" placeholder="Search menu items..." className="bg-transparent border-none outline-none focus:ring-0 text-sm w-full text-[#e5e2e3] ml-2 placeholder:text-[#99907c]" />
           </div>
-          <nav className="flex-1 space-y-3">
-            {NAV_ITEMS.map((item, idx) => (
-              <Link key={idx} href={item.link} className={`flex items-center gap-4 py-3 px-4 rounded-xl transition-all font-medium text-sm group ${item.active ? 'bg-[#7ae749]/10 text-[#7ae749] shadow-[inset_4px_0_0_0_#7ae749]' : 'text-[#d0c5af] hover:bg-white/5 hover:text-white'}`}>
-                <item.icon className={`text-xl transition-transform ${!item.active && 'group-hover:scale-110 group-hover:text-[#7ae749]'}`} />
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="mt-auto pt-8 border-t border-white/5 space-y-6">
-            <div className="flex items-center gap-4">
-              <img alt="Admin" src="https://i.pravatar.cc/150?img=33" className="w-10 h-10 rounded-full border-2 border-white/10 object-cover" />
-              <div>
-                <p className="text-sm font-bold">Alexandre L.</p>
-                <p className="text-xs text-[#d0c5af] opacity-80">Master Admin</p>
-              </div>
-            </div>
+          <div className="flex items-center gap-6">
+            <button className="relative text-[#90d883] hover:text-[#7ae749] transition-transform scale-95 active:scale-90 outline-none">
+              <LuBell className="text-[20px]" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#7ae749] rounded-full border border-[#131314]"></span>
+            </button>
+            <button className="text-[#90d883] hover:text-[#7ae749] transition-transform scale-95 active:scale-90 outline-none">
+              <LuHandHelping className="text-[20px]" />
+            </button>
+            <div className="h-8 w-px bg-white/10"></div>
+            <button className="bg-[#7ae749] text-[#103900] font-bold px-6 py-2 rounded-full text-[14px] hover:brightness-110 transition-all outline-none">
+              View Live Site
+            </button>
           </div>
-        </aside>
+        </header>
 
         {/* Main Content */}
-        <main className="lg:ml-64 p-4 sm:p-8 lg:p-12 pt-24 lg:pt-12 min-h-screen flex flex-col">
-          
-          <header className="flex flex-col xl:flex-row justify-between xl:items-end gap-6 mb-10">
-            <div>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold mb-2">Menu Management</h2>
-              <p className="text-[#d0c5af] text-base sm:text-lg opacity-80">Curate and oversee your culinary offerings.</p>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/menu/add" className="px-6 py-3 bg-[#7ae749] text-[#103900] rounded-xl hover:bg-[#8dfc5b] transition-all text-sm font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(122,231,73,0.15)]">
-                <LuPlus className="text-lg" /> Add New Dish
+        <main className="lg:ml-64 pt-24 lg:pt-32 px-6 lg:px-12 pb-20 min-h-screen relative">
+          <div className="max-w-7xl mx-auto w-full">
+            
+            {/* Header Actions */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+              <div>
+                <h2 className="text-3xl sm:text-4xl text-[#e5e2e3] font-semibold tracking-tight">Manage Menu</h2>
+                <p className="text-[#90d883] text-[12px] font-medium uppercase tracking-widest mt-1">Lumière Gastronomy • {MENU_ITEMS.length} Items</p>
+              </div>
+              <Link href="/menu/add">
+                <button className="flex items-center gap-2 bg-[#7ae749] text-[#062100] px-6 py-3 rounded-full font-bold transition-all hover:bg-[#4abe15] text-[15px]">
+                  <LuPlus className="text-lg" /> Add New Item
+                </button>
               </Link>
             </div>
-          </header>
 
-          <section className="glass2 rounded-2xl flex flex-col w-full overflow-hidden shadow-2xl">
-            <div className="p-6 sm:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-white/5 bg-white/[0.01]">
-              <div className="flex items-center gap-4 w-full md:w-auto">
-                <div className="relative w-full md:w-72">
-                  <LuSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-[#d0c5af]" />
-                  <input type="text" placeholder="Search dishes..." className="w-full bg-[#131314] border border-white/10 rounded-xl py-2.5 pl-11 pr-4 text-sm focus:outline-none focus:border-[#7ae749]/50 transition-all text-white placeholder:text-white/30" />
-                </div>
-                <button className="p-3 bg-[#131314] border border-white/10 rounded-xl text-[#d0c5af] hover:text-[#7ae749] hover:border-[#7ae749]/30 transition-all flex-shrink-0">
-                  <LuFilter className="text-lg" />
+            {/* Controls Bar (Filters & Toggle) */}
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 bg-[#1c1b1c] p-2 rounded-2xl border border-white/5">
+              
+              {/* Category Pills */}
+              <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 hide-scrollbar pl-2">
+                {categories.map((cat) => (
+                  <button 
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`whitespace-nowrap px-4 py-2 rounded-xl text-[13px] font-semibold transition-all ${
+                      activeCategory === cat 
+                      ? 'bg-[#7ae749]/15 text-[#7ae749] border border-[#7ae749]/30' 
+                      : 'text-[#d0c5af] hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              {/* View Toggle */}
+              <div className="flex items-center bg-[#131314] p-1 rounded-xl border border-white/5 shrink-0 mx-2 sm:mx-0">
+                <button 
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-[#2a2a2b] text-[#7ae749] shadow-sm' : 'text-[#d0c5af] hover:text-white'}`}
+                >
+                  <LuLayoutGrid className="text-[18px]" />
+                </button>
+                <button 
+                  onClick={() => setViewMode('table')}
+                  className={`p-2 rounded-lg transition-all ${viewMode === 'table' ? 'bg-[#2a2a2b] text-[#7ae749] shadow-sm' : 'text-[#d0c5af] hover:text-white'}`}
+                >
+                  <LuList className="text-[18px]" />
                 </button>
               </div>
             </div>
 
-            <div className="w-full overflow-x-auto">
-              <table className="w-full text-left whitespace-nowrap min-w-[800px]">
-                <thead className="bg-[#131314]/50 text-[11px] uppercase tracking-widest text-[#d0c5af] font-bold border-b border-white/5">
-                  <tr>
-                    <th className="px-8 py-5">Item Details</th>
-                    <th className="px-8 py-5">Category</th>
-                    <th className="px-8 py-5">Price</th>
-                    <th className="px-8 py-5">Stock</th>
-                    <th className="px-8 py-5">Status</th>
-                    <th className="px-8 py-5 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5 text-sm">
-                  {MENU_ITEMS.map((item, idx) => (
-                    <tr key={idx} className="hover:bg-white/[0.03] transition-colors group">
-                      <td className="px-8 py-5">
-                        <div className="flex items-center gap-4">
-                          <img src={item.img} alt={item.name} className="w-12 h-12 rounded-lg border border-white/10 object-cover shadow-lg" />
-                          <div>
-                            <p className="font-bold text-white text-base group-hover:text-[#7ae749] transition-colors">{item.name}</p>
-                            <p className="text-[11px] text-[#d0c5af] mt-1 tracking-wider">{item.id}</p>
-                          </div>
+            {/* --- GRID VIEW --- */}
+            {viewMode === 'grid' && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredItems.map((item) => (
+                  <div key={item.id} className="bg-[#1c1b1c] rounded-3xl border border-white/5 overflow-hidden group hover:border-white/15 transition-all flex flex-col">
+                    {/* Image Area */}
+                    <div className="relative h-48 w-full overflow-hidden">
+                      <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-linear-to-t from-[#1c1b1c] via-transparent to-transparent opacity-80"></div>
+                      
+                      {/* Top Badges */}
+                      <div className="absolute top-4 left-4 flex gap-2">
+                        {item.isPopular && (
+                          <span className="bg-yellow-500/90 text-black px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 backdrop-blur-md shadow-lg">
+                            <LuStar className="text-[12px]" /> Popular
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Availability Overlay (if out of stock) */}
+                      {!item.isAvailable && (
+                         <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center">
+                            <span className="bg-red-500 text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border border-red-400/50">Sold Out</span>
+                         </div>
+                      )}
+                    </div>
+
+                    {/* Content Area */}
+                    <div className="p-5 flex-1 flex flex-col">
+                      <p className="text-[#90d883] text-[11px] font-bold uppercase tracking-widest mb-1">{item.category}</p>
+                      <h3 className="text-[#e5e2e3] font-semibold text-lg leading-tight mb-3 line-clamp-1">{item.name}</h3>
+                      
+                      {/* Attributes */}
+                      <div className="flex gap-2 mb-4">
+                        {item.attributes.spicy && <span title="Spicy" className="w-7 h-7 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500"><LuFlame className="text-[14px]" /></span>}
+                        {item.attributes.veg && <span title="Vegetarian" className="w-7 h-7 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-500"><LuLeaf className="text-[14px]" /></span>}
+                        {item.attributes.nonVeg && <span title="Non-Veg" className="w-7 h-7 rounded-full bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-500"><LuUtensils className="text-[14px]" /></span>}
+                      </div>
+
+                      {/* Footer: Price & Actions */}
+                      <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
+                        <span className="text-[#7ae749] font-bold text-xl">${item.price.toFixed(2)}</span>
+                        <div className="flex gap-1">
+                          <button className="p-2 text-[#d0c5af] hover:text-[#7ae749] hover:bg-white/5 rounded-lg transition-colors"><LuPen className="text-[16px]" /></button>
+                          <button className="p-2 text-[#d0c5af] hover:text-red-400 hover:bg-white/5 rounded-lg transition-colors"><LuTrash2 className="text-[16px]" /></button>
                         </div>
-                      </td>
-                      <td className="px-8 py-5 text-[#d0c5af]">{item.category}</td>
-                      <td className="px-8 py-5 font-bold font-serif text-lg text-white">{item.price}</td>
-                      <td className="px-8 py-5 font-medium">{item.stock} Units</td>
-                      <td className="px-8 py-5">
-                        <span className={`px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider border ${
-                          item.status === 'Available' ? 'bg-[#7ae749]/10 text-[#7ae749] border-[#7ae749]/20' : 
-                          item.status === 'Sold Out' ? 'bg-[#ffb4ab]/10 text-[#ffb4ab] border-[#ffb4ab]/20' : 
-                          'bg-[#ffd166]/10 text-[#ffd166] border-[#ffd166]/20'
-                        }`}>
-                          {item.status}
-                        </span>
-                      </td>
-                      <td className="px-8 py-5 text-right">
-                        <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Link href={`/menu/edit/${item.id}`} className="p-2 bg-white/5 hover:bg-[#7ae749]/20 hover:text-[#7ae749] rounded-lg transition-all text-[#d0c5af]">
-                            <Edit className="text-lg" />
-                          </Link>
-                          <button className="p-2 bg-white/5 hover:bg-[#ffb4ab]/20 hover:text-[#ffb4ab] rounded-lg transition-all text-[#d0c5af]">
-                            <LuTrash2 className="text-lg" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            
-            {/* Pagination Placeholder */}
-            <div className="p-6 border-t border-white/5 flex justify-between items-center text-sm text-[#d0c5af]">
-              <p>Showing 1 to 5 of 24 items</p>
-              <div className="flex gap-2">
-                <button className="px-4 py-2 border border-white/10 rounded-lg hover:bg-white/5 transition-all">Prev</button>
-                <button className="px-4 py-2 border border-[#7ae749]/30 text-[#7ae749] bg-[#7ae749]/10 rounded-lg transition-all">Next</button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          </section>
+            )}
+
+            {/* --- TABLE VIEW --- */}
+            {viewMode === 'table' && (
+              <div className="bg-[#1c1b1c] rounded-3xl border border-white/5 overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left whitespace-nowrap">
+                    <thead className="bg-black/20 text-[11px] uppercase tracking-widest text-[#d0c5af] opacity-80 border-b border-white/5">
+                      <tr>
+                        <th className="px-6 py-5 font-semibold">Food Item</th>
+                        <th className="px-6 py-5 font-semibold">Category</th>
+                        <th className="px-6 py-5 font-semibold">Attributes</th>
+                        <th className="px-6 py-5 font-semibold">Status</th>
+                        <th className="px-6 py-5 font-semibold">Price</th>
+                        <th className="px-6 py-5 font-semibold text-right">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                      {filteredItems.map((item) => (
+                        <tr key={item.id} className="hover:bg-white/5 transition-colors group">
+                          {/* Image & Name */}
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-4">
+                              <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-white/10 relative">
+                                <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                                {item.isPopular && <div className="absolute top-0 right-0 w-3 h-3 bg-yellow-500 rounded-bl-lg"></div>}
+                              </div>
+                              <div>
+                                <p className="text-[#e5e2e3] font-semibold text-[15px]">{item.name}</p>
+                                {item.isPopular && <p className="text-yellow-500 text-[10px] font-bold uppercase tracking-wider mt-0.5">Popular</p>}
+                              </div>
+                            </div>
+                          </td>
+                          
+                          {/* Category */}
+                          <td className="px-6 py-4">
+                            <span className="text-[#d0c5af] text-[14px]">{item.category}</span>
+                          </td>
+
+                          {/* Attributes */}
+                          <td className="px-6 py-4">
+                            <div className="flex gap-1.5">
+                              {item.attributes.spicy && <span title="Spicy" className="w-6 h-6 rounded-md bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500"><LuFlame className="text-[12px]" /></span>}
+                              {item.attributes.veg && <span title="Vegetarian" className="w-6 h-6 rounded-md bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-500"><LuLeaf className="text-[12px]" /></span>}
+                              {item.attributes.nonVeg && <span title="Non-Veg" className="w-6 h-6 rounded-md bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-500"><LuUtensils className="text-[12px]" /></span>}
+                            </div>
+                          </td>
+
+                          {/* Status */}
+                          <td className="px-6 py-4">
+                            {item.isAvailable ? (
+                              <span className="px-3 py-1 bg-[#7ae749]/10 text-[#7ae749] border border-[#7ae749]/20 rounded-full text-[11px] font-bold uppercase tracking-wider">Available</span>
+                            ) : (
+                              <span className="px-3 py-1 bg-red-500/10 text-red-400 border border-red-500/20 rounded-full text-[11px] font-bold uppercase tracking-wider">Sold Out</span>
+                            )}
+                          </td>
+
+                          {/* Price */}
+                          <td className="px-6 py-4">
+                            <span className="text-[#e5e2e3] font-bold">${item.price.toFixed(2)}</span>
+                          </td>
+
+                          {/* Actions */}
+                          <td className="px-6 py-4 text-right">
+                            <div className="flex items-center justify-end gap-2">
+                              <button className="p-2 bg-white/5 hover:bg-white/10 text-[#d0c5af] hover:text-white rounded-lg transition-colors"><LuPen className="text-[16px]" /></button>
+                              <button className="p-2 bg-white/5 hover:bg-red-500/20 text-[#d0c5af] hover:text-red-400 rounded-lg transition-colors"><LuTrash2 className="text-[16px]" /></button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Empty State Fallback (If filter results in 0 items) */}
+            {filteredItems.length === 0 && (
+              <div className="w-full bg-[#1c1b1c] border border-white/5 rounded-3xl py-20 flex flex-col items-center justify-center text-center">
+                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4">
+                  <LuSearch className="text-3xl text-[#d0c5af] opacity-50" />
+                </div>
+                <h3 className="text-xl text-white font-semibold mb-2">No items found</h3>
+                <p className="text-[#d0c5af] text-sm">We couldn't find any menu items in this category.</p>
+                <button onClick={() => setActiveCategory('All')} className="mt-6 text-[#7ae749] hover:underline text-sm font-semibold">Clear Filters</button>
+              </div>
+            )}
+          </div>
         </main>
       </div>
     </>

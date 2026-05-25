@@ -25,8 +25,8 @@ const NAV_ITEMS: NavItem[] = [
     icon: LuUtensils,
     subItems: [
       { link: '/adminsPages/addMenu', label: '1. Add Menu' },
-      { link: '/menu/manage', label: '2. Manage Menu' },
-      { link: '/menu/trash', label: '3. Trash Menu' },
+      { link: '/adminsPages/manageMenu', label: '2. Manage Menu' },
+      { link: '/adminsPages/trashMenu', label: '3. Trash Menu' },
     ],
   },
   { link: '/customers', label: 'Customers', icon: LuUsers },
