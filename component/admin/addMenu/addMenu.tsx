@@ -16,6 +16,16 @@ export default function AddMenu() {
   const [attributes, setAttributes] = useState({ spicy: false, veg: false, nonVeg: true });
   const [toggles, setToggles] = useState({ popular: false, availability: true });
 
+  const [image, setImage] = useState<string | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      setImage(URL.createObjectURL(file));
+    }
+  };
+
   return (
     <>
       <div className="min-h-screen bg-[#131314] selection:bg-[#7ae749] selection:text-[#062100]">
@@ -82,14 +92,32 @@ export default function AddMenu() {
                     <label className="text-[14px] font-semibold text-[#d0c5af] tracking-wide">Primary Cover</label>
                     <span className="text-[12px] text-[#d0c5af] opacity-60">1080x1080px</span>
                   </div>
-                  <div className="relative group cursor-pointer h-100 border-2 border-dashed border-white/10 rounded-2xl overflow-hidden bg-white/5 flex flex-col items-center justify-center transition-all hover:border-[#7ae749]/50">
-                    <div className="relative z-10 flex flex-col items-center">
-                      <LuUpload className="text-4xl text-[#7ae749] mb-4 group-hover:scale-110 transition-transform" />
-                      <p className="text-[16px] font-bold text-white shadow-sm">Replace Cover</p>
-                    </div>
+                  <div className="relative group h-100 border-2 border-dashed border-white/10 rounded-2xl overflow-hidden bg-white/5 hover:border-[#7ae749]/50">
+
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="absolute inset-0 opacity-0 cursor-pointer z-20"
+                    />
+
+                    {image ? (
+                      <img
+                        src={image}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <LuUpload className="text-4xl text-[#7ae749] mb-4" />
+                        <p className="text-[16px] font-bold text-white">
+                          Upload Cover
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
-                
+
                 <div className="space-y-4">
                   <label className="text-[14px] font-semibold text-[#d0c5af] tracking-wide">Secondary Gallery</label>
                   <div className="grid grid-cols-3 gap-4">
