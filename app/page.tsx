@@ -10,10 +10,15 @@ export default function Page() {
   const VerifyLogin = async () => {
     const token = sessionStorage.getItem("token");
 
+    if (!token) {
+      console.log("No token found");
+      return;
+    }
+
     try {
       const res = await axios.get("/api/auth/verify", {
         headers: {
-          Authorization: `bearer ${token}`
+          Authorization: `Bearer ${token}`
         }
       })
 
