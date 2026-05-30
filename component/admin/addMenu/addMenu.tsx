@@ -83,7 +83,6 @@ export default function AddMenu() {
                     <span className="text-[12px] text-[#d0c5af] opacity-60">1080x1080px</span>
                   </div>
                   <div className="relative group cursor-pointer h-100 border-2 border-dashed border-white/10 rounded-2xl overflow-hidden bg-white/5 flex flex-col items-center justify-center transition-all hover:border-[#7ae749]/50">
-                    <img className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity" src="https://images.unsplash.com/photo-1599084942896-67b17eaf4125?w=600&q=80" alt="Cover Preview" />
                     <div className="relative z-10 flex flex-col items-center">
                       <LuUpload className="text-4xl text-[#7ae749] mb-4 group-hover:scale-110 transition-transform" />
                       <p className="text-[16px] font-bold text-white shadow-sm">Replace Cover</p>
