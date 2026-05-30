@@ -2,11 +2,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { 
-  LuChartColumnIncreasing, LuShoppingBag, LuUtensils, LuPalette, LuSettings, 
-  LuPlus, LuSearch, LuStar, LuUsers, LuMenu, LuX, LuArrowLeft, LuUpload,
-  LuBell, LuHandHelping, LuChevronDown, LuFlame, LuLeaf, LuCheck, LuLayoutGrid
-} from 'react-icons/lu';
+import { LuUtensils, LuPlus, LuSearch, LuMenu, LuX, LuArrowLeft, LuUpload, LuBell, LuHandHelping, LuChevronDown, LuFlame, LuLeaf, LuCheck } from 'react-icons/lu';
 import Sidebar from '@/component/Home/Sidebar';
 
 export default function AddMenu() {
@@ -17,13 +13,19 @@ export default function AddMenu() {
   const [toggles, setToggles] = useState({ popular: false, availability: true });
 
   const [image, setImage] = useState<string | null>(null);
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     if (file) {
       setImage(URL.createObjectURL(file));
     }
+  };
+
+  const handleGalleryUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const imageUrls = files.map((file) =>URL.createObjectURL(file));
+    setGalleryImages((prev) => [...prev, ...imageUrls]);
   };
 
   return (
@@ -94,25 +96,14 @@ export default function AddMenu() {
                   </div>
                   <div className="relative group h-100 border-2 border-dashed border-white/10 rounded-2xl overflow-hidden bg-white/5 hover:border-[#7ae749]/50">
 
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="absolute inset-0 opacity-0 cursor-pointer z-20"
-                    />
+                    <input type="file" accept="image/*" onChange={handleImageChange} className="absolute inset-0 opacity-0 cursor-pointer z-20" />
 
                     {image ? (
-                      <img
-                        src={image}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={image} alt="Preview" className="w-full h-full object-cover" />
                     ) : (
                       <div className="absolute inset-0 flex flex-col items-center justify-center">
                         <LuUpload className="text-4xl text-[#7ae749] mb-4" />
-                        <p className="text-[16px] font-bold text-white">
-                          Upload Cover
-                        </p>
+                        <p className="text-[16px] font-bold text-white">Upload Cover</p>
                       </div>
                     )}
                   </div>
@@ -121,10 +112,15 @@ export default function AddMenu() {
                 <div className="space-y-4">
                   <label className="text-[14px] font-semibold text-[#d0c5af] tracking-wide">Secondary Gallery</label>
                   <div className="grid grid-cols-3 gap-4">
-                    {[1, 2, 3].map((item) => (
-                      <div key={item} className="aspect-square border-2 border-dashed border-white/10 rounded-xl bg-white/5 flex items-center justify-center hover:border-[#7ae749]/50 hover:bg-[#7ae749]/5 transition-all cursor-pointer group">
-                        <LuPlus className="text-[24px] text-[#90d883] group-hover:text-[#7ae749] group-hover:scale-110 transition-all" />
-                      </div>
+                    {[0, 1, 2].map((index) => (
+                      <label key={index} className="aspect-square border-2 border-dashed border-white/10 rounded-xl overflow-hidden bg-white/5 flex items-center justify-center hover:border-[#7ae749]/50 hover:bg-[#7ae749]/5 transition-all cursor-pointer group">
+                        <input type="file" accept="image/*" onChange={handleGalleryUpload} className="hidden" />
+                        {galleryImages[index] ? (
+                          <img src={galleryImages[index]} alt={`Gallery ${index}`} className="w-full h-full object-cover" />
+                        ) : (
+                          <LuPlus className="text-[24px] text-[#90d883] group-hover:text-[#7ae749] group-hover:scale-110 transition-all" />
+                        )}
+                      </label>
                     ))}
                   </div>
                 </div>
