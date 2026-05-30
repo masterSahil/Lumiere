@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 import { LuUtensils, LuPlus, LuSearch, LuMenu, LuX, LuArrowLeft, LuUpload, LuBell, LuHandHelping, LuChevronDown, LuFlame, LuLeaf, LuCheck } from 'react-icons/lu';
 import Sidebar from '@/component/Home/Sidebar';
@@ -24,8 +23,13 @@ export default function AddMenu() {
 
   const handleGalleryUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    const imageUrls = files.map((file) =>URL.createObjectURL(file));
+    const imageUrls = files.map((file) => URL.createObjectURL(file));
     setGalleryImages((prev) => [...prev, ...imageUrls]);
+  };
+
+  // Function to remove a specific gallery image
+  const removeGalleryImage = (indexToRemove: number) => {
+    setGalleryImages((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
 
   return (
@@ -95,9 +99,7 @@ export default function AddMenu() {
                     <span className="text-[12px] text-[#d0c5af] opacity-60">1080x1080px</span>
                   </div>
                   <div className="relative group h-100 border-2 border-dashed border-white/10 rounded-2xl overflow-hidden bg-white/5 hover:border-[#7ae749]/50">
-
                     <input type="file" accept="image/*" onChange={handleImageChange} className="absolute inset-0 opacity-0 cursor-pointer z-20" />
-
                     {image ? (
                       <img src={image} alt="Preview" className="w-full h-full object-cover" />
                     ) : (
@@ -109,19 +111,39 @@ export default function AddMenu() {
                   </div>
                 </div>
 
+                {/* Secondary Gallery Section */}
                 <div className="space-y-4">
                   <label className="text-[14px] font-semibold text-[#d0c5af] tracking-wide">Secondary Gallery</label>
                   <div className="grid grid-cols-3 gap-4">
-                    {[0, 1, 2].map((index) => (
-                      <label key={index} className="aspect-square border-2 border-dashed border-white/10 rounded-xl overflow-hidden bg-white/5 flex items-center justify-center hover:border-[#7ae749]/50 hover:bg-[#7ae749]/5 transition-all cursor-pointer group">
-                        <input type="file" accept="image/*" onChange={handleGalleryUpload} className="hidden" />
-                        {galleryImages[index] ? (
-                          <img src={galleryImages[index]} alt={`Gallery ${index}`} className="w-full h-full object-cover" />
-                        ) : (
-                          <LuPlus className="text-[24px] text-[#90d883] group-hover:text-[#7ae749] group-hover:scale-110 transition-all" />
-                        )}
-                      </label>
+                    
+                    {/* Map through dynamically added images */}
+                    {galleryImages.map((imgSrc, index) => (
+                      <div key={index} className="relative aspect-square border border-white/10 rounded-xl overflow-hidden bg-white/5 group">
+                        <img src={imgSrc} alt={`Gallery ${index}`} className="w-full h-full object-cover" />
+                        
+                        {/* Delete Button */}
+                        <button
+                          type="button"
+                          onClick={() => removeGalleryImage(index)}
+                          className="absolute top-2 right-2 bg-[#131314]/80 hover:bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all z-10"
+                        >
+                          <LuX className="text-[14px]" />
+                        </button>
+                      </div>
                     ))}
+
+                    {/* Always-present Add New Button */}
+                    <label className="aspect-square border-2 border-dashed border-white/10 rounded-xl overflow-hidden bg-white/5 flex items-center justify-center hover:border-[#7ae749]/50 hover:bg-[#7ae749]/5 transition-all cursor-pointer group">
+                      <input 
+                        type="file" 
+                        accept="image/*" 
+                        multiple 
+                        onChange={handleGalleryUpload} 
+                        className="hidden" 
+                      />
+                      <LuPlus className="text-[24px] text-[#90d883] group-hover:text-[#7ae749] group-hover:scale-110 transition-all" />
+                    </label>
+
                   </div>
                 </div>
               </div>
@@ -202,10 +224,8 @@ export default function AddMenu() {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
-              
             </div>
           </div>
         </main>
