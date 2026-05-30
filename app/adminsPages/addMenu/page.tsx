@@ -1,5 +1,5 @@
 'use client'
-import AddMenu from '@/component/admin/addMenu/addMenu'
+import AddMenu from '@/component/admin/menu/addMenu'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 

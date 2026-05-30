@@ -143,7 +143,7 @@ export default function EditFood() {
 
               <div className="flex gap-4 pt-4">
                 <Link href="/menu" className="flex-1 py-4 bg-white/5 text-center text-white font-bold rounded-xl hover:bg-white/10 transition-all">Cancel</Link>
-                <button type="submit" className="flex-[2] py-4 bg-[#7ae749] text-[#103900] font-bold rounded-xl hover:bg-[#8dfc5b] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(122,231,73,0.15)]">
+                <button type="submit" className="flex-2 py-4 bg-[#7ae749] text-[#103900] font-bold rounded-xl hover:bg-[#8dfc5b] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(122,231,73,0.15)]">
                   <LuSave className="text-lg" /> Update Dish
                 </button>
               </div>
