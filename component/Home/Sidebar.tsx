@@ -67,8 +67,7 @@ export default function Sidebar({
       )}
 
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#131314]/95 backdrop-blur-2xl border-r border-white/5 flex flex-col py-8 px-6 transform transition-transform duration-300 ${
-          isSidebarOpen
-            ? 'translate-x-0 mt-16 lg:mt-0'
+          isSidebarOpen ? 'translate-x-0 mt-16 lg:mt-0'
             : '-translate-x-full lg:translate-x-0'
         }`}
       >
