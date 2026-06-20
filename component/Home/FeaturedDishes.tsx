@@ -53,11 +53,8 @@ export default function FeaturedDishes() {
           {DISHES.map((dish) => (
             <div key={dish.id} className="min-w-[320px] md:min-w-100 glass-card p-6 snap-start group cursor-pointer">
               <div className="relative overflow-hidden aspect-4/5 mb-6 rounded-lg">
-                <img 
-                  alt={dish.name} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                  src={dish.img} 
-                />
+                <img alt={dish.name} src={dish.img} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
                 <div className="absolute top-4 right-4 bg-[#131314]/60 backdrop-blur-md px-3 py-1 rounded-full text-[#72df41] font-sans text-[12px] leading-4 tracking-[0.03em] font-medium">
                   {dish.tag}
                 </div>
@@ -73,7 +70,6 @@ export default function FeaturedDishes() {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
