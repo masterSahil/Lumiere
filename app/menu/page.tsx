@@ -15,10 +15,7 @@ export default function MenuPage() {
   return (
     <>
       <div className="font-sans text-4 leading-6 selection:bg-[#bcfb4b] selection:text-[#0a1f00] min-h-screen bg-[#121212]">
-        
-        {/* Top Navigation Bar */}
         <Navbar />
-
         <main className="px-5 md:px-20 max-w-360 mx-auto py-12">
           
           {/* Header Section */}
@@ -42,8 +39,7 @@ export default function MenuPage() {
 
               {["Signature", "Appetizers", "Main Course", "Desserts", "Drinks"].map(
                 (item) => (
-                  <button key={item}
-                    className="px-6 py-2 rounded-full text-sm text-gray-300 border border-white/20 hover:border-[#bcfb4b] hover:text-white transition-all duration-300">
+                  <button key={item} className="px-6 py-2 rounded-full text-sm text-gray-300 border border-white/20 hover:border-[#bcfb4b] hover:text-white transition-all duration-300">
                     {item}
                   </button>
                 )
