@@ -30,10 +30,7 @@ export default function Stats() {
       <div className="max-w-360 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-16">
           {stats.map((stat, idx) => (
-            <div 
-              key={idx} 
-              className="relative group p-8 md:p-10 rounded-3xl bg-white/2 border border-white/5 hover:bg-white/4 hover:border-[#7ae749]/20 transition-all duration-500 overflow-hidden text-center flex flex-col items-center backdrop-blur-sm"
-            >
+            <div key={idx} className="relative group p-8 md:p-10 rounded-3xl bg-white/2 border border-white/5 hover:bg-white/4 hover:border-[#7ae749]/20 transition-all duration-500 overflow-hidden text-center flex flex-col items-center backdrop-blur-sm" >
               {/* Background Watermark Icon */}
               <stat.icon className="absolute -bottom-8 -right-8 text-[120px] text-white/3 group-hover:text-[#7ae749]/80 group-hover:scale-110 transition-all duration-700 pointer-events-none rotate-12" />
 
