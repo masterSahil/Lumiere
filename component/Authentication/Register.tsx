@@ -133,11 +133,8 @@ export default function RegisterPage() {
                       <LuLock className="mx-4 text-[#c1cab0] text-5 shrink-0" />
                       <input 
                         className="w-full py-4 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
-                        name="password" 
-                        placeholder="Create a password" 
-                        type={inpPwd ? "password" : "text"} value={formData.password}
-                        onChange={handleChange}
-                      />
+                        name="password" placeholder="Create a password" onChange={handleChange}
+                        type={inpPwd ? "password" : "text"} value={formData.password} />
                       <button className="px-4 group" type="button" aria-label="Toggle password visibility">
                         <EYEIcon onClick={()=>setInpPwd(!inpPwd)} className="text-[#c1cab0] group-hover:text-[#9ee939] transition-colors text-5" />
                       </button>
