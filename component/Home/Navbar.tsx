@@ -73,15 +73,9 @@ export default function Navbar() {
             const isActive = pathname === link.href;
             
             return (
-              <Link 
-                key={link.name}
-                href={link.href} 
-                className={`font-sans text-[14px] leading-5 tracking-wider font-semibold transition-all duration-300 pb-1 border-b-2 ${
-                  isActive 
-                    ? "text-[#7ae749] border-[#7ae749]" 
-                    : "text-[#e5e2e3]/70 border-transparent hover:text-[#7ae749]"
-                }`}
-              >
+              <Link key={link.name} href={link.href} 
+                className={`font-sans text-[14px] leading-5 tracking-wider font-semibold transition-all duration-300 pb-1 border-b-2 
+                  ${ isActive ? "text-[#7ae749] border-[#7ae749]" : "text-[#e5e2e3]/70 border-transparent hover:text-[#7ae749]" }`} >
                 {link.name}
               </Link>
             );
