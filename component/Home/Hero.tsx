@@ -7,11 +7,8 @@ export default function HeroSection() {
             {/* Hero Section */}
             <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <Image
-                        alt="A high-end cinematic close-up of a gourmet dish"
-                        className="w-full h-full object-cover opacity-60 scale-105"
-                        src={HeroImg}
-                    />
+                    <Image src={HeroImg} alt="A high-end cinematic close-up of a gourmet dish"
+                        className="w-full h-full object-cover opacity-60 scale-105" />
                     <div className="absolute inset-0 bg-linear-to-t from-[#131314] via-transparent to-transparent"></div>
                     <div className="absolute inset-0 bg-linear-to-r from-[#131314]/80 via-transparent to-transparent"></div>
                 </div>
