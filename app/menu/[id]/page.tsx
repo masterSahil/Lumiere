@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function FoodDetail() {
-  const { id } = useParams();
+  const { id }: any = useParams();
   const router = useRouter();
   const [food, setFood] = useState<any>(null);
   const [loading, setLoading] = useState(true);
