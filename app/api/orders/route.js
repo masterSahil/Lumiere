@@ -17,10 +17,14 @@ export async function POST(request) {
   }
 }
 
-export async function GET() {
+export async function GET(request) {
   try {
     await connectDB();
-    const orders = await Order.find().sort({ createdAt: -1 });
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get('userId');
+    const query = userId ? { user: userId } : {};
+
+    const orders = await Order.find(query).sort({ createdAt: -1 });
     return NextResponse.json({ success: true, orders });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

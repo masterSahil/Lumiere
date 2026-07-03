@@ -1,5 +1,13 @@
 import { Schema, model, models } from "mongoose";
 
+const addressSchema = new Schema({
+  street: { type: String, required: true },
+  city: { type: String, default: "" },
+  state: { type: String, default: "" },
+  zip: { type: String, default: "" },
+  isDefault: { type: Boolean, default: false },
+});
+
 const UserSchema = new Schema(
   {
     username: { type: String, required: true, trim: true },
@@ -24,6 +32,8 @@ const UserSchema = new Schema(
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
     lastLogin: { type: Date },
+    addresses: [addressSchema],
+    wishlist: [{ type: Schema.Types.ObjectId, ref: "Food" }],
   },
   {
     timestamps: true,
