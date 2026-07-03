@@ -1,39 +1,41 @@
 import connectDB from "@/libs/config";
-import Users from "@/model/user";
-import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import User from "@/model/user";
+import { hashPassword } from "@/libs/auth";
+import { errorResponse, successResponse } from "@/libs/api-utils";
 
-export async function POST(req){
-    try {
-        await connectDB();
+export async function POST(req) {
+  try {
+    await connectDB();
+    const { username, email, password, role, restaurantId } = await req.json();
 
-        const {username, email, password} = await req.json();
-        const user = await Users.findOne({ email });
-
-        if (user) {
-            return NextResponse.json({
-                success: false,
-                message: "User already Exist with Same Email",
-            }, {status: 501});
-        }
-
-        const hash = await bcrypt.hash(password, 10);
-        const registeredUser = await Users.create({username, email, password: hash});
-        const registeredUserId = registeredUser._id;
-
-        const token = await jwt.sign({username, email, registeredUserId, role: registeredUser.role}, process.env.SECRET)
-
-        return NextResponse.json({
-            success: true,
-            registeredUser,
-            token
-        }, {status: 200});
-    } catch (error) {
-        console.log(error);
-        return NextResponse.json({
-            success: false,
-            message: error.message,
-        }, {status: 500});
+    if (!username || !email || !password) {
+      return errorResponse("Please provide all required fields", 400);
     }
+
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    if (existingUser) {
+      return errorResponse("User with this email already exists", 400);
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    // Default to 'customer' if role is not provided, or ensure valid roles are passed
+    const userRole = role && ["superadmin", "admin", "customer", "guest"].includes(role) ? role : "customer";
+
+    const newUser = await User.create({
+      username,
+      email: email.toLowerCase(),
+      password: hashedPassword,
+      role: userRole,
+      restaurantId: restaurantId || undefined,
+    });
+
+    const userObj = newUser.toObject();
+    delete userObj.password;
+
+    return successResponse(userObj, "User registered successfully", 201);
+  } catch (error) {
+    console.error("Register Error:", error);
+    return errorResponse("Failed to register user", 500, error.message);
+  }
 }
