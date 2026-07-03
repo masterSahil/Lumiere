@@ -26,7 +26,7 @@ export async function GET() {
   try {
     await connectDB();
 
-    const foods = await Food.find().sort({ createdAt: -1 });
+    const foods = await Food.find().populate("category").sort({ createdAt: -1 });
 
     return NextResponse.json({
         success: true,

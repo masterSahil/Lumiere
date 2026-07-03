@@ -5,7 +5,7 @@ const foodSchema = new Schema(
     name: { type: String, required: true, trim: true },
     primaryImage: { type: String, required: true },
     galleryImages: { type: [String], default: [] },
-    category: { type: String, required: true },
+    category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
     price: { type: Number, required: true, min: 0 },
     description: { type: String, default: "" },
     attributes: { type: [String], default: [] },
