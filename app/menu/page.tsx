@@ -1,261 +1,107 @@
-import Footer from '@/component/Home/Footer';
-import Navbar from '@/component/Home/Navbar';
-import dishImg1 from "@/assets/images/menu/dishes/dish1.png"
-import dishImg2 from "@/assets/images/menu/dishes/dish2.png"
-import dishImg3 from "@/assets/images/menu/dishes/dish3.png"
-import dishImg4 from "@/assets/images/menu/dishes/dish4.png"
-import dishImg5 from "@/assets/images/menu/dishes/dish5.png"
-import dishImg6 from "@/assets/images/menu/dishes/dish6.png"
-import special from "@/assets/images/menu/special/main.png"
-import Image from 'next/image';
-import { LuShoppingBag } from 'react-icons/lu';
-import { MinusCircle, PlusCircle } from 'lucide-react';
+'use client'
+import Head from 'next/head';
+import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const CardWrapper = ({ children, index }: { children: React.ReactNode, index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    className="bg-[var(--color-dark-surface)] rounded-2xl overflow-hidden border border-[var(--color-primary-900)] flex flex-col group hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:border-[var(--color-primary-500)] transition-all"
+  >
+    {children}
+  </motion.div>
+);
 
 export default function MenuPage() {
+  const [foods, setFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const res = await axios.get('/api/menu');
+        if (res.data.success) {
+          setFoods(res.data.foods);
+        }
+      } catch (error) {
+        console.error("Failed to fetch menu", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMenu();
+  }, []);
+
   return (
-    <>
-      <div className="font-sans text-4 leading-6 selection:bg-[#bcfb4b] selection:text-[#0a1f00] min-h-screen bg-[#121212]">
-        <Navbar />
-        <main className="px-5 md:px-20 max-w-360 mx-auto py-12">
-          
-          {/* Header Section */}
-          <div className="max-w-3xl mb-12">
-            <h4 className="text-[#bcfb4b] text-[12px] font-bold tracking-widest uppercase mb-4">Exquisite Flavors</h4>
-            <h1 className="font-serif text-[48px] md:text-[64px] leading-tight font-bold text-white mb-6">
-              Our Culinary Canvas
-            </h1>
-            <p className="text-gray-400 text-[18px] leading-relaxed max-w-2xl">
-              Where avant-garde technique meets heritage ingredients. Each dish is a brushstroke of passion, meticulously plated to transform your dining experience into a moment of pure, luminous artistry.
-            </p>
-          </div>
-
-          {/* Filters & Toggles */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
-            {/* Category Buttons */}
-            <div className="flex flex-wrap gap-3">
-              <button className="bg-[#bcfb4b] text-[#0a1f00] px-6 py-2 rounded-full text-sm font-semibold">
-                All
-              </button>
-
-              {["Signature", "Appetizers", "Main Course", "Desserts", "Drinks"].map(
-                (item) => (
-                  <button key={item} className="px-6 py-2 rounded-full text-sm text-gray-300 border border-white/20 hover:border-[#bcfb4b] hover:text-white transition-all duration-300">
-                    {item}
-                  </button>
-                )
-              )}
+    <div className="font-sans min-h-screen bg-[var(--color-dark-bg)] text-white">
+      {/* Top Navigation Bar */}
+      <nav className="w-full z-50 bg-[var(--color-dark-bg)] border-b border-[var(--color-primary-950)] py-4 sticky top-0">
+        <div className="flex justify-between items-center px-5 md:px-20 w-full max-w-7xl mx-auto">
+          <a href="/">
+            <div className="font-serif text-2xl font-bold text-[var(--color-primary-400)]">
+              Lumière Dining
             </div>
-
-            {/* Filters */}
-            <div className="flex items-center gap-6 md:border-l border-white/10 md:pl-6">
-
-              {/* VEG Toggle */}
-              <div className="flex items-center gap-3">
-                <label htmlFor="veg-toggle" className="relative inline-flex h-5 w-10 cursor-pointer">
-                  <input id="veg-toggle" type="checkbox" className="peer sr-only"/>
-
-                  <span className="absolute inset-0 rounded-full bg-[#1e1e1e] transition-colors duration-300 peer-checked:bg-[#bcfb4b]" />
-                  <span className="absolute left-0 top-0 h-5 w-5 rounded-full border-4 border-[#1e1e1e] bg-white transition-all duration-300 peer-checked:translate-x-5 peer-checked:border-[#bcfb4b]"/>
-                </label>
-
-                <span className="text-[12px] font-bold tracking-wider text-gray-400">VEG</span>
-              </div>
-
-              {/* GF Toggle */}
-              <div className="flex items-center gap-3">
-                <label htmlFor="gf-toggle" className="relative inline-flex h-5 w-10 cursor-pointer">
-                  <input id="gf-toggle" type="checkbox" className="peer sr-only"/>
-
-                  <span className="absolute inset-0 rounded-full bg-[#1e1e1e] transition-colors duration-300 peer-checked:bg-[#bcfb4b]" />
-                  <span className="absolute left-0 top-0 h-5 w-5 rounded-full border-4 border-[#1e1e1e] bg-white transition-all duration-300 peer-checked:translate-x-5 peer-checked:border-[#bcfb4b]" />
-                </label>
-
-                <span className="text-[12px] font-bold tracking-wider text-gray-400">Non Veg</span>
-              </div>
-            </div>
+          </a>
+          <div className="hidden lg:flex items-center gap-10">
+            <a className="text-[var(--color-primary-400)] border-b-2 border-[var(--color-primary-400)] pb-1 font-sans text-[14px] tracking-wide font-semibold" href="/menu">Menu</a>
+            <a className="text-gray-400 hover:text-white transition-colors duration-300 font-sans text-[14px] tracking-wide font-medium" href="/">Home</a>
           </div>
+        </div>
+      </nav>
 
-          {/* Menu Grid */}
+      <main className="px-5 md:px-20 max-w-7xl mx-auto py-12">
+        {/* Header Section */}
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          className="max-w-3xl mb-12"
+        >
+          <h4 className="text-[var(--color-primary-400)] text-[12px] font-bold tracking-widest uppercase mb-4">Exquisite Flavors</h4>
+          <h1 className="font-serif text-[48px] md:text-[64px] leading-tight font-bold text-white mb-6">
+            Our Culinary Canvas
+          </h1>
+          <p className="text-gray-400 text-[18px] leading-relaxed max-w-2xl">
+            Where avant-garde technique meets heritage ingredients.
+          </p>
+        </motion.div>
+
+        {/* Menu Grid */}
+        {loading ? (
+          <div className="flex justify-center py-20 text-[var(--color-primary-500)]">Loading Menu...</div>
+        ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+            {foods.map((food: any, idx) => (
+              <CardWrapper key={food._id} index={idx}>
+                <a href={`/menu/${food._id}`} className="block relative h-64 overflow-hidden">
+                  <img src={food.primaryImage || "/api/placeholder/400/300"} alt={food.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </a>
+                <div className="p-6 flex flex-col grow">
+                  <div className="flex justify-between items-start mb-2">
+                    <a href={`/menu/${food._id}`}>
+                      <h3 className="font-serif text-[22px] font-semibold text-white hover:text-[var(--color-primary-300)] transition-colors">{food.name}</h3>
+                    </a>
+                    <span className="text-[var(--color-primary-400)] font-bold text-[18px]">${food.price}</span>
+                  </div>
+                  <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow line-clamp-3">
+                    {food.description}
+                  </p>
+                  <button className="w-full bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[var(--color-primary-400)] transition-colors">
+                    Add to Cart
+                  </button>
+                </div>
+              </CardWrapper>
+            ))}
             
-            {/* Card 1 */}
-            <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
-              <div className="relative h-64 overflow-hidden">
-                <Image src={dishImg1} alt="Saffron Gold Tagliatelle" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute top-4 left-4 bg-[#0a1f00]/80 backdrop-blur-sm border border-[#bcfb4b]/30 text-[#bcfb4b] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  Signature Dish
-                </div>
-              </div>
-              <div className="p-6 flex flex-col grow">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-serif text-[22px] font-semibold text-white">Saffron Gold Tagliatelle</h3>
-                  <span className="text-[#bcfb4b] font-bold text-[18px]">$42</span>
-                </div>
-                <div className="flex items-center gap-1 mb-4">
-                  <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
-                  <span className="text-gray-400 text-[12px]">4.9 (124)</span>
-                </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
-                  Hand-rolled pasta infused with Iranian saffron, finished with a 24k gold leaf and truffle-infused emulsion.
-                </p>
-                <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <LuShoppingBag size={18} /> Add to Cart
-                </button>
-              </div>
-            </div>
-
-            {/* Card 2 (Active State) */}
-            <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
-              <div className="relative h-64 overflow-hidden">
-                <Image src={dishImg2} alt="A5 Wagyu Obsidian" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute top-4 left-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  Seasonal Special
-                </div>
-              </div>
-              <div className="p-6 flex flex-col grow">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-serif text-[22px] font-semibold text-white">A5 Wagyu Obsidian</h3>
-                  <span className="text-[#bcfb4b] font-bold text-[18px]">$128</span>
-                </div>
-                <div className="flex items-center gap-1 mb-4">
-                  <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
-                  <span className="text-gray-400 text-[12px]">5.0 (86)</span>
-                </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
-                  Charcoal-grilled Wagyu served with fermented garlic purée and a reduction of aged balsamic and forest berries.
-                </p>
-                {/* Quantity Selector State */}
-                <div className="w-full border border-[#bcfb4b] bg-[#121212] py-2 px-4 rounded-xl flex items-center justify-between">
-                  <button className="text-[#bcfb4b] hover:text-white transition-colors"><span className="material-symbols-outlined"><MinusCircle /> </span></button>
-                  <span className="text-[#bcfb4b] font-bold">1</span>
-                  <button className="text-[#bcfb4b] hover:text-white transition-colors"><span className="material-symbols-outlined"><PlusCircle /> </span></button>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
-              <div className="relative h-64 overflow-hidden">
-                <Image src={dishImg3} alt="Zen Matcha Clouds" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              </div>
-              <div className="p-6 flex flex-col grow">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-serif text-[22px] font-semibold text-white">Zen Matcha Clouds</h3>
-                  <span className="text-[#bcfb4b] font-bold text-[18px]">$18</span>
-                </div>
-                <div className="flex items-center gap-1 mb-4">
-                  <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
-                  <span className="text-gray-400 text-[12px]">4.8 (210)</span>
-                </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
-                  Deconstructed ceremonial matcha tiramisu with white chocolate pearls and yuzu-infused mascarpone.
-                </p>
-                <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <LuShoppingBag size={18} /> Add to Cart
-                </button>
-              </div>
-            </div>
-
-            {/* Card 4 */}
-            <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
-              <div className="relative h-64 overflow-hidden">
-                <Image src={dishImg4} alt="Lumière Elixir" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              </div>
-              <div className="p-6 flex flex-col grow">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-serif text-[22px] font-semibold text-white">Lumière Elixir</h3>
-                  <span className="text-[#bcfb4b] font-bold text-[18px]">$22</span>
-                </div>
-                <div className="flex items-center gap-1 mb-4">
-                  <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
-                  <span className="text-gray-400 text-[12px]">4.9 (340)</span>
-                </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
-                  Gin infused with cucumber and basil, clarified through milk, and finished with a citrus-mint vapor cloud.
-                </p>
-                <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <LuShoppingBag size={18} /> Add to Cart
-                </button>
-              </div>
-            </div>
-
-            {/* Card 5 */}
-            <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
-              <div className="relative h-64 overflow-hidden">
-                <Image src={dishImg5} alt="Heirloom Prism Salad" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              </div>
-              <div className="p-6 flex flex-col grow">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-serif text-[22px] font-semibold text-white">Heirloom Prism Salad</h3>
-                  <span className="text-[#bcfb4b] font-bold text-[18px]">$28</span>
-                </div>
-                <div className="flex items-center gap-1 mb-4">
-                  <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
-                  <span className="text-gray-400 text-[12px]">4.7 (94)</span>
-                </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
-                  Shaved heritage roots, compressed melon, and wildflower honey-lime drizzle over organic wild greens.
-                </p>
-                <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <LuShoppingBag size={18} /> Add to Cart
-                </button>
-              </div>
-            </div>
-
-            {/* Card 6 */}
-            <div className="bg-[#161616] rounded-2xl overflow-hidden border border-white/5 flex flex-col group">
-              <div className="relative h-64 overflow-hidden">
-                <Image src={dishImg6} alt="Veridian Atlantic Salmon" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              </div>
-              <div className="p-6 flex flex-col grow">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-serif text-[22px] font-semibold text-white">Veridian Atlantic Salmon</h3>
-                  <span className="text-[#bcfb4b] font-bold text-[18px]">$48</span>
-                </div>
-                <div className="flex items-center gap-1 mb-4">
-                  <span className="material-symbols-outlined text-[#bcfb4b] text-[14px] fill-current">star</span>
-                  <span className="text-gray-400 text-[12px]">4.9 (182)</span>
-                </div>
-                <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow">
-                  Sustainably sourced salmon with a pea and mint velouté, accompanied by charred seasonal greens.
-                </p>
-                <button className="w-full bg-[#bcfb4b] text-[#0a1f00] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#a2dd3b] transition-colors">
-                  <LuShoppingBag size={18} /> Add to Cart
-                </button>
-              </div>
-            </div>
-
+            {foods.length === 0 && !loading && (
+              <div className="col-span-full text-center text-gray-400 py-20 bg-[var(--color-dark-surface)] rounded-2xl border border-[var(--color-primary-900)]">No menu items found. Please add foods from the admin panel.</div>
+            )}
           </div>
-
-          {/* Dish Spotlight */}
-          <div className="rounded-3xl overflow-hidden flex flex-col lg:flex-row mb-12">
-            <div className="lg:w-1/2 relative h-80 lg:h-auto">
-              <Image src={special} alt="Dish Spotlight" className="absolute inset-0 w-full h-full object-cover" />
-            </div>
-            <div className="lg:w-1/2 p-10 md:p-16 flex flex-col justify-center">
-              <h4 className="text-[#bcfb4b] text-[12px] font-bold tracking-widest uppercase mb-4">Dish Spotlight</h4>
-              <h2 className="font-serif text-[36px] font-bold text-white mb-6">Saffron Gold Tagliatelle</h2>
-              <p className="text-gray-400 text-4 leading-relaxed mb-8">
-                Our master chef's magnum opus. This dish explores the delicate balance between the earthiness of Iranian saffron and the ethereal lightness of hand-pulled silk pasta. Every bite is an evolution of flavor.
-              </p>
-              <div className="flex flex-wrap gap-3 mb-10">
-                <span className="bg-[#1e1e1e] border border-white/10 text-gray-300 text-[10px] font-bold px-4 py-2 rounded-full uppercase tracking-wider">Gluten-Free Optional</span>
-                <span className="bg-[#1e1e1e] border border-white/10 text-gray-300 text-[10px] font-bold px-4 py-2 rounded-full uppercase tracking-wider">Chef's Favorite</span>
-              </div>
-              <div className="flex items-center gap-8 mt-auto">
-                <span className="font-serif text-10 text-[#bcfb4b] font-bold">$42.00</span>
-                <button className="bg-[#bcfb4b] text-[#0a1f00] px-8 py-4 rounded-xl font-bold hover:bg-[#a2dd3b] transition-colors grow text-center">
-                  Reserve Selection
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </main>
-
-        {/* Footer */}
-        <Footer />
-      </div>
-    </>
+        )}
+      </main>
+    </div>
   );
 }
