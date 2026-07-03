@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useCartStore } from '@/store/cartStore';
 
 const CardWrapper = ({ children, index }: { children: React.ReactNode, index: number }) => (
   <motion.div
@@ -18,6 +19,7 @@ const CardWrapper = ({ children, index }: { children: React.ReactNode, index: nu
 export default function MenuPage() {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
+  const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -89,7 +91,9 @@ export default function MenuPage() {
                   <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow line-clamp-3">
                     {food.description}
                   </p>
-                  <button className="w-full bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[var(--color-primary-400)] transition-colors">
+                  <button 
+                    onClick={() => addItem({ id: food._id, name: food.name, price: food.price, image: food.primaryImage, quantity: 1 })}
+                    className="w-full bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[var(--color-primary-400)] transition-colors">
                     Add to Cart
                   </button>
                 </div>

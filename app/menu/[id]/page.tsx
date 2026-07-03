@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
+import { useCartStore } from '@/store/cartStore';
 
 export default function FoodDetail() {
   const { id }: any = useParams();
   const router = useRouter();
   const [food, setFood] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
     if (!id) return;
@@ -78,9 +80,10 @@ export default function FoodDetail() {
             <div className="flex items-center gap-8 mt-auto border-t border-primary-950 pt-8">
               <span className="font-serif text-4xl text-primary-400 font-bold">${food.price}</span>
               <motion.button 
+                onClick={() => addItem({ id: food._id, name: food.name, price: food.price, image: food.primaryImage, quantity: 1 })}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-primary-500 text-dark-bg px-8 py-4 rounded-xl font-bold hover:bg-primary-400 transition-colors grow text-center shadow-[0_0_20px_rgba(34,197,94,0.4)]"
+                className="bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] px-8 py-4 rounded-xl font-bold hover:bg-[var(--color-primary-400)] transition-colors grow text-center shadow-[0_0_20px_rgba(34,197,94,0.4)]"
               >
                 Add to Cart
               </motion.button>
