@@ -25,7 +25,7 @@ export async function POST(request) {
     } else {
       return NextResponse.json({ success: false, message: "Invalid signature" }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Payment Verification Error:", error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

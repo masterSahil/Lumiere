@@ -42,7 +42,7 @@ export async function POST(request) {
       amount: rzpOrder.amount, 
       dbOrderId: dbOrder._id 
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Razorpay Order Error:", error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

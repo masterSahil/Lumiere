@@ -11,7 +11,7 @@ export async function POST(request) {
     const order = await Order.create(data);
     
     return NextResponse.json({ success: true, order });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Order Creation Error:", error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
@@ -22,7 +22,7 @@ export async function GET() {
     await connectDB();
     const orders = await Order.find().sort({ createdAt: -1 });
     return NextResponse.json({ success: true, orders });
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

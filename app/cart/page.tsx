@@ -23,7 +23,7 @@ export default function ShoppingCartPage() {
               <span className="material-symbols-outlined hover:text-[var(--color-primary-400)] transition-colors">shopping_bag</span>
               {items.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
-                  {items.reduce((total, item) => total + item.quantity, 0)}
+                  {items.reduce((total: number, item: any) => total + item.quantity, 0)}
                 </span>
               )}
             </div>
@@ -51,7 +51,7 @@ export default function ShoppingCartPage() {
               </div>
             ) : (
               <div className="space-y-6">
-                {items.map((item) => (
+                {items.map((item: any) => (
                   <motion.div 
                     layout
                     initial={{ opacity: 0, y: 20 }}

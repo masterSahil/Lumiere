@@ -19,7 +19,7 @@ const CardWrapper = ({ children, index }: { children: React.ReactNode, index: nu
 export default function MenuPage() {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
-  const addItem = useCartStore((state) => state.addItem);
+  const addItem = useCartStore((state: any) => state.addItem);
 
   useEffect(() => {
     const fetchMenu = async () => {

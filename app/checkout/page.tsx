@@ -264,10 +264,10 @@ export default function CheckoutPage() {
               
               {/* Item List */}
               <div className="space-y-6 mb-8 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
-                {items.map((item: { id: Key | null | undefined; name: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; image: any; quantity: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; price: number; }) => (
+                {items.map((item: any) => (
                   <div key={item.id} className="flex items-center space-x-4">
                     <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-dark-bg">
-                      <img alt={item.name} className="h-full w-full object-cover" src={item.image || "/api/placeholder/400/300"} />
+                      <img alt={item.name || "Menu item"} className="h-full w-full object-cover" src={item.image || "/api/placeholder/400/300"} />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-medium text-white line-clamp-1">{item.name}</h4>
