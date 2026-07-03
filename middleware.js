@@ -1,7 +1,4 @@
 import { NextResponse } from "next/server";
-import { jwtVerify } from "jose";
-
-const SECRET = new TextEncoder().encode(process.env.SECRET || "fallback_secret");
 
 // Define protected paths and the roles that are allowed to access them
 const rolePaths = {
@@ -24,29 +21,37 @@ export async function middleware(request) {
     return NextResponse.next();
   }
 
-  // Find if the path is protected
   const protectedPath = Object.keys(rolePaths).find(path => pathname.startsWith(path));
 
   if (protectedPath) {
     const token = request.cookies.get("token")?.value;
 
     if (!token) {
-      // Redirect to login if trying to access a protected route without a token
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
     try {
-      // Verify token using jose for Edge runtime compatibility
-      const { payload } = await jwtVerify(token, SECRET);
-      const userRole = payload.role;
+      // Use our own API route (which runs on Node.js and uses jsonwebtoken)
+      // to verify the token instead of jose on the Edge runtime.
+      const verifyUrl = new URL("/api/auth/verify", request.url);
+      const verifyRes = await fetch(verifyUrl, {
+        headers: {
+          Cookie: `token=${token}`,
+        },
+      });
+
+      if (!verifyRes.ok) {
+        throw new Error("Invalid token");
+      }
+
+      const resData = await verifyRes.json();
+      const userRole = resData.data?.role;
       const allowedRoles = rolePaths[protectedPath];
 
       if (!allowedRoles.includes(userRole)) {
-        // Redirect unauthorized users to home or a not-authorized page
         return NextResponse.redirect(new URL("/", request.url));
       }
     } catch (error) {
-      // If token is invalid or expired, clear it and redirect to login
       const response = NextResponse.redirect(new URL("/login", request.url));
       response.cookies.delete("token");
       return response;
@@ -57,7 +62,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
