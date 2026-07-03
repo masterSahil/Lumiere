@@ -27,15 +27,15 @@ export default function FoodDetail() {
     fetchFood();
   }, [id]);
 
-  if (loading) return <div className="min-h-screen bg-[var(--color-dark-bg)] flex justify-center items-center text-[var(--color-primary-500)]">Loading...</div>;
-  if (!food) return <div className="min-h-screen bg-[var(--color-dark-bg)] flex flex-col justify-center items-center text-white">Food not found <button onClick={() => router.push('/menu')} className="mt-4 text-[var(--color-primary-400)]">Back to menu</button></div>;
+  if (loading) return <div className="min-h-screen bg-dark-bg flex justify-center items-center text-primary-500">Loading...</div>;
+  if (!food) return <div className="min-h-screen bg-dark-bg flex flex-col justify-center items-center text-white">Food not found <button onClick={() => router.push('/menu')} className="mt-4 text-primary-400">Back to menu</button></div>;
 
   return (
-    <div className="min-h-screen bg-[var(--color-dark-bg)] text-white">
+    <div className="min-h-screen bg-dark-bg text-white">
       {/* Top Nav */}
-      <nav className="w-full z-50 bg-[var(--color-dark-bg)] border-b border-[var(--color-primary-950)] py-4">
+      <nav className="w-full z-50 bg-dark-bg border-b border-primary-950 py-4">
         <div className="flex justify-between items-center px-5 md:px-20 w-full max-w-7xl mx-auto">
-          <div className="font-serif text-2xl font-bold text-[var(--color-primary-400)] cursor-pointer" onClick={() => router.push('/')}>
+          <div className="font-serif text-2xl font-bold text-primary-400 cursor-pointer" onClick={() => router.push('/')}>
             Lumière Dining
           </div>
           <button onClick={() => router.push('/menu')} className="text-gray-400 hover:text-white transition-colors duration-300">← Back to Menu</button>
@@ -75,7 +75,7 @@ export default function FoodDetail() {
               ))}
             </div>
 
-            <div className="flex items-center gap-8 mt-auto border-t border-[var(--color-primary-950)] pt-8">
+            <div className="flex items-center gap-8 mt-auto border-t border-primary-950 pt-8">
               <span className="font-serif text-4xl text-[var(--color-primary-400)] font-bold">${food.price}</span>
               <motion.button 
                 whileHover={{ scale: 1.05 }}
