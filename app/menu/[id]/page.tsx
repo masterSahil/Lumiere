@@ -10,7 +10,7 @@ export default function FoodDetail() {
   const router = useRouter();
   const [food, setFood] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const addItem = useCartStore((state) => state.addItem);
+  const addItem = useCartStore((state: { addItem: any; }) => state.addItem);
 
   useEffect(() => {
     if (!id) return;
@@ -83,7 +83,7 @@ export default function FoodDetail() {
                 onClick={() => addItem({ id: food._id, name: food.name, price: food.price, image: food.primaryImage, quantity: 1 })}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] px-8 py-4 rounded-xl font-bold hover:bg-[var(--color-primary-400)] transition-colors grow text-center shadow-[0_0_20px_rgba(34,197,94,0.4)]"
+                className="bg-primary-500 text-dark-bg px-8 py-4 rounded-xl font-bold hover:bg-primary-400 transition-colors grow text-center shadow-[0_0_20px_rgba(34,197,94,0.4)]"
               >
                 Add to Cart
               </motion.button>
