@@ -18,9 +18,10 @@ const UserSchema = new Schema(
       enum: ["superadmin", "admin", "customer", "guest"],
       default: "customer",
     },
-    restaurantId: {
-      type: String, // Changed to String to match DB values like "01"
-      default: null,
+    authProvider: {
+      type: String,
+      enum: ["local", "google", "apple"],
+      default: "local",
     },
     phone: { type: String, default: "" },
     avatar: { type: String, default: "" },

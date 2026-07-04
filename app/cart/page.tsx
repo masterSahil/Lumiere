@@ -9,20 +9,20 @@ export default function ShoppingCartPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[var(--color-dark-bg)] text-white font-sans">
+    <div className="min-h-screen bg-dark-bg text-white font-sans">
       {/* Navigation */}
-      <nav className="border-b border-[var(--color-primary-950)] bg-[var(--color-dark-bg)] py-6">
+      <nav className="border-b border-primary-950 bg-dark-bg py-6">
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="text-2xl font-bold text-[var(--color-primary-400)] tracking-widest uppercase font-serif cursor-pointer" onClick={() => router.push('/')}>Lumière</div>
+          <div className="text-2xl font-bold text-primary-400 tracking-widest uppercase font-serif cursor-pointer" onClick={() => router.push('/')}>Lumière</div>
           <div className="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest">
-            <a className="hover:text-[var(--color-primary-400)] transition-colors" href="/menu">Menu</a>
-            <a className="hover:text-[var(--color-primary-400)] transition-colors" href="#">Reservations</a>
+            <a className="hover:text-primary-400 transition-colors" href="/menu">Menu</a>
+            <a className="hover:text-primary-400 transition-colors" href="#">Reservations</a>
           </div>
           <div className="flex items-center gap-4">
             <div className="relative cursor-pointer">
-              <span className="material-symbols-outlined hover:text-[var(--color-primary-400)] transition-colors">shopping_bag</span>
+              <span className="material-symbols-outlined hover:text-primary-400 transition-colors">shopping_bag</span>
               {items.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-2 -right-2 bg-primary-500 text-dark-bg text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {items.reduce((total: number, item: any) => total + item.quantity, 0)}
                 </span>
               )}
@@ -39,13 +39,13 @@ export default function ShoppingCartPage() {
           {/* Your Selection List */}
           <div className="lg:col-span-2 space-y-8">
             <div className="border-b border-white/10 pb-4">
-              <h2 className="text-2xl text-[var(--color-primary-400)] font-serif">Your Selection</h2>
+              <h2 className="text-2xl text-primary-400 font-serif">Your Selection</h2>
             </div>
             
             {items.length === 0 ? (
               <div className="py-12 text-center text-gray-400">
                 <p className="mb-4">Your cart is currently empty.</p>
-                <button onClick={() => router.push('/menu')} className="text-[var(--color-primary-400)] border border-[var(--color-primary-400)] px-6 py-2 rounded-full hover:bg-[var(--color-primary-400)] hover:text-[var(--color-dark-bg)] transition-colors">
+                <button onClick={() => router.push('/menu')} className="text-primary-400 border border-primary-400 px-6 py-2 rounded-full hover:bg-primary-400 hover:text-dark-bg transition-colors">
                   Explore Menu
                 </button>
               </div>
@@ -58,9 +58,9 @@ export default function ShoppingCartPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     key={item.id} 
-                    className="flex flex-col sm:flex-row items-start gap-6 p-4 rounded-xl bg-[var(--color-dark-surface)] border border-white/5 hover:border-[var(--color-primary-900)] transition-colors"
+                    className="flex flex-col sm:flex-row items-start gap-6 p-4 rounded-xl bg-dark-surface border border-white/5 hover:border-primary-900 transition-colors"
                   >
-                    <div className="w-full sm:w-32 h-48 sm:h-32 bg-[var(--color-dark-bg)] rounded-lg overflow-hidden flex-shrink-0">
+                    <div className="w-full sm:w-32 h-48 sm:h-32 bg-dark-bg rounded-lg overflow-hidden shrink-0">
                       <img 
                         alt={item.name} 
                         className="w-full h-full object-cover" 
@@ -72,15 +72,15 @@ export default function ShoppingCartPage() {
                         <div>
                           <h3 className="text-xl mb-1 font-serif text-white">{item.name}</h3>
                         </div>
-                        <p className="text-xl text-[var(--color-primary-400)] font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="text-xl text-primary-400 font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
                       </div>
                       <div className="flex items-center justify-between mt-auto">
                         <div className="flex items-center gap-4 border border-white/20 rounded-full px-3 py-1">
-                          <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="text-gray-400 hover:text-[var(--color-primary-400)] transition-colors flex items-center">
+                          <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="text-gray-400 hover:text-primary-400 transition-colors flex items-center">
                             -
                           </button>
                           <span className="text-sm font-semibold">{item.quantity}</span>
-                          <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="text-gray-400 hover:text-[var(--color-primary-400)] transition-colors flex items-center">
+                          <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="text-gray-400 hover:text-primary-400 transition-colors flex items-center">
                             +
                           </button>
                         </div>
@@ -97,8 +97,8 @@ export default function ShoppingCartPage() {
 
           {/* Order Summary Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-[var(--color-dark-surface)] p-8 rounded-2xl sticky top-8 border border-white/10">
-              <h2 className="text-2xl text-[var(--color-primary-400)] font-serif mb-8 border-b border-white/10 pb-4">Order Summary</h2>
+            <div className="bg-dark-surface p-8 rounded-2xl sticky top-8 border border-white/10">
+              <h2 className="text-2xl text-primary-400 font-serif mb-8 border-b border-white/10 pb-4">Order Summary</h2>
               
               <div className="space-y-4 mb-8">
                 <div className="flex justify-between text-gray-300">
@@ -106,7 +106,7 @@ export default function ShoppingCartPage() {
                   <span>${getSubtotal().toFixed(2)}</span>
                 </div>
                 {useCartStore.getState().discount > 0 && (
-                  <div className="flex justify-between text-[var(--color-primary-400)]">
+                  <div className="flex justify-between text-primary-400">
                     <span>Discount ({useCartStore.getState().couponCode})</span>
                     <span>-${useCartStore.getState().getDiscountAmount().toFixed(2)}</span>
                   </div>
@@ -121,7 +121,7 @@ export default function ShoppingCartPage() {
                 </div>
                 <div className="pt-4 border-t border-white/10 flex justify-between items-baseline">
                   <span className="text-xl">Total</span>
-                  <span className="text-3xl text-[var(--color-primary-400)] font-bold tracking-tight">${getTotal().toFixed(2)}</span>
+                  <span className="text-3xl text-primary-400 font-bold tracking-tight">${getTotal().toFixed(2)}</span>
                 </div>
               </div>
               
@@ -133,7 +133,7 @@ export default function ShoppingCartPage() {
                     type="text" 
                     id="couponInput"
                     placeholder="Enter code" 
-                    className="w-full bg-[var(--color-dark-bg)] border border-white/10 rounded-lg p-3 text-white focus:border-[var(--color-primary-500)] outline-none uppercase" 
+                    className="w-full bg-dark-bg border border-white/10 rounded-lg p-3 text-white focus:border-primary-500 outline-none uppercase" 
                   />
                   <button 
                     onClick={async () => {
@@ -175,7 +175,7 @@ export default function ShoppingCartPage() {
                 <button 
                   onClick={() => router.push('/checkout')}
                   disabled={items.length === 0}
-                  className="w-full bg-[var(--color-primary-500)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--color-primary-400)] text-[var(--color-dark-bg)] font-bold py-4 rounded-lg uppercase tracking-widest transition-all">
+                  className="w-full bg-primary-500 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary-400 text-dark-bg font-bold py-4 rounded-lg uppercase tracking-widest transition-all">
                   Proceed to Checkout
                 </button>
               </div>

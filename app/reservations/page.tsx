@@ -92,7 +92,7 @@ export default function ReservationsPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="bg-dark-surface p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-500 to-transparent opacity-50"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-primary-500 to-transparent opacity-50"></div>
             
             <h3 className="font-serif text-2xl mb-8">Booking Details</h3>
             
@@ -115,11 +115,11 @@ export default function ReservationsPage() {
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold">Date</label>
-                <input required type="date" name="date" value={formData.date} onChange={handleChange} className="w-full bg-dark-bg border border-white/10 rounded-xl p-4 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all [color-scheme:dark]" />
+                <input required type="date" name="date" value={formData.date} onChange={handleChange} className="w-full bg-dark-bg border border-white/10 rounded-xl p-4 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all scheme-dark" />
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold">Time</label>
-                <input required type="time" name="time" value={formData.time} onChange={handleChange} className="w-full bg-dark-bg border border-white/10 rounded-xl p-4 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all [color-scheme:dark]" />
+                <input required type="time" name="time" value={formData.time} onChange={handleChange} className="w-full bg-dark-bg border border-white/10 rounded-xl p-4 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all scheme-dark" />
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold">Special Requests (Optional)</label>
