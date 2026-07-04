@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/libs/config";
-import Food from "@/model/food"
+import Food from "@/model/food";
+import { getTokenFromCookie, verifyToken } from "@/libs/auth";
 
 export async function POST(request) {
   try {
+    const token = await getTokenFromCookie();
+    const decoded = verifyToken(token);
+    
+    if (!decoded || !['admin', 'superadmin'].includes(decoded.role)) {
+      return NextResponse.json({ success: false, message: "Unauthorized access" }, { status: 401 });
+    }
+
     await connectDB();
 
     const body = await request.json();

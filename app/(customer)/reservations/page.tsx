@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import axios from 'axios';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ReservationsPage() {
   const router = useRouter();
@@ -42,19 +43,29 @@ export default function ReservationsPage() {
   if (success) {
     return (
       <div className="min-h-screen bg-dark-bg flex items-center justify-center p-6 text-center">
-        <div className="bg-dark-surface p-12 rounded-3xl border border-white/10 max-w-md w-full">
-          <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="bg-dark-surface p-12 rounded-3xl border border-white/10 max-w-md w-full shadow-2xl shadow-primary-500/10"
+        >
+          <motion.div 
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
             <span className="material-symbols-outlined text-4xl">check_circle</span>
-          </div>
+          </motion.div>
           <h2 className="font-serif text-3xl text-white mb-4">Table Requested!</h2>
-          <p className="text-gray-400 mb-8">We have received your reservation request for {formData.date} at {formData.time}. Our maitre d' will confirm shortly.</p>
+          <p className="text-gray-400 mb-8">We have received your reservation request for <strong className="text-white">{formData.date}</strong> at <strong className="text-white">{formData.time}</strong>. Our maitre d' will confirm shortly.</p>
           <button 
             onClick={() => router.push('/')}
-            className="w-full bg-primary-500 text-dark-bg font-bold py-4 rounded-xl uppercase tracking-widest hover:brightness-110"
+            className="w-full bg-primary-500 text-dark-bg font-bold py-4 rounded-xl uppercase tracking-widest hover:brightness-110 transition-all"
           >
             Return Home
           </button>
-        </div>
+        </motion.div>
       </div>
     )
   }
@@ -73,7 +84,11 @@ export default function ReservationsPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 
         <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
-          <div>
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary-500/30 text-primary-400 text-xs font-bold uppercase tracking-widest mb-6 bg-primary-500/10">
               <span className="material-symbols-outlined text-sm">restaurant</span>
               Reservations
@@ -89,9 +104,15 @@ export default function ReservationsPage() {
               </div>
               <p className="text-sm text-gray-500">Over <strong className="text-white">10,000+</strong> 5-star evenings.</p>
             </div>
-          </div>
+          </motion.div>
 
-          <form onSubmit={handleSubmit} className="bg-dark-surface p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
+          <motion.form 
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            onSubmit={handleSubmit} 
+            className="bg-dark-surface p-8 md:p-10 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden"
+          >
             <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-primary-500 to-transparent opacity-50"></div>
             
             <h3 className="font-serif text-2xl mb-8">Booking Details</h3>
