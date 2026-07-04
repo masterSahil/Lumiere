@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/libs/mongodb';
+import connectDB from '@/libs/config';
 import Coupon from '@/model/coupon';
 
 export async function POST(request) {
