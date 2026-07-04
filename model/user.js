@@ -19,12 +19,8 @@ const UserSchema = new Schema(
       default: "customer",
     },
     restaurantId: {
-      type: Schema.Types.ObjectId,
-      ref: "Restaurant",
-      required: function () {
-        // SuperAdmins don't belong to a specific restaurant
-        return this.role !== "superadmin" && this.role !== "guest";
-      },
+      type: String, // Changed to String to match DB values like "01"
+      default: null,
     },
     phone: { type: String, default: "" },
     avatar: { type: String, default: "" },
@@ -40,5 +36,9 @@ const UserSchema = new Schema(
   }
 );
 
-const Users = models.User || model("User", UserSchema);
+if (models.User) {
+  delete models.User;
+}
+
+const Users = model("User", UserSchema);
 export default Users;
