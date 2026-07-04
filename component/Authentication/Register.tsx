@@ -27,7 +27,7 @@ export default function RegisterPage() {
     try {
       e.preventDefault();
       const res = await axios.post("/api/auth/register", formData);
-      sessionStorage.setItem("token", res.data.token);
+      sessionStorage.setItem("token", res.data.data.token);
       setFormData({
         username: '', email: '', password: ''
       })

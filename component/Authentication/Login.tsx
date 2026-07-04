@@ -25,7 +25,7 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       const res = await axios.post("/api/auth/login", formData)
-      sessionStorage.setItem("token", res.data.token);
+      sessionStorage.setItem("token", res.data.data.token);
 
       router.push("/");
     } catch (error) {
