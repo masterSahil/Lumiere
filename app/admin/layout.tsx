@@ -1,17 +1,27 @@
 'use client'
 import { useRouter, usePathname } from 'next/navigation';
+import { 
+  LayoutDashboard, 
+  ClipboardList, 
+  CalendarCheck, 
+  Utensils, 
+  Users, 
+  Settings, 
+  Shield, 
+  Bell 
+} from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
   const navItems = [
-    { name: 'Dashboard', icon: 'dashboard', path: '/admin/dashboard' },
-    { name: 'Orders', icon: 'list_alt', path: '/admin/orders' },
-    { name: 'Reservations', icon: 'book_online', path: '/admin/reservations' },
-    { name: 'Menu', icon: 'restaurant_menu', path: '/admin/menu' },
-    { name: 'Customers', icon: 'group', path: '/admin/customers' },
-    { name: 'Settings', icon: 'settings', path: '/admin/settings' },
+    { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
+    { name: 'Orders', icon: ClipboardList, path: '/admin/orders' },
+    { name: 'Reservations', icon: CalendarCheck, path: '/admin/reservations' },
+    { name: 'Menu', icon: Utensils, path: '/admin/menu' },
+    { name: 'Customers', icon: Users, path: '/admin/customers' },
+    { name: 'Settings', icon: Settings, path: '/admin/settings' },
   ];
 
   return (
@@ -36,7 +46,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   : "text-gray-400 hover:bg-white/5 hover:text-white"
                 }`}
               >
-                <span className="material-symbols-outlined">{item.icon}</span>
+                <item.icon className="w-5 h-5 shrink-0" />
                 <span className="font-sans text-[14px] font-medium tracking-wider">{item.name}</span>
               </button>
             )
@@ -46,7 +56,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="p-4 border-t border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center">
-              <span className="material-symbols-outlined text-primary-400">admin_panel_settings</span>
+              <Shield className="w-5 h-5 text-primary-400" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-white">Manager</h3>
@@ -63,7 +73,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {navItems.find(i => i.path === pathname)?.name || 'Admin Panel'}
           </h2>
           <div className="flex gap-4">
-            <button className="text-gray-400 hover:text-white"><span className="material-symbols-outlined">notifications</span></button>
+            <button className="text-gray-400 hover:text-white"><Bell className="w-5 h-5" /></button>
           </div>
         </header>
         <div className="flex-1 overflow-y-auto p-8">

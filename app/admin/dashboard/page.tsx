@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ReceiptText, CircleDollarSign, CalendarCheck } from 'lucide-react';
 
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState({
@@ -39,7 +40,7 @@ export default function AdminDashboardPage() {
         <div className="bg-dark-surface p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
           <div className="flex justify-between items-start mb-4">
             <h3 className="text-gray-400 font-medium">Total Orders</h3>
-            <span className="material-symbols-outlined text-primary-400 bg-primary-500/10 p-2 rounded-lg">receipt_long</span>
+            <ReceiptText className="w-10 h-10 text-primary-400 bg-primary-500/10 p-2 rounded-lg" />
           </div>
           <p className="text-4xl font-serif text-white">{stats.totalOrders}</p>
         </div>
@@ -47,7 +48,7 @@ export default function AdminDashboardPage() {
         <div className="bg-dark-surface p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
           <div className="flex justify-between items-start mb-4">
             <h3 className="text-gray-400 font-medium">Total Revenue</h3>
-            <span className="material-symbols-outlined text-green-400 bg-green-500/10 p-2 rounded-lg">payments</span>
+            <CircleDollarSign className="w-10 h-10 text-green-400 bg-green-500/10 p-2 rounded-lg" />
           </div>
           <p className="text-4xl font-serif text-white">${stats.totalRevenue.toFixed(2)}</p>
         </div>
@@ -55,7 +56,7 @@ export default function AdminDashboardPage() {
         <div className="bg-dark-surface p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
           <div className="flex justify-between items-start mb-4">
             <h3 className="text-gray-400 font-medium">Pending Reservations</h3>
-            <span className="material-symbols-outlined text-yellow-400 bg-yellow-500/10 p-2 rounded-lg">book_online</span>
+            <CalendarCheck className="w-10 h-10 text-yellow-400 bg-yellow-500/10 p-2 rounded-lg" />
           </div>
           <p className="text-4xl font-serif text-white">{stats.pendingReservations}</p>
         </div>
