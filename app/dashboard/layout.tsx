@@ -8,6 +8,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const navItems = [
     { name: 'Orders', icon: 'receipt_long', path: '/dashboard/orders' },
+    { name: 'Reservations', icon: 'restaurant', path: '/dashboard/reservations' },
     { name: 'Profile', icon: 'person', path: '/dashboard/profile' },
     { name: 'Addresses', icon: 'location_on', path: '/dashboard/addresses' },
     { name: 'Payment Methods', icon: 'payments', path: '/dashboard/payments' },
