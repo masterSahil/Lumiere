@@ -40,7 +40,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="bg-[var(--color-dark-bg)] text-white overflow-x-hidden min-h-screen dark">
+      <div className="bg-dark-bg text-white overflow-x-hidden min-h-screen dark">
         
         {/* Atmospheric Background Elements */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -56,12 +56,12 @@ export default function LoginPage() {
             <div className="absolute inset-0 z-0">
               <Image src={dish} alt='Chef meticulously plating a gourmet dish in a dark, moody kitchen'
                       className="w-full h-full object-cover opacity-60 scale-105" />
-              <div className="absolute inset-0 bg-linear-to-r from-[var(--color-dark-bg)] via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-dark-bg via-transparent to-transparent"></div>
             </div>
             
             <div className="relative z-10 w-full max-w-2xl">
               <h2 className="text-[64px] leading-[1.1] tracking-[-0.02em] font-bold text-white mb-6">
-                Experience the <span className="text-[var(--color-primary-400)] font-serif">Lumière</span> standard.
+                Experience the <span className="text-primary-400 font-serif">Lumière</span> standard.
               </h2>
               <p className="text-[18px] leading-[1.6] text-gray-300 max-w-lg">
                 Where modern gastronomy meets atmospheric precision. Sign in to access your curated dining experiences and exclusive reservations.
@@ -70,11 +70,11 @@ export default function LoginPage() {
           </section>
 
           {/* Login Panel */}
-          <section className="col-span-1 md:col-span-5 lg:col-span-4 flex flex-col items-center justify-center p-5 md:p-16 bg-[var(--color-dark-surface)] relative z-10 border-l border-white/5">
+          <section className="col-span-1 md:col-span-5 lg:col-span-4 flex flex-col items-center justify-center p-5 md:p-16 bg-dark-surface relative z-10 border-l border-white/5">
             
             {/* Header */}
             <header className="absolute top-0 left-0 w-full flex justify-between items-center px-5 md:px-16 h-20 z-50">
-              <Link href="/" className="font-serif text-xl leading-[1.4] font-semibold text-[var(--color-primary-400)] uppercase tracking-widest">
+              <Link href="/" className="font-serif text-xl leading-[1.4] font-semibold text-primary-400 uppercase tracking-widest">
                 Lumière
               </Link>
             </header>
@@ -95,7 +95,7 @@ export default function LoginPage() {
                     <label className="text-[12px] leading-none tracking-widest font-semibold text-gray-400 block uppercase" htmlFor="identity">
                       Email 
                     </label>
-                    <div className="flex items-center bg-[var(--color-dark-bg)] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[var(--color-primary-500)] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
+                    <div className="flex items-center bg-dark-bg rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-primary-500 focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
                       <LuAtSign className="mx-4 text-gray-400 text-5 shrink-0" />
                       <input 
                         className="w-full py-3 bg-transparent border-none text-white focus:ring-0 placeholder:text-gray-500 outline-none" 
@@ -111,7 +111,7 @@ export default function LoginPage() {
                     <label className="text-[12px] leading-none tracking-widest font-semibold text-gray-400 block uppercase" htmlFor="password">
                       Password
                     </label>
-                    <div className="flex items-center bg-[var(--color-dark-bg)] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[var(--color-primary-500)] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
+                    <div className="flex items-center bg-dark-bg rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-primary-500 focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
                       <LuLock className="mx-4 text-gray-400 text-5 shrink-0" />
                       <input 
                         className="w-full py-3 bg-transparent border-none text-white focus:ring-0 placeholder:text-gray-500 outline-none" 
@@ -120,7 +120,7 @@ export default function LoginPage() {
                         type={inpPwd ?"password" : "text"} onChange={handleChange}
                       />
                       <button className="px-4 group" type="button" aria-label="Toggle password visibility">
-                        <EyeIcon onClick={()=>setInpPwd(!inpPwd)} className="text-gray-400 group-hover:text-[var(--color-primary-400)] transition-colors text-5" />
+                        <EyeIcon onClick={()=>setInpPwd(!inpPwd)} className="text-gray-400 group-hover:text-primary-400 transition-colors text-5" />
                       </button>
                     </div>
                   </div>
@@ -128,12 +128,12 @@ export default function LoginPage() {
 
                 {/* Form Options */}
                 <div className="flex items-center justify-between">
-                  <Link href="/" className="text-sm text-[var(--color-primary-400)] hover:underline transition-all">Forgot Password?</Link>
+                  <Link href="/" className="text-sm text-primary-400 hover:underline transition-all">Forgot Password?</Link>
                 </div>
 
                 {/* Primary Sign In */}
                 <button onClick={loginSubmit}
-                  className="w-full py-4 bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-[var(--color-primary-400)] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95" 
+                  className="w-full py-4 bg-primary-500 text-dark-bg text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-primary-400 transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95" 
                   type="submit">
                   Sign In
                 </button>
@@ -157,7 +157,7 @@ export default function LoginPage() {
 
               <p className="text-center text-sm text-gray-400">
                 Don't have an account?{' '}
-                <Link href="/register" className="text-[var(--color-primary-400)] font-semibold hover:underline">Request Access</Link>
+                <Link href="/register" className="text-primary-400 font-semibold hover:underline">Request Access</Link>
               </p>
             </div>
 
