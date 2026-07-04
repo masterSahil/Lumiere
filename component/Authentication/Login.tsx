@@ -35,7 +35,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="bg-[#101415] text-[#e0e3e5] overflow-x-hidden min-h-screen dark">
+      <div className="bg-[var(--color-dark-bg)] text-white overflow-x-hidden min-h-screen dark">
         
         {/* Atmospheric Background Elements */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -51,25 +51,25 @@ export default function LoginPage() {
             <div className="absolute inset-0 z-0">
               <Image src={dish} alt='Chef meticulously plating a gourmet dish in a dark, moody kitchen'
                       className="w-full h-full object-cover opacity-60 scale-105" />
-              <div className="absolute inset-0 bg-linear-to-r from-[#101415] via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-[var(--color-dark-bg)] via-transparent to-transparent"></div>
             </div>
             
             <div className="relative z-10 w-full max-w-2xl">
               <h2 className="text-[64px] leading-[1.1] tracking-[-0.02em] font-bold text-white mb-6">
-                Experience the <span className="text-[#9ee939] font-['Playfair_Display']">Lumière</span> standard.
+                Experience the <span className="text-[var(--color-primary-400)] font-serif">Lumière</span> standard.
               </h2>
-              <p className="  text-[18px] leading-[1.6] text-[#c1cab0] max-w-lg">
+              <p className="text-[18px] leading-[1.6] text-gray-300 max-w-lg">
                 Where modern gastronomy meets atmospheric precision. Sign in to access your curated dining experiences and exclusive reservations.
               </p>
             </div>
           </section>
 
           {/* Login Panel */}
-          <section className="col-span-1 md:col-span-5 lg:col-span-4 flex flex-col items-center justify-center p-5 md:p-16 bg-[#0b0f10] relative z-10 border-l border-white/5">
+          <section className="col-span-1 md:col-span-5 lg:col-span-4 flex flex-col items-center justify-center p-5 md:p-16 bg-[var(--color-dark-surface)] relative z-10 border-l border-white/5">
             
             {/* Header */}
             <header className="absolute top-0 left-0 w-full flex justify-between items-center px-5 md:px-16 h-20 z-50">
-              <Link href="/" className="font-['Playfair_Display'] text-xl leading-[1.4] font-semibold text-[#9ee939] uppercase tracking-widest">
+              <Link href="/" className="font-serif text-xl leading-[1.4] font-semibold text-[var(--color-primary-400)] uppercase tracking-widest">
                 Lumière
               </Link>
             </header>
@@ -77,8 +77,8 @@ export default function LoginPage() {
             <div className="w-full max-w-md space-y-11">
               
               <div className="space-y-2">
-                <h1 className="font-['Playfair_Display'] text-[32px] leading-[1.3] font-semibold text-[#e0e3e5]">Welcome Back</h1>
-                <p className="  text-4 text-[#c1cab0]">Please enter your details to continue your journey.</p>
+                <h1 className="font-serif text-[32px] leading-[1.3] font-semibold text-white">Welcome Back</h1>
+                <p className="text-sm text-gray-400">Please enter your details to continue your journey.</p>
               </div>
 
               {/* Login Form */}
@@ -87,13 +87,13 @@ export default function LoginPage() {
                   
                   {/* Email Field */}
                   <div className="space-y-2">
-                    <label className="text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0] block uppercase" htmlFor="identity">
+                    <label className="text-[12px] leading-none tracking-widest font-semibold text-gray-400 block uppercase" htmlFor="identity">
                       Email 
                     </label>
-                    <div className="flex items-center bg-[#1d2022] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[#84cc16] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
-                      <LuAtSign className="mx-4 text-[#c1cab0] text-5 shrink-0" />
+                    <div className="flex items-center bg-[var(--color-dark-bg)] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[var(--color-primary-500)] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
+                      <LuAtSign className="mx-4 text-gray-400 text-5 shrink-0" />
                       <input 
-                        className="w-full py-3 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
+                        className="w-full py-3 bg-transparent border-none text-white focus:ring-0 placeholder:text-gray-500 outline-none" 
                         value={formData.email} name='email'
                         placeholder="name@lumiere.com" 
                         type="text" onChange={handleChange}
@@ -103,19 +103,19 @@ export default function LoginPage() {
 
                   {/* Password Field */}
                   <div className="space-y-2">
-                    <label className="text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0] block uppercase" htmlFor="password">
+                    <label className="text-[12px] leading-none tracking-widest font-semibold text-gray-400 block uppercase" htmlFor="password">
                       Password
                     </label>
-                    <div className="flex items-center bg-[#1d2022] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[#84cc16] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
-                      <LuLock className="mx-4 text-[#c1cab0] text-5 shrink-0" />
+                    <div className="flex items-center bg-[var(--color-dark-bg)] rounded-lg border border-white/10 transition-all duration-300 overflow-hidden focus-within:border-[var(--color-primary-500)] focus-within:shadow-[0_0_15px_rgba(132,204,22,0.15)]">
+                      <LuLock className="mx-4 text-gray-400 text-5 shrink-0" />
                       <input 
-                        className="w-full py-3 bg-transparent border-none text-[#e0e3e5] focus:ring-0 placeholder:text-[#8b947d]/50 outline-none" 
+                        className="w-full py-3 bg-transparent border-none text-white focus:ring-0 placeholder:text-gray-500 outline-none" 
                         value={formData.password}
                         placeholder="••••••••" name='password'
                         type={inpPwd ?"password" : "text"} onChange={handleChange}
                       />
                       <button className="px-4 group" type="button" aria-label="Toggle password visibility">
-                        <EyeIcon onClick={()=>setInpPwd(!inpPwd)} className="text-[#c1cab0] group-hover:text-[#9ee939] transition-colors text-5" />
+                        <EyeIcon onClick={()=>setInpPwd(!inpPwd)} className="text-gray-400 group-hover:text-[var(--color-primary-400)] transition-colors text-5" />
                       </button>
                     </div>
                   </div>
@@ -123,12 +123,12 @@ export default function LoginPage() {
 
                 {/* Form Options */}
                 <div className="flex items-center justify-between">
-                  <Link href="/" className="text-4 text-[#9ee939] hover:underline transition-all">Forgot Password?</Link>
+                  <Link href="/" className="text-sm text-[var(--color-primary-400)] hover:underline transition-all">Forgot Password?</Link>
                 </div>
 
                 {/* Primary Sign In */}
                 <button onClick={loginSubmit}
-                  className="w-full py-4 bg-[#9ee939] text-[#1f3700] text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-[#91db2a] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95" 
+                  className="w-full py-4 bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-[var(--color-primary-400)] transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95" 
                   type="submit">
                   Sign In
                 </button>
@@ -138,27 +138,27 @@ export default function LoginPage() {
               <div className="space-y-6">
                 <div className="relative flex items-center gap-4">
                   <div className="grow h-px bg-white/10"></div>
-                  <span className="  text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0] uppercase">Or continue with</span>
+                  <span className="text-[12px] leading-none tracking-widest font-semibold text-gray-400 uppercase">Or continue with</span>
                   <div className="grow h-px bg-white/10"></div>
                 </div>
                 
                 <div className="grid grid-cols-1">
-                  <button className="flex items-center justify-center gap-3 py-3 px-4 bg-[#272a2c] border border-white/10 rounded-lg hover:bg-[#323537] transition-all duration-300 active:scale-[0.98]">
-                    <FaGoogle className="text-[18px] text-[#e0e3e5]" />
-                    <span className="text-4 text-[#e0e3e5] font-semibold">Google</span>
+                  <button className="flex items-center justify-center gap-3 py-3 px-4 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all duration-300 active:scale-[0.98]">
+                    <FaGoogle className="text-[18px] text-white" />
+                    <span className="text-sm text-white font-semibold">Google</span>
                   </button>
                 </div>
               </div>
 
-              <p className="text-center text-4 text-[#c1cab0]">
+              <p className="text-center text-sm text-gray-400">
                 Don't have an account?{' '}
-                <Link href="/register" className="text-[#9ee939] font-semibold hover:underline">Request Access</Link>
+                <Link href="/register" className="text-[var(--color-primary-400)] font-semibold hover:underline">Request Access</Link>
               </p>
             </div>
 
             {/* Footer */}
             <footer className="absolute bottom-6 w-full px-5 md:px-16 text-center hidden md:block">
-              <p className="  text-[12px] leading-none tracking-widest font-semibold text-[#c1cab0]/60 uppercase">
+              <p className="text-[12px] leading-none tracking-widest font-semibold text-gray-500 uppercase">
                 © {new Date().getFullYear()} Lumière Modern Gastronomy.
               </p>
             </footer>
