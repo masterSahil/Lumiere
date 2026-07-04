@@ -27,7 +27,12 @@ export default function LoginPage() {
       const res = await axios.post("/api/auth/login", formData)
       sessionStorage.setItem("token", res.data.data.token);
 
-      router.push("/");
+      const role = res.data.data.user.role;
+      if (role === 'admin' || role === 'superadmin') {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       console.log(error);
     }

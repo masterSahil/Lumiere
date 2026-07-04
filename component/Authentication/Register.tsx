@@ -31,7 +31,12 @@ export default function RegisterPage() {
       setFormData({
         username: '', email: '', password: ''
       })
-      router.push("/");
+      const role = res.data.data.user.role;
+      if (role === 'admin' || role === 'superadmin') {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/");
+      }
     } catch (error: any) {
       console.log("FULL ERROR:", error);
 

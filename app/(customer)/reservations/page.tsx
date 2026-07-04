@@ -152,7 +152,7 @@ export default function ReservationsPage() {
               {loading ? 'Requesting...' : 'Request Table'}
             </button>
             <p className="text-center text-xs text-gray-500 mt-4">By booking, you agree to our cancellation policy.</p>
-          </form>
+          </motion.form>
         </div>
       </main>
     </div>
