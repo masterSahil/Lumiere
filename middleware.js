@@ -23,6 +23,14 @@ export async function middleware(request) {
 
   const protectedPath = Object.keys(rolePaths).find(path => pathname.startsWith(path));
 
+  // Basic API Rate Limiting (Simulation/Placeholder for Edge)
+  if (pathname.startsWith("/api/checkout") || pathname.startsWith("/api/reservations")) {
+    const ip = request.ip || '127.0.0.1';
+    // In production: Connect to Redis or Upstash here to rate limit by IP.
+    // e.g. const { success } = await ratelimit.limit(ip);
+    // if (!success) return NextResponse.json({error: "Too many requests"}, {status: 429});
+  }
+
   if (protectedPath) {
     const token = request.cookies.get("token")?.value;
 

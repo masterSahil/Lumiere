@@ -105,6 +105,12 @@ export default function ShoppingCartPage() {
                   <span>Subtotal</span>
                   <span>${getSubtotal().toFixed(2)}</span>
                 </div>
+                {useCartStore.getState().discount > 0 && (
+                  <div className="flex justify-between text-[var(--color-primary-400)]">
+                    <span>Discount ({useCartStore.getState().couponCode})</span>
+                    <span>-${useCartStore.getState().getDiscountAmount().toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-gray-300">
                   <span>Tax (8%)</span>
                   <span>${getTax().toFixed(2)}</span>
@@ -119,6 +125,52 @@ export default function ShoppingCartPage() {
                 </div>
               </div>
               
+              {/* Promo Code Section */}
+              <div className="mb-8">
+                <p className="text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold">Promo Code</p>
+                <div className="flex gap-2">
+                  <input 
+                    type="text" 
+                    id="couponInput"
+                    placeholder="Enter code" 
+                    className="w-full bg-[var(--color-dark-bg)] border border-white/10 rounded-lg p-3 text-white focus:border-[var(--color-primary-500)] outline-none uppercase" 
+                  />
+                  <button 
+                    onClick={async () => {
+                      const code = (document.getElementById('couponInput') as HTMLInputElement).value;
+                      if (!code) return;
+                      try {
+                        const res = await fetch(`/api/coupons?code=${code}`);
+                        const data = await res.json();
+                        if (data.success) {
+                          useCartStore.getState().applyCoupon(data.coupon.code, data.coupon.discountPercentage);
+                          alert(`Coupon applied! ${data.coupon.discountPercentage}% off.`);
+                        } else {
+                          alert(data.message || 'Invalid coupon');
+                          useCartStore.getState().removeCoupon();
+                        }
+                      } catch (e) {
+                        alert('Error applying coupon');
+                      }
+                    }}
+                    className="bg-white/10 hover:bg-white/20 text-white px-4 rounded-lg font-bold transition-all text-sm"
+                  >
+                    Apply
+                  </button>
+                </div>
+                {useCartStore.getState().discount > 0 && (
+                  <button 
+                    onClick={() => {
+                      useCartStore.getState().removeCoupon();
+                      (document.getElementById('couponInput') as HTMLInputElement).value = '';
+                    }}
+                    className="text-xs text-red-400 mt-2 hover:underline"
+                  >
+                    Remove Coupon
+                  </button>
+                )}
+              </div>
+
               <div className="space-y-4">
                 <button 
                   onClick={() => router.push('/checkout')}
