@@ -134,6 +134,14 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
         
         if (uploadRes.data.success) {
           imageUrl = uploadRes.data.url;
+          // Clean up the old image from Cloudinary if it exists
+          if (existingImageUrl) {
+            try {
+              await axios.delete('/api/upload', { data: { url: existingImageUrl } });
+            } catch (err) {
+              console.error("Failed to delete old image:", err);
+            }
+          }
         } else {
           throw new Error("Failed to upload image");
         }
@@ -272,36 +280,44 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
               <label className="text-[14px] font-semibold text-gray-400 tracking-wide group-focus-within:text-primary-400 transition-colors">Category</label>
               <div className="relative">
                 {!isAddingCategory ? (
-                  <div className="flex gap-2">
-                    <select 
-                      value={category}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="w-full bg-dark-bg border border-white/20 focus:border-primary-500 focus:ring-0 text-[16px] text-white py-3 px-4 rounded-lg outline-none appearance-none cursor-pointer transition-all"
-                    >
-                      <option value="" disabled>Select a category...</option>
-                      {categories.map((c) => (
-                        <option key={c._id} value={c._id}>{c.name}</option>
-                      ))}
-                    </select>
+                  <div className="flex gap-3">
+                    <div className="relative w-full">
+                      <select 
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        className="w-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-primary-500 focus:bg-dark-surface text-[16px] text-white py-3 px-4 rounded-xl outline-none appearance-none cursor-pointer transition-all"
+                      >
+                        <option value="" disabled className="bg-dark-surface">Select a category...</option>
+                        {categories.map((c) => (
+                          <option key={c._id} value={c._id} className="bg-dark-surface">{c.name}</option>
+                        ))}
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                        <LuChevronDown />
+                      </div>
+                    </div>
                     <button 
                       onClick={() => setIsAddingCategory(true)}
-                      className="px-4 py-2 border border-white/20 rounded-lg hover:border-primary-500 hover:text-primary-400 transition-colors"
+                      className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl hover:border-primary-500 hover:text-primary-400 hover:bg-primary-500/10 transition-all text-gray-300 flex items-center justify-center shrink-0 group"
                       title="Add New Category"
                     >
-                      <LuPlus />
+                      <LuPlus className="text-xl group-hover:scale-110 transition-transform" />
                     </button>
                   </div>
                 ) : (
-                  <div className="flex gap-2">
+                  <div className="flex flex-col gap-3 p-5 bg-white/5 border border-white/10 rounded-2xl animate-in fade-in zoom-in-95 duration-200">
+                    <label className="text-xs font-medium text-gray-400 uppercase tracking-widest">Create New Category</label>
                     <input 
                       type="text"
                       value={newCategoryName}
                       onChange={(e) => setNewCategoryName(e.target.value)}
-                      placeholder="New category name"
-                      className="w-full bg-dark-bg border border-white/20 focus:border-primary-500 text-[16px] text-white py-3 px-4 rounded-lg outline-none"
+                      placeholder="e.g. Signature Cocktails"
+                      className="w-full bg-transparent border-0 border-b border-white/20 focus:border-primary-500 focus:ring-0 text-lg text-white px-0 py-2 transition-all placeholder:text-white/20 outline-none"
                     />
-                    <button onClick={handleAddCategory} className="px-4 py-2 bg-primary-500 text-dark-bg rounded-lg font-bold">Save</button>
-                    <button onClick={() => setIsAddingCategory(false)} className="px-4 py-2 border border-white/20 rounded-lg text-gray-400 hover:text-white">Cancel</button>
+                    <div className="flex justify-end gap-3 mt-2">
+                      <button onClick={() => setIsAddingCategory(false)} className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:text-white hover:bg-white/10 transition-colors">Cancel</button>
+                      <button onClick={handleAddCategory} className="px-6 py-2.5 bg-primary-500 text-dark-bg rounded-xl text-sm font-bold shadow-[0_0_15px_rgba(132,204,22,0.2)] hover:shadow-[0_0_25px_rgba(132,204,22,0.4)] transition-all">Create</button>
+                    </div>
                   </div>
                 )}
               </div>

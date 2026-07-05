@@ -84,9 +84,11 @@ export default function AdminMenuPage() {
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-3">
-                    <button className="text-gray-400 hover:text-white transition-colors" title="View">
-                      <Eye className="w-4 h-4" />
-                    </button>
+                    <Link href={`/admin/menu/view/${food._id}`}>
+                      <button className="text-gray-400 hover:text-white transition-colors" title="View">
+                        <Eye className="w-4 h-4" />
+                      </button>
+                    </Link>
                     <Link href={`/admin/menu/edit/${food._id}`}>
                       <button className="text-gray-400 hover:text-white transition-colors" title="Edit">
                         <Edit className="w-4 h-4" />

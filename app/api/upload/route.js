@@ -33,3 +33,24 @@ export async function POST(request) {
     return NextResponse.json({ success: false, message: "Failed to upload image" }, { status: 500 });
   }
 }
+
+export async function DELETE(request) {
+  try {
+    const { url } = await request.json();
+    if (!url) return NextResponse.json({ success: false, message: "No URL provided" }, { status: 400 });
+
+    // Extract public_id from Cloudinary URL
+    const parts = url.split('/');
+    const fileWithExt = parts.pop();
+    const folder = parts.pop(); // e.g. "restro"
+    const publicId = `${folder}/${fileWithExt.split('.')[0]}`;
+
+    await cloudinary.uploader.destroy(publicId);
+    
+    return NextResponse.json({ success: true, message: "Image deleted" }, { status: 200 });
+  } catch (error) {
+    console.error("Delete Error:", error);
+    return NextResponse.json({ success: false, message: "Failed to delete image" }, { status: 500 });
+  }
+}
+
