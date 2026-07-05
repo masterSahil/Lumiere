@@ -27,23 +27,21 @@ export default function RegisterPage() {
     try {
       e.preventDefault();
       const res = await axios.post("/api/auth/register", formData);
-      sessionStorage.setItem("token", res.data.data.token);
       setFormData({
         username: '', email: '', password: ''
-      })
-      const role = res.data.data.user.role;
+      });
+      const role = res.data.data.role;
       if (role === 'admin' || role === 'superadmin') {
         router.push("/admin/dashboard");
       } else {
-        router.push("/");
+        router.push("/dashboard");
       }
     } catch (error: any) {
       console.log("FULL ERROR:", error);
-
       if (error.response) {
-        console.log("SERVER MESSAGE:", error.response.data.message);
+        alert(error.response.data.message);
       } else {
-        console.log("NETWORK ERROR:", error.message);
+        alert(error.message);
       }
     }
   };

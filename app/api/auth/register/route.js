@@ -1,6 +1,6 @@
 import connectDB from "@/libs/config";
 import User from "@/model/user";
-import { hashPassword } from "@/libs/auth";
+import { hashPassword, generateToken, setAuthCookie } from "@/libs/auth";
 import { errorResponse, successResponse } from "@/libs/api-utils";
 
 export async function POST(req) {
@@ -32,6 +32,10 @@ export async function POST(req) {
 
     const userObj = newUser.toObject();
     delete userObj.password;
+
+    // Automatically log the user in after registration
+    const token = generateToken({ id: newUser._id, role: newUser.role });
+    await setAuthCookie(token);
 
     return successResponse(userObj, "User registered successfully", 201);
   } catch (error) {

@@ -4,6 +4,7 @@ import { useCartStore } from '@/store/cartStore';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
+import UserNavbar from '@/component/layout/UserNavbar';
 
 export default function ShoppingCartPage() {
   const { items, removeItem, updateQuantity, getSubtotal, getTax, getDeliveryFee, getTotal } = useCartStore();
@@ -11,27 +12,7 @@ export default function ShoppingCartPage() {
 
   return (
     <div className="min-h-screen bg-dark-bg text-white font-sans">
-      {/* Navigation */}
-      <nav className="border-b border-primary-950 bg-dark-bg py-6">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="text-2xl font-bold text-primary-400 tracking-widest uppercase font-serif cursor-pointer" onClick={() => router.push('/')}>Lumière</div>
-          <div className="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest">
-            <a className="hover:text-primary-400 transition-colors" href="/menu">Menu</a>
-            <a className="hover:text-primary-400 transition-colors" href="#">Reservations</a>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="relative cursor-pointer">
-              <span className="material-symbols-outlined hover:text-primary-400 transition-colors">shopping_bag</span>
-              {items.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-primary-500 text-dark-bg text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
-                  {items.reduce((total: number, item: any) => total + item.quantity, 0)}
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
-
+      <UserNavbar />
       <main className="max-w-7xl mx-auto px-6 py-12">
         <h1 className="text-5xl mb-12 font-serif">Shopping Cart</h1>
         

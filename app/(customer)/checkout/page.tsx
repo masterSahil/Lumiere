@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useCartStore } from '@/store/cartStore';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react';
+import { useState, useEffect } from 'react';
+import UserNavbar from '@/component/layout/UserNavbar';
 
 export default function CheckoutPage() {
   const { items, getSubtotal, getTax, getDeliveryFee, getTotal, clearCart } = useCartStore();
@@ -133,13 +134,7 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-dark-bg text-white font-sans selection:bg-primary-500 selection:text-dark-bg">
       
-      {/* Navigation/Header */}
-      <header className="border-b border-primary-950 py-6">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="text-2xl font-bold tracking-widest text-primary-400 uppercase font-serif cursor-pointer" onClick={() => router.push('/')}>Lumière</div>
-          <button onClick={() => router.push('/cart')} className="text-sm uppercase tracking-widest text-gray-300 hover:text-primary-400 transition-colors">Back to Cart</button>
-        </div>
-      </header>
+      <UserNavbar />
 
       <main className="max-w-7xl mx-auto px-6 py-12">
         

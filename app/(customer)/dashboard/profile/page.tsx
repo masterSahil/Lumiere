@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Camera } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<any>(null);
@@ -9,8 +11,9 @@ export default function ProfilePage() {
     phone: '',
   });
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -22,6 +25,9 @@ export default function ProfilePage() {
             username: data.data.username || '',
             phone: data.data.phone || '',
           });
+          if (data.data.avatar) {
+            setImagePreview(data.data.avatar);
+          }
         }
       } catch (err) {
         console.error("Failed to fetch user", err);
@@ -34,22 +40,45 @@ export default function ProfilePage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleImageChange = (e: any) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleSave = async (e: any) => {
     e.preventDefault();
     if (!user) return;
     
     setLoading(true);
-    setSuccess('');
-    setError('');
     
     try {
-      const res = await axios.put(`/api/users/${user._id}`, formData);
+      let avatarUrl = user.avatar;
+
+      if (imageFile) {
+        setUploadingImage(true);
+        const imgData = new FormData();
+        imgData.append('file', imageFile);
+        const uploadRes = await axios.post('/api/upload', imgData);
+        if (uploadRes.data.success) {
+          avatarUrl = uploadRes.data.url;
+        } else {
+          throw new Error('Failed to upload image');
+        }
+        setUploadingImage(false);
+      }
+
+      const res = await axios.put(`/api/users/${user._id}`, { ...formData, avatar: avatarUrl });
       if (res.data.success) {
-        setSuccess('Profile updated successfully!');
+        toast.success('Profile updated successfully!');
         setUser(res.data.user);
+        window.location.reload(); // To update the layout profile avatar
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to update profile');
+      toast.error(err.response?.data?.message || err.message || 'Failed to update profile');
+      setUploadingImage(false);
     } finally {
       setLoading(false);
     }
@@ -66,16 +95,22 @@ export default function ProfilePage() {
         </div>
 
         <form onSubmit={handleSave} className="bg-dark-surface p-8 rounded-2xl border border-white/10 space-y-6">
-          {error && (
-            <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg text-sm">
-              {error}
+          <div className="flex flex-col items-center gap-4 mb-8">
+            <div className="relative group cursor-pointer">
+              <div className="w-24 h-24 rounded-full bg-primary-500/20 border border-primary-500/30 overflow-hidden flex items-center justify-center">
+                {imagePreview ? (
+                  <img src={imagePreview} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  <span className="material-symbols-outlined text-primary-400 text-4xl">person</span>
+                )}
+              </div>
+              <label className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
+                <Camera className="w-6 h-6 text-white" />
+                <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+              </label>
             </div>
-          )}
-          {success && (
-            <div className="bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-3 rounded-lg text-sm">
-              {success}
-            </div>
-          )}
+            <p className="text-gray-400 text-sm">Click to change avatar</p>
+          </div>
           
           <div>
             <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Display Name</label>
