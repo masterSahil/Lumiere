@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import axios from 'axios';
 import { ReceiptText, CircleDollarSign, CalendarCheck } from 'lucide-react';
 
@@ -65,8 +66,12 @@ export default function AdminDashboardPage() {
       <div className="bg-dark-surface p-8 rounded-2xl border border-white/10">
         <h3 className="text-xl text-white font-serif mb-6">Quick Actions</h3>
         <div className="flex gap-4">
-          <button className="bg-primary-500 text-dark-bg px-6 py-3 rounded-lg font-bold hover:brightness-110">Add New Menu Item</button>
-          <button className="bg-white/10 text-white px-6 py-3 rounded-lg font-bold hover:bg-white/20">Manage Staff</button>
+          <Link href="/admin/menu">
+            <button className="bg-primary-500 text-dark-bg px-6 py-3 rounded-lg font-bold hover:brightness-110">Add New Menu Item</button>
+          </Link>
+          <Link href="/admin/settings">
+            <button className="bg-white/10 text-white px-6 py-3 rounded-lg font-bold hover:bg-white/20">Manage Staff</button>
+          </Link>
         </div>
       </div>
     </div>

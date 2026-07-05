@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import axios from 'axios';
 
 export default function AdminMenuPage() {
@@ -29,9 +30,11 @@ export default function AdminMenuPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-serif text-white">Manage Menu</h1>
-        <button className="bg-primary-500 text-dark-bg px-4 py-2 rounded-lg font-bold hover:brightness-110">
-          + Add Food Item
-        </button>
+        <Link href="/admin/menu/add">
+          <button className="bg-primary-500 text-dark-bg px-4 py-2 rounded-lg font-bold hover:brightness-110">
+            + Add Food Item
+          </button>
+        </Link>
       </div>
 
       <div className="bg-dark-surface rounded-2xl border border-white/10 overflow-hidden">

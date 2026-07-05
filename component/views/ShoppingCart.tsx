@@ -56,7 +56,7 @@ export default function ShoppingCartPage() {
                 
                 {/* Item 1 */}
                 <div className="flex flex-col sm:flex-row items-start gap-6 p-4 rounded-xl hover:bg-[#1c1b1c] transition-colors group">
-                  <div className="w-full sm:w-32 h-48 sm:h-32 bg-[#201f20] rounded-lg overflow-hidden flex-shrink-0">
+                  <div className="w-full sm:w-32 h-48 sm:h-32 bg-[#201f20] rounded-lg overflow-hidden shrink-0">
                     <img 
                       alt="Miyazaki Wagyu A5" 
                       className="w-full h-full object-cover" 
@@ -90,7 +90,7 @@ export default function ShoppingCartPage() {
 
                 {/* Item 2 */}
                 <div className="flex flex-col sm:flex-row items-start gap-6 p-4 rounded-xl hover:bg-[#1c1b1c] transition-colors group">
-                  <div className="w-full sm:w-32 h-48 sm:h-32 bg-[#201f20] rounded-lg overflow-hidden flex-shrink-0">
+                  <div className="w-full sm:w-32 h-48 sm:h-32 bg-[#201f20] rounded-lg overflow-hidden shrink-0">
                     <img 
                       alt="Midnight Fondant" 
                       className="w-full h-full object-cover" 
@@ -130,7 +130,7 @@ export default function ShoppingCartPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   
                   <div className="bg-[#1c1b1c] p-6 rounded-xl flex items-center gap-4 border border-[#353436]/20 hover:border-[#84cc16]/30 transition-colors">
-                    <div className="w-16 h-24 bg-[#201f20] rounded overflow-hidden flex-shrink-0">
+                    <div className="w-16 h-24 bg-[#201f20] rounded overflow-hidden shrink-0">
                       <img 
                         alt="Red Wine" 
                         className="w-full h-full object-cover" 
@@ -145,7 +145,7 @@ export default function ShoppingCartPage() {
                   </div>
                   
                   <div className="bg-[#1c1b1c] p-6 rounded-xl flex items-center gap-4 border border-[#353436]/20 hover:border-[#84cc16]/30 transition-colors">
-                    <div className="w-16 h-24 bg-[#201f20] rounded overflow-hidden flex-shrink-0">
+                    <div className="w-16 h-24 bg-[#201f20] rounded overflow-hidden shrink-0">
                       <img 
                         alt="Dessert Wine" 
                         className="w-full h-full object-cover" 

@@ -16,6 +16,7 @@ export default function Navbar() {
   ];
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -28,13 +29,14 @@ export default function Navbar() {
 
     try {
       setLoading(true);
-      await axios.get("/api/auth/verify", {
+      const res = await axios.get("/api/auth/verify", {
         headers: {
           Authorization: `bearer ${token}`
         }
-      })
+      });
 
       setLoggedIn(true);
+      setUserRole(res.data.data?.role || null);
     } catch (error) {
       console.log(error);
     } finally {
@@ -49,6 +51,7 @@ export default function Navbar() {
   const logout = () => {
     sessionStorage.removeItem("token");
     setLoggedIn(false);
+    setUserRole(null);
     router.push("/login");
   }
 
@@ -80,6 +83,13 @@ export default function Navbar() {
               </Link>
             );
           })}
+          {(userRole === 'admin' || userRole === 'superadmin') && (
+            <Link href="/admin/dashboard" 
+              className="font-sans text-[14px] leading-5 tracking-wider font-bold transition-all duration-300 pb-1 border-b-2 text-[#7ae749] border-transparent hover:border-[#7ae749] flex items-center gap-2" >
+              <span className="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+              Admin Panel
+            </Link>
+          )}
         </div>
 
         {/* Call to Action & Mobile Menu */}
