@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LuChartColumnIncreasing, LuShoppingBag, LuUtensils, LuLayoutGrid, LuStar, LuUsers, LuSettings, LuLogOut, LuChevronDown } from 'react-icons/lu';
+import Image from 'next/image';
 
 // Define the types for our navigation items
 interface SubItem {
@@ -188,9 +189,11 @@ export default function Sidebar({
           {/* User Profile Card */}
           <div className="flex items-center gap-3 px-4 py-2 mt-2">
             <div className="w-10 h-10 rounded-full bg-[#353436] overflow-hidden border border-white/10 shrink-0">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=150&q=80"
                 alt="Admin"
+                width={40}
+                height={40}
                 className="w-full h-full object-cover"
               />
             </div>

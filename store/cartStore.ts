@@ -79,3 +79,18 @@ export const useCartStore = create<CartState>()(
     }
   )
 );
+
+import { useState, useEffect } from 'react';
+
+export const useHydratedCartStore = <T,>(
+  selector: (state: CartState) => T
+): T | undefined => {
+  const store = useCartStore(selector);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  return isHydrated ? store : undefined;
+};

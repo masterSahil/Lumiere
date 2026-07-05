@@ -13,27 +13,8 @@ const getIconForCategory = (name: string) => {
   return LuCoffee;
 };
 
-export default function Categories() {
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await axios.get('/api/categories');
-        if (data.success) {
-          setCategories(data.categories.slice(0, 4)); // Show top 4
-        }
-      } catch (error) {
-        console.error("Failed to fetch categories");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  if (loading) return null;
+export default function Categories({ categories }: { categories: any[] }) {
+  if (!categories || categories.length === 0) return null;
 
   return (
     <section className="py-24 px-5 md:px-20 bg-dark-bg relative overflow-hidden">

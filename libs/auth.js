@@ -3,8 +3,6 @@ import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 
 const SECRET = process.env.SECRET || "fallback_secret";
-
-// Hash password
 export const hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);

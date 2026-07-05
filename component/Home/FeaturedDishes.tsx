@@ -3,28 +3,11 @@ import { LuChevronLeft, LuChevronRight, LuPlus } from 'react-icons/lu';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useCartStore } from '@/store/cartStore';
+import { toast } from 'sonner';
+import Image from 'next/image';
 
-export default function FeaturedDishes() {
-  const [dishes, setDishes] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function FeaturedDishes({ dishes }: { dishes: any[] }) {
   const addItem = useCartStore(state => state.addItem);
-
-  useEffect(() => {
-    const fetchDishes = async () => {
-      try {
-        const { data } = await axios.get('/api/menu');
-        if (data.success) {
-          // Feature top 6 dishes
-          setDishes(data.foods.slice(0, 6));
-        }
-      } catch (error) {
-        console.error("Failed to fetch featured dishes");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchDishes();
-  }, []);
 
   const handleAddToCart = (dish: any) => {
     addItem({
@@ -34,10 +17,10 @@ export default function FeaturedDishes() {
       image: dish.primaryImage || '/api/placeholder/100/100',
       quantity: 1
     });
-    alert(`${dish.name} added to cart!`);
+    toast.success(`${dish.name} added to cart!`);
   };
 
-  if (loading) return null; // Or a subtle loader
+  if (!dishes || dishes.length === 0) return null;
 
   return (
     <section className="py-24 px-5 md:px-20 bg-dark-bg">
@@ -64,8 +47,8 @@ export default function FeaturedDishes() {
           {dishes.map((dish: any) => (
             <div key={dish._id} className="min-w-[320px] md:min-w-100 bg-dark-surface p-6 rounded-2xl border border-white/5 snap-start group cursor-pointer hover:border-white/10 transition-colors">
               <div className="relative overflow-hidden aspect-4/5 mb-6 rounded-lg">
-                <img alt={dish.name} src={dish.primaryImage || '/api/placeholder/400/500'} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+                <Image alt={dish.name} src={dish.primaryImage || '/api/placeholder/400/500'} 
+                  width={400} height={500} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
                 <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-primary-400 font-sans text-[12px] leading-4 tracking-[0.03em] font-medium">
                   {dish.category?.name || 'Signature'}
                 </div>
