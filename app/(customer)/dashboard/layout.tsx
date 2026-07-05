@@ -60,7 +60,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
       </nav>
 
-      <main className="pt-32 pb-20 px-5 md:px-20 max-w-7xl mx-auto min-h-screen">
+      <main className="pt-32 pb-20 px-5 md:px-10 max-w-400 mx-auto min-h-screen">
         <div className="flex flex-col lg:flex-row gap-6">
           
           {/* SideNavBar */}

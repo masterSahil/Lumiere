@@ -1,18 +1,18 @@
 'use client';
 
-import Navbar from '@/component/Home/Navbar';
+import UserNavbar from '@/component/layout/UserNavbar';
 import Footer from '@/component/Home/Footer';
 import bannerImg from '@/assets/images/about/banner.png';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 export default function AboutPage() {
-  const fadeInUp = {
+  const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
   
-  const staggerContainer = {
+  const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -23,7 +23,7 @@ export default function AboutPage() {
   };
   return (
     <div className="bg-dark-bg text-white min-h-screen">
-      <Navbar />
+      <UserNavbar />
       
       <main>
         {/* Hero Banner Section */}
@@ -104,21 +104,33 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-6 md:px-12">
             <motion.div variants={fadeInUp} className="text-center mb-16">
               <h2 className="text-4xl font-serif font-medium text-white">Our Core Values</h2>
+              <div className="w-24 h-1 bg-primary-500 mx-auto mt-6 rounded-full opacity-50"></div>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <motion.div variants={fadeInUp} className="bg-dark-bg border border-white/5 p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-2 transition-transform duration-300 hover:shadow-xl hover:shadow-primary-500/10">
-                <span className="material-symbols-outlined text-4xl text-primary-500 mb-6">psychiatry</span>
-                <h4 className="text-xl font-serif font-medium mb-3 text-white">Sustainable Sourcing</h4>
+              <motion.div variants={fadeInUp} className="bg-linear-to-br from-dark-surface to-dark-bg border border-white/5 p-10 rounded-3xl text-center flex flex-col items-center hover:-translate-y-2 transition-transform duration-500 hover:shadow-[0_10px_30px_-10px_rgba(132,204,22,0.2)] group relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-500/10 transition-colors duration-500"></div>
+                <div className="w-20 h-20 rounded-full bg-primary-500/10 flex items-center justify-center mb-6 border border-primary-500/20 group-hover:scale-110 transition-transform duration-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-500"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                </div>
+                <h4 className="text-2xl font-serif font-medium mb-4 text-white group-hover:text-primary-400 transition-colors">Sustainable Sourcing</h4>
                 <p className="text-gray-400 text-sm leading-relaxed">We partner exclusively with ethical fisheries, regenerative farms, and local foragers to ensure every ingredient honors the ecosystem.</p>
               </motion.div>
-              <motion.div variants={fadeInUp} className="bg-dark-bg border border-white/5 p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-2 transition-transform duration-300 hover:shadow-xl hover:shadow-primary-500/10">
-                <span className="material-symbols-outlined text-4xl text-primary-500 mb-6">palette</span>
-                <h4 className="text-xl font-serif font-medium mb-3 text-white">Artistic Precision</h4>
+
+              <motion.div variants={fadeInUp} className="bg-linear-to-br from-dark-surface to-dark-bg border border-white/5 p-10 rounded-3xl text-center flex flex-col items-center hover:-translate-y-2 transition-transform duration-500 hover:shadow-[0_10px_30px_-10px_rgba(132,204,22,0.2)] group relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-500/10 transition-colors duration-500"></div>
+                <div className="w-20 h-20 rounded-full bg-primary-500/10 flex items-center justify-center mb-6 border border-primary-500/20 group-hover:scale-110 transition-transform duration-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-500"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                </div>
+                <h4 className="text-2xl font-serif font-medium mb-4 text-white group-hover:text-primary-400 transition-colors">Artistic Precision</h4>
                 <p className="text-gray-400 text-sm leading-relaxed">Cooking is our canvas. We approach every plating with meticulous attention to color, texture, and architectural balance.</p>
               </motion.div>
-              <motion.div variants={fadeInUp} className="bg-dark-bg border border-white/5 p-8 rounded-2xl text-center flex flex-col items-center hover:-translate-y-2 transition-transform duration-300 hover:shadow-xl hover:shadow-primary-500/10">
-                <span className="material-symbols-outlined text-4xl text-primary-500 mb-6">volunteer_activism</span>
-                <h4 className="text-xl font-serif font-medium mb-3 text-white">Unrivaled Hospitality</h4>
+
+              <motion.div variants={fadeInUp} className="bg-linear-to-br from-dark-surface to-dark-bg border border-white/5 p-10 rounded-3xl text-center flex flex-col items-center hover:-translate-y-2 transition-transform duration-500 hover:shadow-[0_10px_30px_-10px_rgba(132,204,22,0.2)] group relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-500/10 transition-colors duration-500"></div>
+                <div className="w-20 h-20 rounded-full bg-primary-500/10 flex items-center justify-center mb-6 border border-primary-500/20 group-hover:scale-110 transition-transform duration-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary-500"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"/><path d="m18 15-2-2"/><path d="m15 18-2-2"/></svg>
+                </div>
+                <h4 className="text-2xl font-serif font-medium mb-4 text-white group-hover:text-primary-400 transition-colors">Unrivaled Hospitality</h4>
                 <p className="text-gray-400 text-sm leading-relaxed">Service should be invisible yet omnipresent. We strive to anticipate needs and craft an atmosphere of profound warmth and luxury.</p>
               </motion.div>
             </div>

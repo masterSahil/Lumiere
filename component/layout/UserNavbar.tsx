@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
 import { ShoppingCart, User } from 'lucide-react';
 
@@ -9,6 +9,7 @@ export default function UserNavbar() {
   const [user, setUser] = useState<any>(null);
   const { items } = useCartStore();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,8 +27,10 @@ export default function UserNavbar() {
 
   const totalQuantity = items.reduce((total: number, item: any) => total + item.quantity, 0);
 
+  const isTransparentPage = pathname === '/' || pathname === '/about' || pathname === '/contact';
+
   return (
-    <nav className="w-full z-50 bg-[var(--color-dark-bg)] border-b border-white/10 py-4 sticky top-0 backdrop-blur-xl">
+    <nav className={`w-full z-50 border-b border-white/10 py-4 backdrop-blur-xl transition-all duration-300 ${isTransparentPage ? 'fixed top-0 bg-transparent' : 'sticky top-0 bg-dark-bg'}`}>
       <div className="flex justify-between items-center px-5 md:px-20 w-full max-w-7xl mx-auto">
         <span 
           className="font-serif text-[32px] leading-10 font-bold text-primary-400 cursor-pointer"
@@ -36,8 +39,24 @@ export default function UserNavbar() {
           Lumière
         </span>
         <div className="hidden lg:flex items-center gap-10">
-          <a className="text-gray-400 hover:text-white transition-colors duration-300 font-sans text-[14px] tracking-wide font-medium" href="/">Home</a>
-          <a className="text-primary-400 border-b-2 border-primary-400 pb-1 font-sans text-[14px] tracking-wide font-semibold" href="/menu">Menu</a>
+          {[
+            { name: 'Home', path: '/' },
+            { name: 'Menu', path: '/menu' },
+            { name: 'About', path: '/about' },
+            { name: 'Reservations', path: '/dashboard/reservations' },
+            { name: 'Contact', path: '/contact' }
+          ].map((item) => {
+            const isActive = pathname === item.path || (item.path !== '/' && pathname?.startsWith(item.path));
+            return (
+              <a 
+                key={item.name}
+                className={`${isActive ? 'text-primary-400 border-b-2 border-primary-400 pb-1 font-semibold' : 'text-gray-400 hover:text-white font-medium'} transition-colors duration-300 font-sans text-[14px] tracking-wide`} 
+                href={item.path}
+              >
+                {item.name}
+              </a>
+            );
+          })}
         </div>
         <div className="flex items-center gap-6">
           <div 
