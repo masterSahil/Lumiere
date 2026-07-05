@@ -20,6 +20,20 @@ export default function AdminMenuPage() {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this dish?')) return;
+    try {
+      const res = await axios.delete(`/api/menu/${id}`);
+      if (res.data.success) {
+        fetchFoods(); // Refetch after delete
+      } else {
+        alert("Failed to delete");
+      }
+    } catch (error) {
+      console.error("Delete Error", error);
+    }
+  };
+
   useEffect(() => {
     fetchFoods();
   }, []);
@@ -68,8 +82,10 @@ export default function AdminMenuPage() {
                   </span>
                 </td>
                 <td className="px-6 py-4 text-right space-x-2">
-                  <button className="text-gray-400 hover:text-white transition-colors">Edit</button>
-                  <button className="text-gray-400 hover:text-red-400 transition-colors">Delete</button>
+                  <Link href={`/admin/menu/edit/${food._id}`}>
+                    <button className="text-gray-400 hover:text-white transition-colors">Edit</button>
+                  </Link>
+                  <button onClick={() => handleDelete(food._id)} className="text-gray-400 hover:text-red-400 transition-colors">Delete</button>
                 </td>
               </tr>
             ))}

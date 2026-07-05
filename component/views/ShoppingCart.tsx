@@ -146,11 +146,7 @@ export default function ShoppingCartPage() {
                   
                   <div className="bg-[#1c1b1c] p-6 rounded-xl flex items-center gap-4 border border-[#353436]/20 hover:border-[#84cc16]/30 transition-colors">
                     <div className="w-16 h-24 bg-[#201f20] rounded overflow-hidden shrink-0">
-                      <img 
-                        alt="Dessert Wine" 
-                        className="w-full h-full object-cover" 
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuaX-n6zsh4dMewa8V-3hFn6I5klBL6MAqgxaAjecR-nAcOdu_WwbbI6RVEtm-GmY2pp0cIoskJQJFmY8Y3IwCHQchE3S-IZ7P9qwPTgSfIee9dcwsqJjgsoH2SdrKNMJmYWJKjiKzIn_R7ngIQkNP6zNRV4Q7FYT8utwaCEbDpcl8yFAAGf6pY_As649Ns_RODNteIB84C5XXt_P32ChzIKV7TzBn128ifF5NxHprrPMQo7B-MsIeKQuj-oYohmj2lidWoVYZlu07"
-                      />
+                      <img alt="Dessert Wine" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuaX-n6zsh4dMewa8V-3hFn6I5klBL6MAqgxaAjecR-nAcOdu_WwbbI6RVEtm-GmY2pp0cIoskJQJFmY8Y3IwCHQchE3S-IZ7P9qwPTgSfIee9dcwsqJjgsoH2SdrKNMJmYWJKjiKzIn_R7ngIQkNP6zNRV4Q7FYT8utwaCEbDpcl8yFAAGf6pY_As649Ns_RODNteIB84C5XXt_P32ChzIKV7TzBn128ifF5NxHprrPMQo7B-MsIeKQuj-oYohmj2lidWoVYZlu07" />
                     </div>
                     <div>
                       <h4 className="text-lg font-serif">Château d'Yquem 2017</h4>

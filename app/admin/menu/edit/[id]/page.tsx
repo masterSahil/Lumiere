@@ -1,13 +1,16 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import axios from 'axios';
-import { LuUtensils, LuPlus, LuX, LuArrowLeft, LuUpload, LuChevronDown, LuFlame, LuLeaf, LuCheck } from 'react-icons/lu';
+import { LuUtensils, LuUpload, LuArrowLeft, LuChevronDown, LuFlame, LuLeaf, LuCheck, LuTrash2 } from 'react-icons/lu';
 
-export default function AddMenu() {
+export default function AdminEditMenuPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const { id } = use(params);
+  
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   
   // State for toggles and attributes
   const [attributes, setAttributes] = useState({ spicy: false, veg: false, nonVeg: true });
@@ -22,6 +25,41 @@ export default function AddMenu() {
   // Image State
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [existingImageUrl, setExistingImageUrl] = useState<string>('');
+
+  useEffect(() => {
+    const fetchFood = async () => {
+      try {
+        const { data } = await axios.get(`/api/menu/${id}`);
+        if (data.success) {
+          const food = data.food;
+          setName(food.name || '');
+          setCategory(food.category?.name || food.categoryName || 'Main Course');
+          setPrice(food.price?.toString() || '');
+          setDescription(food.description || '');
+          setExistingImageUrl(food.primaryImage || '');
+          setImagePreview(food.primaryImage || '');
+          
+          setAttributes({
+            spicy: !!food.isSpicy,
+            veg: !!food.isVeg,
+            nonVeg: !food.isVeg
+          });
+          
+          setToggles({
+            popular: !!food.isPopular,
+            availability: food.isAvailable !== undefined ? food.isAvailable : true
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch food details", error);
+        alert("Failed to load dish details.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchFood();
+  }, [id]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -31,17 +69,17 @@ export default function AddMenu() {
     }
   };
 
-  const handlePublish = async () => {
+  const handleUpdate = async () => {
     if (!name || !price || !description) {
       alert("Please fill all required fields.");
       return;
     }
     
-    setLoading(true);
+    setSaving(true);
     try {
-      let imageUrl = '';
+      let imageUrl = existingImageUrl;
 
-      // 1. Upload Image to Cloudinary if selected
+      // 1. Upload new Image to Cloudinary if selected
       if (imageFile) {
         const formData = new FormData();
         formData.append("file", imageFile);
@@ -58,36 +96,34 @@ export default function AddMenu() {
       }
 
       // 2. Save Food to Database
-      // Find category ID if you have dynamic categories, or handle string in backend
-      // Assuming your backend handles string or we need to send category string
       const foodData = {
         name,
         description,
         price: Number(price),
         primaryImage: imageUrl,
-        // Send attributes as an array or boolean based on your schema
         isAvailable: toggles.availability,
         isPopular: toggles.popular,
         isSpicy: attributes.spicy,
         isVeg: attributes.veg,
-        // Optional depending on your Food model
         categoryName: category
       };
 
-      const res = await axios.post('/api/menu', foodData);
+      const res = await axios.put(`/api/menu/${id}`, foodData);
 
       if (res.data.success) {
         router.push('/admin/menu');
       } else {
-        alert("Failed to publish: " + res.data.message);
+        alert("Failed to update: " + res.data.message);
       }
     } catch (error: any) {
       console.error(error);
-      alert("Error publishing food: " + (error.response?.data?.message || error.message));
+      alert("Error updating food: " + (error.response?.data?.message || error.message));
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   };
+
+  if (loading) return <div className="text-primary-400">Loading dish details...</div>;
 
   return (
     <div className="w-full text-white bg-transparent">
@@ -98,8 +134,11 @@ export default function AddMenu() {
             <LuArrowLeft className="text-[20px]" />
           </Link>
           <div>
-            <h2 className="text-3xl text-white font-serif tracking-tight">Create Culinary Masterpiece</h2>
-            <p className="text-primary-400 text-[12px] font-medium uppercase tracking-widest mt-1">Lumière Gastronomy • New Entry</p>
+            <div className="flex items-center gap-3">
+              <h2 className="text-3xl text-white font-serif tracking-tight">Edit Dish</h2>
+              <span className="bg-white/10 px-3 py-1 rounded-md text-xs font-bold text-gray-400 tracking-wider">#{id.slice(-6).toUpperCase()}</span>
+            </div>
+            <p className="text-primary-400 text-[12px] font-medium uppercase tracking-widest mt-1">Update details for "{name}"</p>
           </div>
         </div>
         <div className="flex gap-4 w-full md:w-auto">
@@ -107,11 +146,11 @@ export default function AddMenu() {
             <button className="px-8 py-3 rounded-full border border-white/10 text-gray-300 font-bold hover:bg-white/5 transition-all text-[15px]">Discard</button>
           </Link>
           <button 
-            onClick={handlePublish}
-            disabled={loading}
+            onClick={handleUpdate}
+            disabled={saving}
             className="bg-primary-500 text-dark-bg px-8 py-3 rounded-full font-bold transition-all hover:brightness-110 text-[15px] disabled:opacity-50"
           >
-            {loading ? 'Publishing...' : 'Publish to Menu'}
+            {saving ? 'Saving...' : 'Save Changes'}
           </button>
         </div>
       </div>
