@@ -5,10 +5,11 @@ import Reservation from '@/model/reservation';
 export async function PUT(request, { params }) {
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
     
-    const reservation = await Reservation.findByIdAndUpdate(id, body, { new: true });
+    // Use returnDocument: 'after' instead of new: true to fix deprecation warning
+    const reservation = await Reservation.findByIdAndUpdate(id, body, { returnDocument: 'after' });
     
     if (!reservation) {
       return NextResponse.json({ success: false, message: "Reservation not found" }, { status: 404 });
@@ -23,7 +24,7 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     await connectDB();
-    const { id } = params;
+    const { id } = await params;
     
     const reservation = await Reservation.findByIdAndDelete(id);
     

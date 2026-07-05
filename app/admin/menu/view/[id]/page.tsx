@@ -2,7 +2,7 @@
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
-import { LuArrowLeft, LuFlame, LuLeaf, LuUtensils } from 'react-icons/lu';
+import { ArrowLeft, Flame, Leaf, Utensils } from 'lucide-react';
 import { toast } from 'sonner';
 
 import Loading from '@/app/loading';
@@ -38,7 +38,7 @@ export default function AdminViewMenuPage({ params }: { params: Promise<{ id: st
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/admin/menu" className="w-10 h-10 rounded-full bg-dark-surface border border-white/10 flex items-center justify-center text-gray-300 hover:bg-white/10 transition-colors">
-            <LuArrowLeft className="text-[20px]" />
+            <ArrowLeft className="w-5 h-5" />
           </Link>
           <h2 className="text-3xl font-serif tracking-tight">Dish Profile</h2>
         </div>
@@ -80,11 +80,11 @@ export default function AdminViewMenuPage({ params }: { params: Promise<{ id: st
             <div className="flex flex-wrap gap-3">
               {food.isVeg ? (
                 <span className="px-4 py-1.5 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 text-sm font-semibold flex items-center gap-2">
-                  <LuLeaf /> Vegetarian
+                  <Leaf className="w-4 h-4" /> Vegetarian
                 </span>
               ) : (
                 <span className="px-4 py-1.5 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 text-sm font-semibold flex items-center gap-2">
-                  <LuUtensils /> Non-Vegetarian
+                  <Utensils className="w-4 h-4" /> Non-Vegetarian
                 </span>
               )}
               {food.isSpicy && (

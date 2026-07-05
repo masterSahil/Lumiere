@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
+import { ShoppingCart, User } from 'lucide-react';
 
 export default function UserNavbar() {
   const [user, setUser] = useState<any>(null);
@@ -43,7 +44,7 @@ export default function UserNavbar() {
             className="relative cursor-pointer flex items-center justify-center p-2 rounded-full hover:bg-white/5 transition-colors"
             onClick={() => router.push('/cart')}
           >
-            <span className="material-symbols-outlined text-gray-300 text-2xl">shopping_cart</span>
+            <ShoppingCart className="text-gray-300 w-6 h-6" />
             {totalQuantity > 0 && (
               <div className="absolute -top-1 -right-1 bg-primary-500 text-dark-bg font-bold text-[10px] w-5 h-5 flex items-center justify-center rounded-full">
                 {totalQuantity}
@@ -60,7 +61,7 @@ export default function UserNavbar() {
               {user.avatar ? (
                 <img src={user.avatar} className="w-full h-full object-cover" alt="User" />
               ) : (
-                <span className="material-symbols-outlined text-primary-400">person</span>
+                <User className="text-primary-400 w-6 h-6" />
               )}
             </div>
           ) : (

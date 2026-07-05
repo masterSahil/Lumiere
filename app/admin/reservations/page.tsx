@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loading from '@/app/loading';
+import { toast } from 'sonner';
+import { Check, X, CheckCheck } from 'lucide-react';
 
 export default function AdminReservationsPage() {
   const [reservations, setReservations] = useState([]);
@@ -27,9 +29,11 @@ export default function AdminReservationsPage() {
   const updateStatus = async (id: string, status: string) => {
     try {
       await axios.put(`/api/reservations/${id}`, { status });
+      toast.success(`Reservation ${status.toLowerCase()} successfully!`);
       fetchReservations();
     } catch (e) {
       console.error(e);
+      toast.error('Failed to update reservation status.');
     }
   };
 
@@ -82,12 +86,18 @@ export default function AdminReservationsPage() {
                 <td className="px-6 py-4 flex gap-2">
                   {res.status === 'Pending' && (
                     <>
-                      <button onClick={() => updateStatus(res._id, 'Confirmed')} className="bg-green-500/20 text-green-500 px-2 py-1 rounded text-xs font-bold hover:bg-green-500 hover:text-white transition-all">Confirm</button>
-                      <button onClick={() => updateStatus(res._id, 'Cancelled')} className="bg-red-500/20 text-red-500 px-2 py-1 rounded text-xs font-bold hover:bg-red-500 hover:text-white transition-all">Reject</button>
+                      <button onClick={() => updateStatus(res._id, 'Confirmed')} className="bg-green-500/20 text-green-500 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-green-500 hover:text-white transition-all flex items-center gap-1">
+                        <Check className="w-4 h-4" /> Confirm
+                      </button>
+                      <button onClick={() => updateStatus(res._id, 'Cancelled')} className="bg-red-500/20 text-red-500 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-red-500 hover:text-white transition-all flex items-center gap-1">
+                        <X className="w-4 h-4" /> Reject
+                      </button>
                     </>
                   )}
                   {res.status === 'Confirmed' && (
-                     <button onClick={() => updateStatus(res._id, 'Completed')} className="bg-primary-500/20 text-primary-400 px-2 py-1 rounded text-xs font-bold hover:bg-primary-500 hover:text-dark-bg transition-all">Mark Seated</button>
+                     <button onClick={() => updateStatus(res._id, 'Completed')} className="bg-primary-500/20 text-primary-400 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-500 hover:text-dark-bg transition-all flex items-center gap-1">
+                       <CheckCheck className="w-4 h-4" /> Mark Seated
+                     </button>
                   )}
                 </td>
               </tr>

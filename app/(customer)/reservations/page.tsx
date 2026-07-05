@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle, Utensils } from 'lucide-react';
 
 export default function ReservationsPage() {
   const router = useRouter();
@@ -56,7 +57,7 @@ export default function ReservationsPage() {
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
             className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6"
           >
-            <span className="material-symbols-outlined text-4xl">check_circle</span>
+            <CheckCircle className="w-10 h-10" />
           </motion.div>
           <h2 className="font-serif text-3xl text-white mb-4">Table Requested!</h2>
           <p className="text-gray-400 mb-8">We have received your reservation request for <strong className="text-white">{formData.date}</strong> at <strong className="text-white">{formData.time}</strong>. Our maitre d' will confirm shortly.</p>
@@ -91,7 +92,7 @@ export default function ReservationsPage() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary-500/30 text-primary-400 text-xs font-bold uppercase tracking-widest mb-6 bg-primary-500/10">
-              <span className="material-symbols-outlined text-sm">restaurant</span>
+              <Utensils className="w-4 h-4" />
               Reservations
             </div>
             <h1 className="font-serif text-5xl md:text-7xl mb-6 leading-tight">Secure Your<br/><span className="text-primary-400 italic">Experience</span></h1>
