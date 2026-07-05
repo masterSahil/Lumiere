@@ -22,15 +22,18 @@ export const metadata = {
   },
 };
 
+import { CartProvider } from "@/context/CartContext";
 import { Toaster } from 'sonner';
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>
-        <Suspense fallback={<Loader />}>
-          {children}
-        </Suspense>
+        <CartProvider>
+          <Suspense fallback={<Loader />}>
+            {children}
+          </Suspense>
+        </CartProvider>
         
         {/* Themed Toaster matching Lumière aesthetic */}
         <Toaster 

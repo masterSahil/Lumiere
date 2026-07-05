@@ -1,6 +1,46 @@
+'use client'
+import React, { useState } from 'react';
 import Head from 'next/head';
+import { useCart } from '@/context/CartContext';
+import axios from 'axios';
+import { toast } from 'sonner';
 
 export default function ShoppingCartPage() {
+  const { cartItems, updateQuantity, removeFromCart, cartTotal, clearCart } = useCart();
+  const [loading, setLoading] = useState(false);
+
+  const tax = cartTotal * 0.08;
+  const grandTotal = cartTotal + tax;
+
+  const handleCheckout = async () => {
+    if (cartItems.length === 0) return;
+    setLoading(true);
+    try {
+      const orderData = {
+        items: cartItems.map(i => ({ food: i._id, quantity: i.quantity, price: i.price })),
+        totalAmount: grandTotal,
+        paymentMethod: 'Credit Card',
+        deliveryAddress: '123 Lumiere St', // Hardcoded for MVP
+        customerName: 'Guest Customer',
+        customerPhone: '555-0199',
+        orderStatus: 'Pending'
+      };
+
+      const res = await axios.post('/api/orders', orderData);
+      
+      if (res.data.success) {
+        toast.success("Order Placed Successfully!");
+        clearCart();
+      } else {
+        toast.error("Failed to place order.");
+      }
+    } catch (error) {
+      toast.error("Order failed. Please ensure you are logged in if required.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -24,17 +64,18 @@ export default function ShoppingCartPage() {
         {/* Navigation */}
         <nav className="border-b border-[#353436]/50 bg-[#0e0e0f] py-6">
           <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div className="text-2xl font-bold text-[#84cc16] tracking-widest uppercase font-serif">Lumière</div>
+            <a href="/" className="text-2xl font-bold text-[#84cc16] tracking-widest uppercase font-serif cursor-pointer">Lumière</a>
             <div className="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest">
-              <a className="hover:text-[#84cc16] transition-colors" href="#">Menu</a>
-              <a className="hover:text-[#84cc16] transition-colors" href="#">Reservations</a>
-              <a className="hover:text-[#84cc16] transition-colors" href="#">Experience</a>
+              <a className="hover:text-[#84cc16] transition-colors" href="/menu">Menu</a>
             </div>
             <div className="flex items-center gap-4">
-              <span className="material-symbols-outlined cursor-pointer hover:text-[#84cc16] transition-colors">search</span>
               <div className="relative">
-                <span className="material-symbols-outlined cursor-pointer hover:text-[#84cc16] transition-colors">shopping_bag</span>
-                <span className="absolute -top-2 -right-2 bg-[#84cc16] text-[#103900] text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">2</span>
+                <span className="material-symbols-outlined cursor-pointer text-[#84cc16]">shopping_bag</span>
+                {cartItems.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-[#84cc16] text-[#103900] text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                    {cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -51,179 +92,101 @@ export default function ShoppingCartPage() {
                 <h2 className="text-2xl text-[#84cc16] font-serif">Your Selection</h2>
               </div>
               
-              {/* Cart Items */}
               <div className="space-y-6">
-                
-                {/* Item 1 */}
-                <div className="flex flex-col sm:flex-row items-start gap-6 p-4 rounded-xl hover:bg-[#1c1b1c] transition-colors group">
-                  <div className="w-full sm:w-32 h-48 sm:h-32 bg-[#201f20] rounded-lg overflow-hidden shrink-0">
-                    <img 
-                      alt="Miyazaki Wagyu A5" 
-                      className="w-full h-full object-cover" 
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCllEl6vxE-ldddSkgPH__lazkNLBnBKQjM-f979ayBYpf7y7IToe-VswAixXQFg1NN7UtrDf4oPcRz7Qg1HnYrq8XIggpWcnpDuP23sqFN-HGmkhG_x6bDjkWzBNfR3JN-KNEEDPP0usPmYAtBumH4h99CPio1DmENq7B5g0Fvvo82yQ1lxpVUmiz2GpLksq127QeIKAK_IIEZ2WaccMe3N2Y7Ok7L7bAOR1Qp6LDL_w-e41DupGNUhWD7dr5LvrjoQTWsiOWrYoWP"
-                    />
+                {cartItems.length === 0 ? (
+                  <div className="text-center py-10 text-gray-400">
+                    Your cart is currently empty.
+                    <br/>
+                    <a href="/menu" className="text-[#84cc16] underline mt-2 inline-block">Return to Menu</a>
                   </div>
-                  <div className="grow w-full">
-                    <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-4 sm:mb-0">
-                      <div>
-                        <h3 className="text-xl mb-1 font-serif">Miyazaki Wagyu A5</h3>
-                        <p className="text-[#d0c5af] text-sm mb-4">Truffle jus, smoked bone marrow, pickled heritage carrots.</p>
+                ) : (
+                  cartItems.map((item) => (
+                    <div key={item._id} className="flex flex-col sm:flex-row items-start gap-6 p-4 rounded-xl hover:bg-[#1c1b1c] transition-colors group border border-white/5">
+                      <div className="w-full sm:w-32 h-48 sm:h-32 bg-[#201f20] rounded-lg overflow-hidden shrink-0">
+                        <img 
+                          alt={item.name} 
+                          className="w-full h-full object-cover" 
+                          src={item.primaryImage || "/api/placeholder/150/150"}
+                        />
                       </div>
-                      <p className="text-xl text-[#84cc16] font-semibold">$245.00</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 border border-[#353436] rounded-full px-3 py-1">
-                        <button className="text-[#d0c5af] hover:text-[#84cc16] transition-colors flex items-center">
-                          <span className="material-symbols-outlined text-sm">remove</span>
-                        </button>
-                        <span className="text-sm font-semibold">1</span>
-                        <button className="text-[#d0c5af] hover:text-[#84cc16] transition-colors flex items-center">
-                          <span className="material-symbols-outlined text-sm">add</span>
-                        </button>
+                      <div className="grow w-full">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-4 sm:mb-0">
+                          <div>
+                            <h3 className="text-xl mb-1 font-serif">{item.name}</h3>
+                          </div>
+                          <p className="text-xl text-[#84cc16] font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
+                        </div>
+                        <div className="flex items-center justify-between mt-4">
+                          <div className="flex items-center gap-4 border border-[#353436] rounded-full px-3 py-1">
+                            <button 
+                              onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                              className="text-[#d0c5af] hover:text-[#84cc16] transition-colors flex items-center"
+                            >
+                              <span className="material-symbols-outlined text-sm">remove</span>
+                            </button>
+                            <span className="text-sm font-semibold w-4 text-center">{item.quantity}</span>
+                            <button 
+                              onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                              className="text-[#d0c5af] hover:text-[#84cc16] transition-colors flex items-center"
+                            >
+                              <span className="material-symbols-outlined text-sm">add</span>
+                            </button>
+                          </div>
+                          <button 
+                            onClick={() => removeFromCart(item._id)}
+                            className="text-[#d0c5af] hover:text-[#ffb4ab] transition-colors text-sm flex items-center gap-1"
+                          >
+                            <span className="material-symbols-outlined text-sm">delete</span> Remove
+                          </button>
+                        </div>
                       </div>
-                      <button className="text-[#d0c5af] hover:text-[#ffb4ab] transition-colors text-sm flex items-center gap-1">
-                        <span className="material-symbols-outlined text-sm">delete</span> Remove
-                      </button>
                     </div>
-                  </div>
-                </div>
-
-                {/* Item 2 */}
-                <div className="flex flex-col sm:flex-row items-start gap-6 p-4 rounded-xl hover:bg-[#1c1b1c] transition-colors group">
-                  <div className="w-full sm:w-32 h-48 sm:h-32 bg-[#201f20] rounded-lg overflow-hidden shrink-0">
-                    <img 
-                      alt="Midnight Fondant" 
-                      className="w-full h-full object-cover" 
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxRVU8f8hdleLHWkVFmmGTDkLX7po9tNv3WwgrHmwoEUpZRSkLcp0Jbo_ITElopMjXhbWGD0u_ibRBJxEE52jAK8viaJukNnwLePg5jiLcl4bk5Q5jNb5BiCzF1fwl6xWywhpwJ5-dD8qpxi69Lfg0-6tO20N5P6Wt6pwvs0_xF_0yyGdCvdWzS1He9BzZUYqvDfYJlp0hiXQhqfyGS1QaltTugRkWmlmdToxz9P8Z_ESn8KicIWzOUpHxNevD400u3CfL0caAh3Ma"
-                    />
-                  </div>
-                  <div className="grow w-full">
-                    <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-4 sm:mb-0">
-                      <div>
-                        <h3 className="text-xl mb-1 font-serif">Midnight Fondant</h3>
-                        <p className="text-[#d0c5af] text-sm mb-4">70% dark cocoa, gold leaf, Madagascar vanilla crème.</p>
-                      </div>
-                      <p className="text-xl text-[#84cc16] font-semibold">$38.00</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 border border-[#353436] rounded-full px-3 py-1">
-                        <button className="text-[#d0c5af] hover:text-[#84cc16] transition-colors flex items-center">
-                          <span className="material-symbols-outlined text-sm">remove</span>
-                        </button>
-                        <span className="text-sm font-semibold">1</span>
-                        <button className="text-[#d0c5af] hover:text-[#84cc16] transition-colors flex items-center">
-                          <span className="material-symbols-outlined text-sm">add</span>
-                        </button>
-                      </div>
-                      <button className="text-[#d0c5af] hover:text-[#ffb4ab] transition-colors text-sm flex items-center gap-1">
-                        <span className="material-symbols-outlined text-sm">delete</span> Remove
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Sommelier's Recommendations */}
-              <div className="mt-16 pt-12 border-t border-[#353436]/50">
-                <h2 className="text-2xl text-[#84cc16] font-serif mb-6">Sommelier's Recommendations</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  
-                  <div className="bg-[#1c1b1c] p-6 rounded-xl flex items-center gap-4 border border-[#353436]/20 hover:border-[#84cc16]/30 transition-colors">
-                    <div className="w-16 h-24 bg-[#201f20] rounded overflow-hidden shrink-0">
-                      <img 
-                        alt="Red Wine" 
-                        className="w-full h-full object-cover" 
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5AUL-sDmTGwbUsr-uP0g8USiMZuqY-saf3gk4T_rv-KCZNSVFFp7LwWNHtv8sKna7zjV-_LUwacsz6g58LP_EbC3mOzUvgNsrBYtrKxrmcnxQZH2z24bh9iuCptGxfcf6k_Sr-9YKTNRk_PnxxSZq4p6PapUnprNUI0P7oU9QKYBDa_NUR8dFcD95w4l_aMarvXEVANCo8VRNLvHnp9pr4RUzmK0MOpaJ7_HjGE2NpgTicC2K7bzLwKDovtFXUZjI84J40lSpvw9s"
-                      />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-serif">Château Margaux 2015</h4>
-                      <p className="text-sm text-[#d0c5af] mb-2">Perfect pairing for the Wagyu</p>
-                      <button className="text-xs uppercase tracking-widest text-[#84cc16] font-bold hover:underline">Add to selection +$850</button>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-[#1c1b1c] p-6 rounded-xl flex items-center gap-4 border border-[#353436]/20 hover:border-[#84cc16]/30 transition-colors">
-                    <div className="w-16 h-24 bg-[#201f20] rounded overflow-hidden shrink-0">
-                      <img alt="Dessert Wine" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuaX-n6zsh4dMewa8V-3hFn6I5klBL6MAqgxaAjecR-nAcOdu_WwbbI6RVEtm-GmY2pp0cIoskJQJFmY8Y3IwCHQchE3S-IZ7P9qwPTgSfIee9dcwsqJjgsoH2SdrKNMJmYWJKjiKzIn_R7ngIQkNP6zNRV4Q7FYT8utwaCEbDpcl8yFAAGf6pY_As649Ns_RODNteIB84C5XXt_P32ChzIKV7TzBn128ifF5NxHprrPMQo7B-MsIeKQuj-oYohmj2lidWoVYZlu07" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-serif">Château d'Yquem 2017</h4>
-                      <p className="text-sm text-[#d0c5af] mb-2">Enhances the Midnight Fondant</p>
-                      <button className="text-xs uppercase tracking-widest text-[#84cc16] font-bold hover:underline">Add to selection +$120</button>
-                    </div>
-                  </div>
-
-                </div>
+                  ))
+                )}
               </div>
             </div>
 
-            {/* Order Summary Sidebar */}
+            {/* Order Summary Checkout */}
             <div className="lg:col-span-1">
-              <div className="bg-[#1c1b1c] p-8 rounded-2xl sticky top-8 border border-[#353436]/30 backdrop-blur-sm">
-                <h2 className="text-2xl text-[#84cc16] font-serif mb-8 border-b border-[#353436]/30 pb-4">Order Summary</h2>
+              <div className="bg-[#1c1b1c] rounded-2xl p-8 sticky top-8 border border-white/5">
+                <h2 className="text-2xl text-white font-serif mb-8 border-b border-[#353436]/50 pb-4">Order Summary</h2>
                 
-                <div className="space-y-4 mb-8">
-                  <div className="flex justify-between text-[#d0c5af]">
+                <div className="space-y-4 mb-8 text-[#d0c5af]">
+                  <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>$283.00</span>
+                    <span className="text-white">${cartTotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-[#d0c5af]">
-                    <span>Service Fee (15%)</span>
-                    <span>$42.45</span>
-                  </div>
-                  <div className="flex justify-between text-[#d0c5af]">
+                  <div className="flex justify-between">
                     <span>Tax (8%)</span>
-                    <span>$22.64</span>
+                    <span className="text-white">${tax.toFixed(2)}</span>
                   </div>
-                  <div className="pt-4 border-t border-[#353436]/30 flex justify-between items-baseline">
-                    <span className="text-xl">Total</span>
-                    <span className="text-3xl text-[#84cc16] font-bold tracking-tight">$348.09</span>
+                  <div className="flex justify-between">
+                    <span>Delivery</span>
+                    <span className="text-green-400 font-medium">Complimentary</span>
                   </div>
                 </div>
+
+                <div className="border-t border-[#353436] pt-6 mb-8">
+                  <div className="flex justify-between items-end">
+                    <span className="text-lg">Total</span>
+                    <span className="text-3xl text-[#84cc16] font-semibold">${grandTotal.toFixed(2)}</span>
+                  </div>
+                </div>
+
+                <button 
+                  onClick={handleCheckout}
+                  disabled={loading || cartItems.length === 0}
+                  className="w-full bg-[#84cc16] hover:bg-[#a3e635] text-[#103900] font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                >
+                  {loading ? 'Processing...' : 'Confirm Order'} <span className="material-symbols-outlined">arrow_forward</span>
+                </button>
                 
-                <div className="space-y-4">
-                  <button className="w-full bg-[#84cc16] hover:bg-[#84cc16]/90 text-[#103900] font-bold py-4 rounded-lg uppercase tracking-widest transition-all">
-                    Proceed to Checkout
-                  </button>
-                  <p className="text-[10px] text-center text-[#d0c5af] uppercase tracking-widest px-4">
-                    By proceeding, you agree to the Lumière Dining terms of service and private dining policy.
-                  </p>
-                </div>
-                
-                <div className="mt-8 pt-8 border-t border-[#353436]/30">
-                  <div className="flex items-center gap-3 text-sm text-[#d0c5af] mb-4">
-                    <span className="material-symbols-outlined text-[#84cc16]">schedule</span>
-                    <span>Preparation time: ~45 minutes</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm text-[#d0c5af]">
-                    <span className="material-symbols-outlined text-[#84cc16]">verified_user</span>
-                    <span>Encrypted Secure Checkout</span>
-                  </div>
-                </div>
+                <p className="text-center text-xs text-[#d0c5af] mt-4">Taxes and additional fees may apply.</p>
               </div>
             </div>
-
+            
           </div>
         </main>
-
-        {/* Footer */}
-        <footer className="mt-24 py-12 bg-[#0e0e0f] border-t border-[#353436]/50">
-          <div className="max-w-7xl mx-auto px-6 text-center">
-            <div className="text-xl text-[#84cc16] font-serif tracking-widest uppercase mb-6">Lumière Dining</div>
-            <p className="text-[#d0c5af] text-sm max-w-md mx-auto mb-8">
-              Crafting unforgettable culinary experiences at the intersection of tradition and innovation.
-            </p>
-            <div className="flex justify-center gap-6 mb-8">
-              <a className="text-[#d0c5af] hover:text-[#84cc16] transition-colors italic" href="#">Instagram</a>
-              <a className="text-[#d0c5af] hover:text-[#84cc16] transition-colors italic" href="#">Twitter</a>
-              <a className="text-[#d0c5af] hover:text-[#84cc16] transition-colors italic" href="#">Facebook</a>
-            </div>
-            <p className="text-[10px] text-[#d0c5af]/50 uppercase tracking-[0.2em]">© {new Date().getFullYear()} Lumière Gastronomy Group</p>
-          </div>
-        </footer>
-
       </div>
     </>
   );

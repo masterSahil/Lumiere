@@ -3,7 +3,7 @@ import React, { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import axios from 'axios';
-import { LuUtensils, LuUpload, LuArrowLeft, LuChevronDown, LuFlame, LuLeaf, LuCheck, LuTrash2 } from 'react-icons/lu';
+import { LuUtensils, LuUpload, LuArrowLeft, LuChevronDown, LuFlame, LuLeaf, LuCheck, LuPlus } from 'react-icons/lu';
 
 export default function AdminEditMenuPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -16,9 +16,14 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
   const [attributes, setAttributes] = useState({ spicy: false, veg: false, nonVeg: true });
   const [toggles, setToggles] = useState({ popular: false, availability: true });
 
+  // Categories State
+  const [categories, setCategories] = useState<any[]>([]);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+
   // Form State
   const [name, setName] = useState('');
-  const [category, setCategory] = useState('Main Course');
+  const [category, setCategory] = useState(''); // Stores the ObjectId
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
 
@@ -26,19 +31,34 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [existingImageUrl, setExistingImageUrl] = useState<string>('');
+  const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
+  const [galleryPreviews, setGalleryPreviews] = useState<string[]>([]);
+  const [existingGalleryUrls, setExistingGalleryUrls] = useState<string[]>([]);
 
   useEffect(() => {
-    const fetchFood = async () => {
+    const fetchInitialData = async () => {
       try {
-        const { data } = await axios.get(`/api/menu/${id}`);
-        if (data.success) {
-          const food = data.food;
+        const [catRes, foodRes] = await Promise.all([
+          axios.get('/api/categories'),
+          axios.get(`/api/menu/${id}`)
+        ]);
+
+        if (catRes.data.success) {
+          setCategories(catRes.data.categories);
+        }
+
+        if (foodRes.data.success) {
+          const food = foodRes.data.food;
           setName(food.name || '');
-          setCategory(food.category?.name || food.categoryName || 'Main Course');
+          setCategory(food.category?._id || '');
           setPrice(food.price?.toString() || '');
           setDescription(food.description || '');
           setExistingImageUrl(food.primaryImage || '');
           setImagePreview(food.primaryImage || '');
+          if (food.galleryImages) {
+            setExistingGalleryUrls(food.galleryImages);
+            setGalleryPreviews(food.galleryImages);
+          }
           
           setAttributes({
             spicy: !!food.isSpicy,
@@ -52,14 +72,29 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
           });
         }
       } catch (error) {
-        console.error("Failed to fetch food details", error);
+        console.error("Failed to fetch initial data", error);
         alert("Failed to load dish details.");
       } finally {
         setLoading(false);
       }
     };
-    fetchFood();
+    fetchInitialData();
   }, [id]);
+
+  const handleAddCategory = async () => {
+    if (!newCategoryName) return;
+    try {
+      const res = await axios.post('/api/categories', { name: newCategoryName });
+      if (res.data.success) {
+        setCategories([...categories, res.data.category]);
+        setCategory(res.data.category._id);
+        setNewCategoryName('');
+        setIsAddingCategory(false);
+      }
+    } catch (error) {
+      alert("Failed to add category");
+    }
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -69,17 +104,26 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
     }
   };
 
+  const handleGalleryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length) {
+      setGalleryFiles(prev => [...prev, ...files]);
+      const newPreviews = files.map(f => URL.createObjectURL(f));
+      setGalleryPreviews(prev => [...prev, ...newPreviews]);
+    }
+  };
+
   const handleUpdate = async () => {
-    if (!name || !price || !description) {
-      alert("Please fill all required fields.");
+    if (!name || !price || !description || !category) {
+      alert("Please fill all required fields and ensure a category is selected.");
       return;
     }
     
     setSaving(true);
     try {
       let imageUrl = existingImageUrl;
+      let galleryUrls: string[] = [...existingGalleryUrls];
 
-      // 1. Upload new Image to Cloudinary if selected
       if (imageFile) {
         const formData = new FormData();
         formData.append("file", imageFile);
@@ -95,17 +139,26 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
         }
       }
 
-      // 2. Save Food to Database
+      if (galleryFiles.length > 0) {
+        for (const file of galleryFiles) {
+          const formData = new FormData();
+          formData.append("file", file);
+          const uploadRes = await axios.post("/api/upload", formData, { headers: { "Content-Type": "multipart/form-data" } });
+          if (uploadRes.data.success) galleryUrls.push(uploadRes.data.url);
+        }
+      }
+
       const foodData = {
         name,
         description,
         price: Number(price),
         primaryImage: imageUrl,
+        galleryImages: galleryUrls,
         isAvailable: toggles.availability,
         isPopular: toggles.popular,
         isSpicy: attributes.spicy,
         isVeg: attributes.veg,
-        categoryName: category
+        category: category // ObjectId
       };
 
       const res = await axios.put(`/api/menu/${id}`, foodData);
@@ -178,6 +231,26 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
               )}
             </div>
           </div>
+
+          <div className="space-y-4">
+            <div className="flex justify-between items-end">
+              <label className="text-[14px] font-semibold text-gray-400 tracking-wide">Gallery Images</label>
+              <span className="text-[12px] text-gray-500">Optional</span>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              {galleryPreviews.map((preview, idx) => (
+                <div key={idx} className="relative aspect-square rounded-xl overflow-hidden border border-white/10">
+                  <img src={preview} alt={`Gallery ${idx}`} className="w-full h-full object-cover" />
+                </div>
+              ))}
+              <div className="relative group aspect-square border-2 border-dashed border-white/10 rounded-xl overflow-hidden bg-white/5 hover:border-primary-500/50 transition-colors flex flex-col items-center justify-center cursor-pointer">
+                <input type="file" accept="image/*" multiple onChange={handleGalleryChange} className="absolute inset-0 opacity-0 cursor-pointer z-20" />
+                <LuUpload className="text-2xl text-primary-400 mb-2" />
+                <p className="text-[12px] font-bold text-white">Add More</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Right Column (Form Details) */}
@@ -198,20 +271,39 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
             <div className="space-y-2 group">
               <label className="text-[14px] font-semibold text-gray-400 tracking-wide group-focus-within:text-primary-400 transition-colors">Category</label>
               <div className="relative">
-                <select 
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  className="w-full bg-dark-bg border-0 border-b border-white/20 focus:border-primary-500 focus:ring-0 text-[16px] text-white py-3 px-4 rounded-t-lg outline-none appearance-none cursor-pointer transition-all"
-                >
-                  <option>Signature Entrees</option>
-                  <option>Artisanal Pizza</option>
-                  <option>Gourmet Burgers</option>
-                  <option>Vintage Wines</option>
-                  <option>Dessert Mastery</option>
-                  <option>Main Course</option>
-                  <option>Appetizers</option>
-                </select>
-                <LuChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-[20px]" />
+                {!isAddingCategory ? (
+                  <div className="flex gap-2">
+                    <select 
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="w-full bg-dark-bg border border-white/20 focus:border-primary-500 focus:ring-0 text-[16px] text-white py-3 px-4 rounded-lg outline-none appearance-none cursor-pointer transition-all"
+                    >
+                      <option value="" disabled>Select a category...</option>
+                      {categories.map((c) => (
+                        <option key={c._id} value={c._id}>{c.name}</option>
+                      ))}
+                    </select>
+                    <button 
+                      onClick={() => setIsAddingCategory(true)}
+                      className="px-4 py-2 border border-white/20 rounded-lg hover:border-primary-500 hover:text-primary-400 transition-colors"
+                      title="Add New Category"
+                    >
+                      <LuPlus />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <input 
+                      type="text"
+                      value={newCategoryName}
+                      onChange={(e) => setNewCategoryName(e.target.value)}
+                      placeholder="New category name"
+                      className="w-full bg-dark-bg border border-white/20 focus:border-primary-500 text-[16px] text-white py-3 px-4 rounded-lg outline-none"
+                    />
+                    <button onClick={handleAddCategory} className="px-4 py-2 bg-primary-500 text-dark-bg rounded-lg font-bold">Save</button>
+                    <button onClick={() => setIsAddingCategory(false)} className="px-4 py-2 border border-white/20 rounded-lg text-gray-400 hover:text-white">Cancel</button>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -255,7 +347,6 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-8 border-t border-white/10">
             
-            {/* Toggle 1 */}
             <div className="flex items-center justify-between p-5 bg-white/5 rounded-2xl cursor-pointer hover:bg-white/10 transition-colors" onClick={() => setToggles({...toggles, popular: !toggles.popular})}>
               <div>
                 <p className="text-white font-bold text-[15px]">Mark Popular</p>
@@ -268,7 +359,6 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
               </div>
             </div>
 
-            {/* Toggle 2 */}
             <div className="flex items-center justify-between p-5 bg-white/5 rounded-2xl cursor-pointer hover:bg-white/10 transition-colors" onClick={() => setToggles({...toggles, availability: !toggles.availability})}>
               <div>
                 <p className="text-white font-bold text-[15px]">Availability</p>

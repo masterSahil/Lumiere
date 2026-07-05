@@ -1,9 +1,46 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { User, Lock, Bell, Users } from 'lucide-react';
 
 export default function AdminSettingsPage() {
   const [activeTab, setActiveTab] = useState('profile');
+  const [staff, setStaff] = useState([]);
+  const [loadingStaff, setLoadingStaff] = useState(false);
+
+  const fetchStaff = async () => {
+    setLoadingStaff(true);
+    try {
+      const { data } = await axios.get('/api/users');
+      if (data.success) {
+        const staffUsers = data.users.filter((u: any) => ['admin', 'superadmin'].includes(u.role));
+        setStaff(staffUsers);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingStaff(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'staff') {
+      fetchStaff();
+    }
+  }, [activeTab]);
+
+  const handleDeleteStaff = async (id: string) => {
+    if (!confirm('Are you sure you want to remove this staff member?')) return;
+    try {
+      const res = await axios.delete(`/api/users/${id}`);
+      if (res.data.success) {
+        fetchStaff();
+      }
+    } catch (e) {
+      console.error(e);
+      alert("Failed to remove staff");
+    }
+  };
 
   return (
     <div className="space-y-6 max-w-4xl">
@@ -48,7 +85,7 @@ export default function AdminSettingsPage() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-1">Full Name</label>
-                  <input type="text" defaultValue="Manager" className="w-full bg-dark-bg border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary-500" />
+                  <input type="text" defaultValue="Admin User" className="w-full bg-dark-bg border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary-500" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-1">Email Address</label>
@@ -89,19 +126,31 @@ export default function AdminSettingsPage() {
             <div className="space-y-6">
               <h2 className="text-xl font-serif text-white border-b border-white/10 pb-4">Manage Staff</h2>
               <div className="space-y-4">
-                <div className="flex justify-between items-center bg-dark-bg p-4 rounded-lg border border-white/10">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center text-primary-400">
-                      <User className="w-5 h-5" />
+                {loadingStaff ? (
+                  <p className="text-gray-400">Loading staff...</p>
+                ) : staff.length === 0 ? (
+                  <p className="text-gray-500">No staff members found.</p>
+                ) : (
+                  staff.map((member: any) => (
+                    <div key={member._id} className="flex justify-between items-center bg-dark-bg p-4 rounded-lg border border-white/10">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center text-primary-400">
+                          <User className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="text-white font-bold">{member.username}</p>
+                          <p className="text-gray-500 text-xs capitalize">{member.role}</p>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <button className="text-sm text-gray-400 hover:text-white transition-colors">Edit</button>
+                        <button onClick={() => handleDeleteStaff(member._id)} className="text-sm text-red-500/80 hover:text-red-500 transition-colors">Remove</button>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-white font-bold">Jean Luc</p>
-                      <p className="text-gray-500 text-xs">Executive Chef</p>
-                    </div>
-                  </div>
-                  <span className="text-xs bg-primary-500/20 text-primary-400 px-2 py-1 rounded">Admin</span>
-                </div>
-                <button className="w-full border border-dashed border-white/20 text-gray-400 py-3 rounded-lg hover:border-primary-500 hover:text-primary-500 transition-colors">
+                  ))
+                )}
+                
+                <button className="w-full py-3 border border-dashed border-white/20 rounded-lg text-gray-400 hover:text-white hover:border-white/40 transition-all font-medium mt-4">
                   + Add New Staff Member
                 </button>
               </div>

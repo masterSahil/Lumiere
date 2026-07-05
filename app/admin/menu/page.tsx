@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
+import { Edit, Trash2, Eye } from 'lucide-react';
 
 export default function AdminMenuPage() {
   const [foods, setFoods] = useState([]);
@@ -81,11 +82,20 @@ export default function AdminMenuPage() {
                     {food.isAvailable ? 'Available' : 'Sold Out'}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-right space-x-2">
-                  <Link href={`/admin/menu/edit/${food._id}`}>
-                    <button className="text-gray-400 hover:text-white transition-colors">Edit</button>
-                  </Link>
-                  <button onClick={() => handleDelete(food._id)} className="text-gray-400 hover:text-red-400 transition-colors">Delete</button>
+                <td className="px-6 py-4 text-right">
+                  <div className="flex justify-end gap-3">
+                    <button className="text-gray-400 hover:text-white transition-colors" title="View">
+                      <Eye className="w-4 h-4" />
+                    </button>
+                    <Link href={`/admin/menu/edit/${food._id}`}>
+                      <button className="text-gray-400 hover:text-white transition-colors" title="Edit">
+                        <Edit className="w-4 h-4" />
+                      </button>
+                    </Link>
+                    <button onClick={() => handleDelete(food._id)} className="text-gray-400 hover:text-red-400 transition-colors" title="Delete">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

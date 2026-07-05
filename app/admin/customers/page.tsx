@@ -23,6 +23,19 @@ export default function AdminCustomersPage() {
     }
   };
 
+  const handleDeleteCustomer = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this customer?')) return;
+    try {
+      const res = await axios.delete(`/api/users/${id}`);
+      if (res.data.success) {
+        fetchCustomers();
+      }
+    } catch (e) {
+      console.error(e);
+      alert("Failed to delete customer");
+    }
+  };
+
   useEffect(() => {
     fetchCustomers();
   }, []);
@@ -83,7 +96,7 @@ export default function AdminCustomersPage() {
                 </td>
                 <td className="px-6 py-4 text-right space-x-2">
                   <button className="text-gray-400 hover:text-white transition-colors">View</button>
-                  <button className="text-gray-400 hover:text-red-400 transition-colors">Block</button>
+                  <button onClick={() => handleDeleteCustomer(customer._id)} className="text-gray-400 hover:text-red-400 transition-colors">Block</button>
                 </td>
               </tr>
             ))}

@@ -5,7 +5,8 @@ import Order from '@/model/order';
 export async function PUT(request, { params }) {
   try {
     await connectDB();
-    const { id } = params;
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
     const body = await request.json();
     
     const order = await Order.findByIdAndUpdate(id, body, { new: true });
