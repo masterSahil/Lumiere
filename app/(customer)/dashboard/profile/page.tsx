@@ -3,20 +3,31 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function ProfilePage() {
+  const [user, setUser] = useState<any>(null);
   const [formData, setFormData] = useState({
     username: '',
     phone: '',
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
 
-  // Dummy fetch for now
   useEffect(() => {
-    // In prod: Fetch the current logged in user from /api/users/current
-    setFormData({
-      username: 'Guest User',
-      phone: '+1 (555) 000-0000',
-    });
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get('/api/auth/verify');
+        if (data.success) {
+          setUser(data.data);
+          setFormData({
+            username: data.data.username || '',
+            phone: data.data.phone || '',
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch user", err);
+      }
+    };
+    fetchUser();
   }, []);
 
   const handleChange = (e: any) => {
@@ -25,14 +36,23 @@ export default function ProfilePage() {
 
   const handleSave = async (e: any) => {
     e.preventDefault();
+    if (!user) return;
+    
     setLoading(true);
     setSuccess('');
+    setError('');
     
-    // In prod: await axios.put(`/api/users/${userId}`, formData);
-    setTimeout(() => {
+    try {
+      const res = await axios.put(`/api/users/${user._id}`, formData);
+      if (res.data.success) {
+        setSuccess('Profile updated successfully!');
+        setUser(res.data.user);
+      }
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Failed to update profile');
+    } finally {
       setLoading(false);
-      setSuccess('Profile updated successfully!');
-    }, 1000);
+    }
   };
 
   return (
@@ -46,6 +66,11 @@ export default function ProfilePage() {
         </div>
 
         <form onSubmit={handleSave} className="bg-dark-surface p-8 rounded-2xl border border-white/10 space-y-6">
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
           {success && (
             <div className="bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-3 rounded-lg text-sm">
               {success}

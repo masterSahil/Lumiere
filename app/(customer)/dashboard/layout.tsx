@@ -1,10 +1,26 @@
 'use client'
 import Head from 'next/head';
 import { useRouter, usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname();  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get('/api/auth/verify');
+        if (data.success) {
+          setUser(data.data);
+        }
+      } catch (e) {
+        console.error("Failed to fetch user in layout", e);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const navItems = [
     { name: 'Orders', icon: 'receipt_long', path: '/dashboard/orders' },
@@ -33,7 +49,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full border border-primary-500/30 overflow-hidden bg-dark-surface flex items-center justify-center">
-              <span className="material-symbols-outlined text-primary-400">person</span>
+              {user?.avatar ? (
+                <img src={user.avatar} className="w-full h-full object-cover" alt="User" />
+              ) : (
+                <span className="material-symbols-outlined text-primary-400">person</span>
+              )}
             </div>
           </div>
         </div>
@@ -47,12 +67,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="sticky top-32 flex flex-col gap-6">
               <div className="bg-dark-surface p-6 rounded-xl border border-white/10">
                 <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-full bg-primary-500/20 flex items-center justify-center border border-primary-500/20">
-                    <span className="material-symbols-outlined text-primary-400">person</span>
+                  <div className="w-12 h-12 rounded-full bg-primary-500/20 overflow-hidden flex items-center justify-center border border-primary-500/20">
+                    {user?.avatar ? (
+                      <img src={user.avatar} className="w-full h-full object-cover" alt="User" />
+                    ) : (
+                      <span className="material-symbols-outlined text-primary-400">person</span>
+                    )}
                   </div>
                   <div>
-                    <h3 className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-primary-400">Guest User</h3>
-                    <p className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-gray-400">Lumière Member</p>
+                    <h3 className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-primary-400">{user?.username || 'Guest User'}</h3>
+                    <p className="font-sans text-[12px] leading-4 tracking-[0.03em] font-medium text-gray-400 capitalize">{user?.role === 'customer' ? 'Lumière Member' : (user?.role || 'Guest')}</p>
                   </div>
                 </div>
                 <nav className="flex flex-col gap-1">

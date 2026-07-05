@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { Edit, Trash2, Eye } from 'lucide-react';
+import Loading from '@/app/loading';
+import { toast } from 'sonner';
 
 export default function AdminMenuPage() {
   const [foods, setFoods] = useState([]);
@@ -28,7 +30,7 @@ export default function AdminMenuPage() {
       if (res.data.success) {
         fetchFoods(); // Refetch after delete
       } else {
-        alert("Failed to delete");
+        toast.error("Failed to delete");
       }
     } catch (error) {
       console.error("Delete Error", error);

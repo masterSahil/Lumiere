@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
+import { toast } from 'sonner';
 
 export default function FoodDetail() {
   const { id }: any = useParams();
@@ -119,12 +120,12 @@ export default function FoodDetail() {
                   comment: form.comment.value
                 });
                 if (res.data.success) {
-                  alert('Review submitted successfully!');
+                  toast.success('Review submitted successfully!');
                   form.reset();
                   window.location.reload();
                 }
               } catch (err) {
-                alert('Failed to submit review');
+                toast.error('Failed to submit review');
               }
             }} className="space-y-4 mb-12 border-b border-white/10 pb-12">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

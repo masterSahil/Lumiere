@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useCartStore } from '@/store/cartStore';
+import Loading from '@/app/loading';
 
 const CardWrapper = ({ children, index }: { children: React.ReactNode, index: number }) => (
   <motion.div
@@ -73,7 +74,7 @@ export default function MenuPage() {
 
         {/* Menu Grid */}
         {loading ? (
-          <div className="flex justify-center py-20 text-[var(--color-primary-500)]">Loading Menu...</div>
+          <Loading />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
             {foods.map((food: any, idx) => (

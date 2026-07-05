@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ReservationsPage() {
@@ -31,10 +32,10 @@ export default function ReservationsPage() {
       if (data.success) {
         setSuccess(true);
       } else {
-        alert(data.error || 'Failed to book reservation');
+        toast.error(data.error || 'Failed to book reservation');
       }
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Something went wrong');
+      toast.error(err.response?.data?.error || 'Something went wrong');
     } finally {
       setLoading(false);
     }

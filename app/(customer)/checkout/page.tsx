@@ -1,9 +1,9 @@
 'use client'
-import Head from 'next/head';
+import axios from 'axios';
 import { useCartStore } from '@/store/cartStore';
+import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react';
-import axios from 'axios';
 
 export default function CheckoutPage() {
   const { items, getSubtotal, getTax, getDeliveryFee, getTotal, clearCart } = useCartStore();
@@ -45,7 +45,7 @@ export default function CheckoutPage() {
 
   const handleCheckout = async () => {
     if (!formData.customerName || !formData.customerEmail || !formData.shippingAddress || !formData.customerPhone) {
-      alert("Please fill in all required delivery details.");
+      toast.error("Please fill in all required delivery details.");
       return;
     }
 
@@ -64,7 +64,7 @@ export default function CheckoutPage() {
     try {
       const res = await loadRazorpay();
       if (!res) {
-        alert('Razorpay SDK failed to load. Are you online?');
+        toast.error('Razorpay SDK failed to load. Are you online?');
         setLoading(false);
         return;
       }
@@ -73,7 +73,7 @@ export default function CheckoutPage() {
       const { data } = await axios.post('/api/checkout/razorpay', { orderData });
 
       if (!data.success) {
-        alert("Failed to create order: " + data.error);
+        toast.error("Failed to create order: " + data.error);
         setLoading(false);
         return;
       }
@@ -97,14 +97,14 @@ export default function CheckoutPage() {
 
             if (verifyRes.data.success) {
               clearCart();
-              alert("Payment successful! Your order is being prepared.");
+              toast.success("Payment successful! Your order is being prepared.");
               router.push('/menu'); // or an order success page
             } else {
-              alert("Payment verification failed.");
+              toast.error("Payment verification failed.");
             }
           } catch (err) {
             console.error(err);
-            alert("Error verifying payment.");
+            toast.error("Error verifying payment.");
           }
         },
         prefill: {
@@ -122,7 +122,7 @@ export default function CheckoutPage() {
 
     } catch (error) {
       console.error(error);
-      alert("Checkout failed. Please try again.");
+      toast.error("Checkout failed. Please try again.");
     } finally {
       setLoading(false);
     }

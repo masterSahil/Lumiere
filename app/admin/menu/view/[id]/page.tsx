@@ -3,6 +3,9 @@ import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { LuArrowLeft, LuFlame, LuLeaf, LuUtensils } from 'react-icons/lu';
+import { toast } from 'sonner';
+
+import Loading from '@/app/loading';
 
 export default function AdminViewMenuPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -18,7 +21,7 @@ export default function AdminViewMenuPage({ params }: { params: Promise<{ id: st
         }
       } catch (error) {
         console.error(error);
-        alert("Failed to load dish");
+        toast.error("Failed to load dish");
       } finally {
         setLoading(false);
       }
@@ -26,7 +29,7 @@ export default function AdminViewMenuPage({ params }: { params: Promise<{ id: st
     fetchDish();
   }, [id]);
 
-  if (loading) return <div className="text-primary-400 p-8">Loading culinary details...</div>;
+  if (loading) return <Loading />;
   if (!food) return <div className="text-red-400 p-8">Dish not found.</div>;
 
   return (

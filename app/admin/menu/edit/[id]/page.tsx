@@ -3,7 +3,8 @@ import React, { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import axios from 'axios';
-import { LuUtensils, LuUpload, LuArrowLeft, LuChevronDown, LuFlame, LuLeaf, LuCheck, LuPlus } from 'react-icons/lu';
+import { LuUtensils, LuUpload, LuArrowLeft, LuChevronDown, LuFlame, LuLeaf, LuCheck, LuPlus, LuX } from 'react-icons/lu';
+import { toast } from 'sonner';
 
 export default function AdminEditMenuPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -73,7 +74,7 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
         }
       } catch (error) {
         console.error("Failed to fetch initial data", error);
-        alert("Failed to load dish details.");
+        toast.error('Failed to load dish details');
       } finally {
         setLoading(false);
       }
@@ -90,9 +91,10 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
         setCategory(res.data.category._id);
         setNewCategoryName('');
         setIsAddingCategory(false);
+        toast.success("Category added successfully");
       }
     } catch (error) {
-      alert("Failed to add category");
+      toast.error("Failed to add category");
     }
   };
 
@@ -115,7 +117,7 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
 
   const handleUpdate = async () => {
     if (!name || !price || !description || !category) {
-      alert("Please fill all required fields and ensure a category is selected.");
+      toast.error("Please fill all required fields and ensure a category is selected.");
       return;
     }
     

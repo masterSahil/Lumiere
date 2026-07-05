@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import Link from 'next/link';
 import axios from 'axios';
 import { LuUtensils, LuArrowLeft, LuUpload, LuChevronDown, LuFlame, LuLeaf, LuCheck, LuPlus } from 'react-icons/lu';
@@ -57,7 +58,7 @@ export default function AddMenu() {
         setIsAddingCategory(false);
       }
     } catch (error) {
-      alert("Failed to add category");
+      toast.error("Failed to add category");
     }
   };
 
@@ -80,7 +81,7 @@ export default function AddMenu() {
 
   const handlePublish = async () => {
     if (!name || !price || !description || !category) {
-      alert("Please fill all required fields and ensure a category is selected.");
+      toast.error("Please fill all required fields and ensure a category is selected.");
       return;
     }
     
@@ -131,11 +132,11 @@ export default function AddMenu() {
       if (res.data.success) {
         router.push('/admin/menu');
       } else {
-        alert("Failed to publish: " + res.data.message);
+        toast.error("Failed to publish: " + res.data.message);
       }
     } catch (error: any) {
       console.error(error);
-      alert("Error publishing food: " + (error.response?.data?.message || error.message));
+      toast.error("Error publishing food: " + (error.response?.data?.message || error.message));
     } finally {
       setLoading(false);
     }

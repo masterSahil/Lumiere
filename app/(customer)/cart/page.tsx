@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useCartStore } from '@/store/cartStore';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
 
 export default function ShoppingCartPage() {
   const { items, removeItem, updateQuantity, getSubtotal, getTax, getDeliveryFee, getTotal } = useCartStore();
@@ -144,13 +145,13 @@ export default function ShoppingCartPage() {
                         const data = await res.json();
                         if (data.success) {
                           useCartStore.getState().applyCoupon(data.coupon.code, data.coupon.discountPercentage);
-                          alert(`Coupon applied! ${data.coupon.discountPercentage}% off.`);
+                          toast.success(`Coupon applied! ${data.coupon.discountPercentage}% off.`);
                         } else {
-                          alert(data.message || 'Invalid coupon');
+                          toast.error(data.message || 'Invalid coupon');
                           useCartStore.getState().removeCoupon();
                         }
                       } catch (e) {
-                        alert('Error applying coupon');
+                        toast.error('Error applying coupon');
                       }
                     }}
                     className="bg-white/10 hover:bg-white/20 text-white px-4 rounded-lg font-bold transition-all text-sm"

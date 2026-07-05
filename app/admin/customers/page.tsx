@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { User, Mail, Phone, Calendar } from 'lucide-react';
+import Loading from '@/app/loading';
+import { toast } from 'sonner';
 
 export default function AdminCustomersPage() {
   const [customers, setCustomers] = useState([]);
@@ -11,10 +13,8 @@ export default function AdminCustomersPage() {
     try {
       const { data } = await axios.get('/api/users');
       if (data.success) {
-        // Filter out admins if any, or just show all users depending on your schema.
-        // Assuming we want to show all customers:
-        const customerUsers = data.users.filter((u: any) => u.role === 'customer' || !u.role);
-        setCustomers(customerUsers);
+        const filtered = data.users.filter((u: any) => u.role === 'customer');
+        setCustomers(filtered);
       }
     } catch (error) {
       console.error(error);
@@ -23,16 +23,16 @@ export default function AdminCustomersPage() {
     }
   };
 
-  const handleDeleteCustomer = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this customer?')) return;
+  const handleBlock = async (id: string) => {
+    if (!confirm("Are you sure you want to deactivate this customer?")) return;
     try {
-      const res = await axios.delete(`/api/users/${id}`);
+      const res = await axios.put(`/api/users/${id}`, { isActive: false });
       if (res.data.success) {
         fetchCustomers();
       }
-    } catch (e) {
-      console.error(e);
-      alert("Failed to delete customer");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to deactivate customer");
     }
   };
 
@@ -40,7 +40,7 @@ export default function AdminCustomersPage() {
     fetchCustomers();
   }, []);
 
-  if (loading) return <div className="text-primary-400">Loading customers...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div className="space-y-6">

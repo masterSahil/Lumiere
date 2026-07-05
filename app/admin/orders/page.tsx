@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Loading from '@/app/loading';
+import { toast } from 'sonner';
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -29,12 +31,14 @@ export default function AdminOrdersPage() {
     try {
       await axios.put(`/api/orders/${id}`, { orderStatus: status });
       fetchOrders();
+      toast.success("Order status updated!");
     } catch (e) {
       console.error(e);
+      toast.error("Failed to update order status");
     }
   };
 
-  if (loading) return <div className="text-primary-400">Loading orders...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div className="space-y-6">

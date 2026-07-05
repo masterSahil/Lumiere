@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Loading from '@/app/loading';
 
 export default function AdminReservationsPage() {
   const [reservations, setReservations] = useState([]);
@@ -32,7 +33,7 @@ export default function AdminReservationsPage() {
     }
   };
 
-  if (loading) return <div className="text-primary-400">Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div className="space-y-6">
