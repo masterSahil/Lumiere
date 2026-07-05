@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { CalendarX, Utensils } from 'lucide-react';
 
 export default function DashboardReservationsPage() {
   const [reservations, setReservations] = useState([]);
@@ -53,20 +54,20 @@ export default function DashboardReservationsPage() {
         </div>
 
         {reservations.length === 0 ? (
-          <div className="bg-dark-surface p-8 rounded-2xl border border-white/10 text-center">
-            <span className="material-symbols-outlined text-4xl text-gray-500 mb-4 block">event_busy</span>
+          <div className="bg-dark-surface p-8 rounded-2xl border border-white/10 text-center flex flex-col items-center justify-center py-20">
+            <CalendarX className="w-12 h-12 text-gray-500 mb-4" />
             <p className="text-gray-400">You have no reservations right now.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             {reservations.map((res: any) => (
-              <div key={res._id} className="bg-dark-surface p-6 rounded-xl border border-white/10 relative hover:border-white/20 transition-all cursor-pointer group">
+              <div key={res._id} className="bg-dark-surface p-6 rounded-xl border border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6 group hover:border-white/10 transition-colors">
                 
                 <div className={`absolute top-4 right-4 text-[10px] px-3 py-1 rounded-full uppercase tracking-wider font-bold border ${getStatusColor(res.status)}`}>
                   {res.status}
                 </div>
                 
-                <span className="material-symbols-outlined text-3xl text-primary-400 mb-4 block group-hover:scale-110 transition-transform">restaurant</span>
+                <Utensils className="w-10 h-10 text-primary-400 mb-4 md:mb-0 group-hover:scale-110 transition-transform hidden md:block" />
                 <p className="font-sans text-[20px] text-white font-medium mb-1">{res.date}</p>
                 <p className="font-sans text-[16px] text-gray-300 mb-6">{res.time} • {res.guests} Guests</p>
                 

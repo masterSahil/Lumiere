@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Camera } from 'lucide-react';
+import { Camera, User } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function ProfilePage() {
@@ -62,8 +62,17 @@ export default function ProfilePage() {
         const imgData = new FormData();
         imgData.append('file', imageFile);
         const uploadRes = await axios.post('/api/upload', imgData);
+        
         if (uploadRes.data.success) {
           avatarUrl = uploadRes.data.url;
+          // Delete old avatar if it exists
+          if (user.avatar) {
+            try {
+              await axios.delete('/api/upload', { data: { url: user.avatar } });
+            } catch (e) {
+              console.error("Failed to delete old avatar", e);
+            }
+          }
         } else {
           throw new Error('Failed to upload image');
         }
@@ -101,7 +110,9 @@ export default function ProfilePage() {
                 {imagePreview ? (
                   <img src={imagePreview} alt="Avatar" className="w-full h-full object-cover" />
                 ) : (
-                  <span className="material-symbols-outlined text-primary-400 text-4xl">person</span>
+                  <div className="w-full h-full flex items-center justify-center bg-primary-500/10">
+                    <User className="w-12 h-12 text-primary-400" />
+                  </div>
                 )}
               </div>
               <label className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
@@ -137,10 +148,10 @@ export default function ProfilePage() {
 
           <button 
             type="submit"
-            disabled={loading}
+            disabled={loading || uploadingImage}
             className="bg-primary-500 text-dark-bg px-8 py-3 rounded-lg font-sans text-sm tracking-wider font-semibold hover:brightness-110 transition-all disabled:opacity-50"
           >
-            {loading ? 'Saving...' : 'Save Changes'}
+            {uploadingImage ? 'Uploading Image...' : loading ? 'Saving...' : 'Save Changes'}
           </button>
         </form>
       </section>

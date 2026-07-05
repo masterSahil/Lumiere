@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import UserNavbar from '@/component/layout/UserNavbar';
+import { Truck, CheckCircle, Wallet, Lock, CreditCard } from 'lucide-react';
 
 export default function CheckoutPage() {
   const { items, getSubtotal, getTax, getDeliveryFee, getTotal, clearCart } = useCartStore();
@@ -143,7 +144,7 @@ export default function CheckoutPage() {
           <ol className="flex items-center justify-center space-x-8 md:space-x-12" role="list">
             <li className="flex items-center space-x-3">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-950 text-primary-400 text-sm font-bold">
-                <span className="material-symbols-outlined text-sm">check</span>
+                <CheckCircle className="w-5 h-5" />
               </span>
               <span className="text-sm font-semibold uppercase tracking-wider text-gray-300">Cart</span>
             </li>
@@ -163,7 +164,7 @@ export default function CheckoutPage() {
             {/* Delivery Section */}
             <section>
               <div className="flex items-center space-x-4 mb-8">
-                <span className="material-symbols-outlined text-primary-400">local_shipping</span>
+                <Truck className="text-primary-400 w-6 h-6" />
                 <h2 className="text-2xl font-serif font-medium tracking-tight text-white">Delivery Details</h2>
               </div>
               <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -234,7 +235,7 @@ export default function CheckoutPage() {
             {/* Payment Section */}
             <section>
               <div className="flex items-center space-x-4 mb-8">
-                <span className="material-symbols-outlined text-primary-400">account_balance_wallet</span>
+                <Wallet className="text-primary-400 w-6 h-6" />
                 <h2 className="text-2xl font-serif font-medium tracking-tight text-white">Payment Method</h2>
               </div>
               
@@ -243,8 +244,11 @@ export default function CheckoutPage() {
                 <label className="relative cursor-pointer">
                   <input defaultChecked className="peer sr-only" name="payment" type="radio" value="Razorpay" />
                   <div className="p-6 rounded-xl flex flex-col items-center justify-center space-y-3 transition-all ring-2 ring-primary-500 bg-primary-500/10 h-full border border-white/5">
-                    <span className="material-symbols-outlined text-3xl text-white">payments</span>
-                    <span className="text-xs font-bold uppercase tracking-widest text-white">Credit Card / UPI / NetBanking via Razorpay</span>
+                    <CreditCard className="text-white w-8 h-8" />
+                    <div>
+                      <h3 className="text-xl font-serif text-white text-center">Razorpay</h3>
+                      <p className="text-[10px] text-gray-400 tracking-widest font-bold uppercase mt-1">Credit Card / UPI / Netbanking via Razorpay</p>
+                    </div>
                   </div>
                 </label>
               </div>
@@ -303,7 +307,7 @@ export default function CheckoutPage() {
               </button>
               
               <div className="mt-6 flex items-center justify-center space-x-2 text-xs text-gray-400">
-                <span className="material-symbols-outlined text-sm">lock</span>
+                <Lock className="w-4 h-4" />
                 <span className="uppercase tracking-widest">End-to-end encrypted secure checkout</span>
               </div>
             </div>

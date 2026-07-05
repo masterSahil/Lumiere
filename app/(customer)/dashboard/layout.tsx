@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ReceiptText, Utensils, User, MapPin, CreditCard, Bell, Settings } from 'lucide-react';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -23,13 +24,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }, []);
 
   const navItems = [
-    { name: 'Orders', icon: 'receipt_long', path: '/dashboard/orders' },
-    { name: 'Reservations', icon: 'restaurant', path: '/dashboard/reservations' },
-    { name: 'Profile', icon: 'person', path: '/dashboard/profile' },
-    { name: 'Addresses', icon: 'location_on', path: '/dashboard/addresses' },
-    { name: 'Payment Methods', icon: 'payments', path: '/dashboard/payments' },
-    { name: 'Notifications', icon: 'notifications', path: '/dashboard/notifications' },
-    { name: 'Settings', icon: 'settings', path: '/dashboard/settings' },
+    { name: 'Orders', icon: ReceiptText, path: '/dashboard/orders' },
+    { name: 'Reservations', icon: Utensils, path: '/dashboard/reservations' },
+    { name: 'Profile', icon: User, path: '/dashboard/profile' },
+    { name: 'Addresses', icon: MapPin, path: '/dashboard/addresses' },
+    { name: 'Payment Methods', icon: CreditCard, path: '/dashboard/payments' },
+    { name: 'Notifications', icon: Bell, path: '/dashboard/notifications' },
+    { name: 'Settings', icon: Settings, path: '/dashboard/settings' },
   ];
 
   return (
@@ -52,7 +53,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               {user?.avatar ? (
                 <img src={user.avatar} className="w-full h-full object-cover" alt="User" />
               ) : (
-                <span className="material-symbols-outlined text-primary-400">person</span>
+                <User className="text-primary-400 w-6 h-6" />
               )}
             </div>
           </div>
@@ -71,7 +72,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     {user?.avatar ? (
                       <img src={user.avatar} className="w-full h-full object-cover" alt="User" />
                     ) : (
-                      <span className="material-symbols-outlined text-primary-400">person</span>
+                      <User className="text-primary-400 w-6 h-6" />
                     )}
                   </div>
                   <div>
@@ -92,7 +93,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           : "text-gray-300 hover:bg-white/5"
                         }`}
                       >
-                        <span className="material-symbols-outlined">{item.icon}</span>
+                        <item.icon className="w-5 h-5 shrink-0" />
                         <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">{item.name}</span>
                       </button>
                     )

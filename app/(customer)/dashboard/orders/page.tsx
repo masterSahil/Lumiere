@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { ReceiptText } from 'lucide-react';
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -72,8 +73,9 @@ export default function OrdersPage() {
         </div>
 
         {activeOrders.length === 0 ? (
-          <div className="bg-dark-surface p-8 rounded-2xl border border-white/10 text-center">
-            <span className="material-symbols-outlined text-4xl text-gray-500 mb-4 block">receipt_long</span>
+          <div className="flex flex-col items-center justify-center py-20 bg-dark-surface p-8 rounded-2xl border border-white/10 text-center">
+            <ReceiptText className="w-12 h-12 text-gray-500 mb-4" />
+            <h2 className="text-2xl font-serif text-white mb-2">No active orders</h2>
             <p className="text-gray-400">You have no active orders right now.</p>
             <button onClick={() => router.push('/menu')} className="mt-4 text-primary-400 font-bold uppercase text-sm tracking-wider hover:underline">Browse Menu</button>
           </div>
@@ -146,7 +148,7 @@ export default function OrdersPage() {
               <div key={order._id} className="bg-dark-surface p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-6 border border-white/5 hover:border-white/10 transition-all">
                 <div className="flex gap-6 items-center">
                   <div className="w-16 h-16 rounded-lg overflow-hidden border border-white/10 shrink-0 bg-dark-bg flex items-center justify-center">
-                    <span className="material-symbols-outlined text-gray-500">receipt</span>
+                    <ReceiptText className="text-gray-500" />
                   </div>
                   <div>
                     <div className="flex items-center gap-3 mb-1">
@@ -162,6 +164,10 @@ export default function OrdersPage() {
                   <div className="text-right">
                     <p className="font-serif text-[24px] leading-10 font-medium text-primary-400">${order.totalAmount.toFixed(2)}</p>
                     <span className={`font-sans text-[12px] leading-4 font-medium ${getStatusColor(order.orderStatus)}`}>{order.orderStatus}</span>
+                  </div>
+                  <div className="flex items-center gap-2 cursor-pointer group">
+                    <ReceiptText className="w-4 h-4 text-gray-500 group-hover:text-primary-400 transition-colors" />
+                    <span className="text-xs uppercase tracking-widest font-bold text-gray-500 group-hover:text-primary-400 transition-colors">Receipt</span>
                   </div>
                 </div>
               </div>

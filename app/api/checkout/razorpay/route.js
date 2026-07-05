@@ -17,7 +17,8 @@ export async function POST(request) {
     const dbOrder = await Order.create({
       ...orderData,
       paymentStatus: 'Pending',
-      orderStatus: 'Pending'
+      orderStatus: 'Pending',
+      paymentInfo: { method: 'Razorpay' }
     });
 
     // 2. Create Razorpay order

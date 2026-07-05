@@ -24,15 +24,19 @@ export default function AdminCustomersPage() {
   };
 
   const handleBlock = async (id: string) => {
-    if (!confirm("Are you sure you want to deactivate this customer?")) return;
+    if (!confirm("Are you sure you want to toggle this customer's status?")) return;
     try {
-      const res = await axios.put(`/api/users/${id}`, { isActive: false });
+      // Assuming API supports toggling, but current code sets isActive: false. 
+      // Let's just find the customer to toggle
+      const customer = customers.find((c: any) => c._id === id) as any;
+      const res = await axios.put(`/api/users/${id}`, { isActive: !customer?.isActive });
       if (res.data.success) {
         fetchCustomers();
+        toast.success(`Customer ${!customer?.isActive ? 'activated' : 'deactivated'}!`);
       }
     } catch (error) {
       console.error(error);
-      toast.error("Failed to deactivate customer");
+      toast.error("Failed to update customer status");
     }
   };
 
@@ -95,8 +99,10 @@ export default function AdminCustomersPage() {
                   </div>
                 </td>
                 <td className="px-6 py-4 text-right space-x-2">
-                  <button className="text-gray-400 hover:text-white transition-colors">View</button>
-                  <button onClick={() => handleDeleteCustomer(customer._id)} className="text-gray-400 hover:text-red-400 transition-colors">Block</button>
+                  <button className="bg-white/5 hover:bg-white/10 text-white px-3 py-1.5 rounded-lg font-semibold transition-colors">View</button>
+                  <button onClick={() => handleBlock(customer._id)} className="bg-red-500/10 hover:bg-red-500 hover:text-white text-red-500 px-3 py-1.5 rounded-lg font-semibold transition-colors">
+                    {customer.isActive ? 'Block' : 'Unblock'}
+                  </button>
                 </td>
               </tr>
             ))}
