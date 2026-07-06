@@ -30,6 +30,8 @@ const UserSchema = new Schema(
     isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
     lastLogin: { type: Date },
+    resetPasswordOtp: { type: String, default: "" },
+    resetPasswordOtpExpiry: { type: Date },
     addresses: [addressSchema],
     paymentMethods: [
       {

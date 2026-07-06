@@ -3,13 +3,24 @@ import Head from 'next/head';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ReceiptText, Utensils, User, MapPin, CreditCard, Bell, Settings } from 'lucide-react';
+import { ReceiptText, Utensils, User, MapPin, CreditCard, Bell, Settings, LogOut } from 'lucide-react';
 import UserNavbar from '@/component/layout/UserNavbar';
 import Footer from '@/component/Home/Footer';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const pathname = usePathname();  const [user, setUser] = useState<any>(null);
+  const pathname = usePathname();  
+  const [user, setUser] = useState<any>(null);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post('/api/auth/logout');
+    } catch (e) {
+      // Ignore if endpoint doesn't exist
+    }
+    sessionStorage.removeItem('token');
+    router.push('/login');
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -77,6 +88,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                       </button>
                     )
                   })}
+                  
+                  <div className="my-2 border-t border-white/5"></div>
+                  
+                  <button 
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 p-3 rounded-lg transition-all text-red-400 hover:bg-red-500/10 hover:text-red-300"
+                  >
+                    <LogOut className="w-5 h-5 shrink-0" />
+                    <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Log Out</span>
+                  </button>
                 </nav>
               </div>
             </div>

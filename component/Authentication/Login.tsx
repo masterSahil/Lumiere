@@ -128,7 +128,7 @@ export default function LoginPage() {
 
                 {/* Form Options */}
                 <div className="flex items-center justify-between">
-                  <Link href="/" className="text-sm text-primary-400 hover:underline transition-all">Forgot Password?</Link>
+                  <Link href="/forgot-password" className="text-sm text-primary-400 hover:underline transition-all">Forgot Password?</Link>
                 </div>
 
                 {/* Primary Sign In */}

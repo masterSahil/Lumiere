@@ -8,7 +8,9 @@ import {
   Users, 
   Settings, 
   Shield, 
-  Bell 
+  Bell,
+  Grid,
+  Palette
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -18,9 +20,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const navItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
     { name: 'Orders', icon: ClipboardList, path: '/admin/orders' },
-    { name: 'Reservations', icon: CalendarCheck, path: '/admin/reservations' },
     { name: 'Menu', icon: Utensils, path: '/admin/menu' },
+    { name: 'Categories', icon: Grid, path: '/admin/categories' },
+    { name: 'Reservations', icon: CalendarCheck, path: '/admin/reservations' },
     { name: 'Customers', icon: Users, path: '/admin/customers' },
+    { name: 'Branding', icon: Palette, path: '/admin/branding' },
     { name: 'Settings', icon: Settings, path: '/admin/settings' },
   ];
 

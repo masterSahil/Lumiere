@@ -30,11 +30,14 @@ export default function RegisterPage() {
       setFormData({
         username: '', email: '', password: ''
       });
-      const role = res.data.data.role;
+      const role = res.data.data.user?.role || res.data.data.role;
+      if (res.data.data.token) {
+        sessionStorage.setItem("token", res.data.data.token);
+      }
       if (role === 'admin' || role === 'superadmin') {
         router.push("/admin/dashboard");
       } else {
-        router.push("/dashboard");
+        router.push("/");
       }
     } catch (error: any) {
       console.log("FULL ERROR:", error);

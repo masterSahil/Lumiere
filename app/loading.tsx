@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function Loading() {
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-dark-bg min-h-screen w-full">
+    <div className="fixed inset-0 z-100 flex items-center justify-center bg-dark-bg min-h-screen w-full">
       <div className="flex flex-col items-center gap-8">
         
         {/* Simple elegant fast-spinning loader */}

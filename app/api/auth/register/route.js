@@ -34,10 +34,10 @@ export async function POST(req) {
     delete userObj.password;
 
     // Automatically log the user in after registration
-    const token = generateToken({ id: newUser._id, role: newUser.role });
+    const token = generateToken({ userId: newUser._id, role: newUser.role });
     await setAuthCookie(token);
 
-    return successResponse(userObj, "User registered successfully", 201);
+    return successResponse({ user: userObj, token }, "User registered successfully", 201);
   } catch (error) {
     console.error("Register Error:", error);
     return errorResponse("Failed to register user", 500, error.message);
