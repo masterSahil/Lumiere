@@ -75,7 +75,7 @@ export default function CheckoutPage() {
       const { data } = await axios.post('/api/checkout/razorpay', { orderData });
 
       if (!data.success) {
-        toast.error("Failed to create order: " + data.error);
+        toast.error(data.message || data.error || "Failed to create order");
         setLoading(false);
         return;
       }
@@ -122,9 +122,10 @@ export default function CheckoutPage() {
       const paymentObject = new (window as any).Razorpay(options);
       paymentObject.open();
 
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      toast.error("Checkout failed. Please try again.");
+      const errorMsg = error.response?.data?.message || error.response?.data?.error || error.message || "Checkout failed. Please try again.";
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }

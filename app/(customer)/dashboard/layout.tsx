@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'sonner';
 import { ReceiptText, Utensils, User, MapPin, CreditCard, Bell, Settings, LogOut } from 'lucide-react';
 import UserNavbar from '@/component/layout/UserNavbar';
 import Footer from '@/component/Home/Footer';
@@ -29,8 +30,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         if (data.success) {
           setUser(data.data);
         }
-      } catch (e) {
+      } catch (e: any) {
         console.error("Failed to fetch user in layout", e);
+        const errorMsg = e.response?.data?.message || e.response?.data?.error || "Session expired or user inactive";
+        toast.error(errorMsg);
+        
+        if (e.response?.status === 401 || e.response?.status === 403) {
+            router.push('/login');
+        }
       }
     };
     fetchUser();

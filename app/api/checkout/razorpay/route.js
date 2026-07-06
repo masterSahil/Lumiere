@@ -2,6 +2,9 @@ import Razorpay from 'razorpay';
 import { NextResponse } from 'next/server';
 import connectDB from '@/libs/config';
 import Order from '@/model/order';
+import User from '@/model/user';
+import { getTokenFromCookie, verifyToken } from "@/libs/auth";
+import { errorResponse } from "@/libs/api-utils";
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID || 'rzp_test_dummykey', 
@@ -11,11 +14,41 @@ const razorpay = new Razorpay({
 export async function POST(request) {
   try {
     await connectDB();
+
+    let token = await getTokenFromCookie();
+    if (!token) {
+      const authHeader = request.headers.get("authorization");
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.split(" ")[1];
+      }
+    }
+
+    if (!token) {
+      return errorResponse("Unauthorized - Please log in to place an order", 401);
+    }
+
+    const decoded = verifyToken(token);
+    if (!decoded) {
+      return errorResponse("Unauthorized - Invalid or expired session", 401);
+    }
+
+    const userId = decoded.userId || decoded.id;
+    const user = await User.findById(userId).select("-password");
+    
+    if (!user) {
+      return errorResponse("User not found", 404);
+    }
+
+    if (!user.isActive || user.isDeleted) {
+      return errorResponse("Your account is deactivated or deleted. Please contact support.", 403);
+    }
+
     const { orderData } = await request.json();
 
     // 1. Create order in database (Pending)
     const dbOrder = await Order.create({
       ...orderData,
+      user: userId,
       paymentStatus: 'Pending',
       orderStatus: 'Pending',
       paymentInfo: { method: 'Razorpay' }
@@ -32,8 +65,8 @@ export async function POST(request) {
 
     const rzpOrder = await razorpay.orders.create(options);
 
-    // Save transaction ID
-    dbOrder.transactionId = rzpOrder.id;
+    // Save transaction ID properly inside paymentInfo
+    dbOrder.paymentInfo.transactionId = rzpOrder.id;
     await dbOrder.save();
 
     return NextResponse.json({ 
@@ -45,6 +78,6 @@ export async function POST(request) {
     });
   } catch (error) {
     console.error("Razorpay Order Error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return errorResponse(error.message || "Razorpay Order Error", 500);
   }
 }
