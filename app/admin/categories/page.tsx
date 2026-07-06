@@ -11,9 +11,9 @@ export default function CategoriesManagement() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get('/api/category');
+        const { data } = await axios.get('/api/categories');
         if (data.success) {
-          setCategories(data.data);
+          setCategories(data.categories || []);
         }
       } catch (err) {
         console.error("Failed to fetch categories", err);

@@ -53,8 +53,7 @@ export default function AdminReservationsPage() {
               <th className="px-6 py-4">Guest Info</th>
               <th className="px-6 py-4">Party Size</th>
               <th className="px-6 py-4">Requests</th>
-              <th className="px-6 py-4">Status</th>
-              <th className="px-6 py-4">Action</th>
+              <th className="px-6 py-4">Status & Action</th>
             </tr>
           </thead>
           <tbody>
@@ -73,32 +72,27 @@ export default function AdminReservationsPage() {
                 <td className="px-6 py-4 text-xs max-w-[200px] truncate" title={res.specialRequests}>
                   {res.specialRequests || '-'}
                 </td>
-                <td className="px-6 py-4">
-                  <span className={`px-2 py-1 rounded text-xs font-bold ${
-                    res.status === 'Pending' ? 'bg-yellow-500/20 text-yellow-500' :
-                    res.status === 'Confirmed' ? 'bg-green-500/20 text-green-500' :
-                    res.status === 'Completed' ? 'bg-primary-500/20 text-primary-400' :
-                    'bg-red-500/20 text-red-500'
-                  }`}>
-                    {res.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4 flex gap-2">
-                  {res.status === 'Pending' && (
-                    <>
-                      <button onClick={() => updateStatus(res._id, 'Confirmed')} className="bg-green-500/20 text-green-500 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-green-500 hover:text-white transition-all flex items-center gap-1">
-                        <Check className="w-4 h-4" /> Confirm
-                      </button>
-                      <button onClick={() => updateStatus(res._id, 'Cancelled')} className="bg-red-500/20 text-red-500 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-red-500 hover:text-white transition-all flex items-center gap-1">
-                        <X className="w-4 h-4" /> Reject
-                      </button>
-                    </>
-                  )}
-                  {res.status === 'Confirmed' && (
-                     <button onClick={() => updateStatus(res._id, 'Completed')} className="bg-primary-500/20 text-primary-400 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary-500 hover:text-dark-bg transition-all flex items-center gap-1">
-                       <CheckCheck className="w-4 h-4" /> Mark Seated
-                     </button>
-                  )}
+                <td className="px-6 py-4 w-48">
+                  <div className="relative">
+                    <select
+                      value={res.status}
+                      onChange={(e) => updateStatus(res._id, e.target.value)}
+                      className={`w-full appearance-none px-4 py-2 pr-8 rounded-lg text-xs font-bold border outline-none cursor-pointer transition-colors ${
+                        res.status === 'Pending' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20 hover:bg-yellow-500/20' :
+                        res.status === 'Confirmed' ? 'bg-green-500/10 text-green-500 border-green-500/20 hover:bg-green-500/20' :
+                        res.status === 'Completed' ? 'bg-primary-500/10 text-primary-400 border-primary-500/20 hover:bg-primary-500/20' :
+                        'bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20'
+                      }`}
+                    >
+                      <option value="Pending" className="bg-dark-surface text-white">Pending</option>
+                      <option value="Confirmed" className="bg-dark-surface text-white">Confirm</option>
+                      <option value="Completed" className="bg-dark-surface text-white">Mark Seated (Completed)</option>
+                      <option value="Cancelled" className="bg-dark-surface text-white">Reject (Cancel)</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                       <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))}

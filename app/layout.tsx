@@ -24,16 +24,19 @@ export const metadata = {
 
 import { CartProvider } from "@/context/CartContext";
 import { Toaster } from 'sonner';
+import BrandingProvider from '@/component/BrandingProvider';
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>
-        <CartProvider>
-          <Suspense fallback={<Loader />}>
-            {children}
-          </Suspense>
-        </CartProvider>
+        <BrandingProvider>
+          <CartProvider>
+            <Suspense fallback={<Loader />}>
+              {children}
+            </Suspense>
+          </CartProvider>
+        </BrandingProvider>
         
         {/* Themed Toaster matching Lumière aesthetic */}
         <Toaster 

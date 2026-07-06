@@ -55,8 +55,7 @@ export default function AdminOrdersPage() {
               <th className="px-6 py-4">Customer</th>
               <th className="px-6 py-4">Items</th>
               <th className="px-6 py-4">Total</th>
-              <th className="px-6 py-4">Status</th>
-              <th className="px-6 py-4">Action</th>
+              <th className="px-6 py-4">Status & Action</th>
             </tr>
           </thead>
           <tbody>
@@ -71,34 +70,28 @@ export default function AdminOrdersPage() {
                   {order.items.length} items
                 </td>
                 <td className="px-6 py-4 font-bold">${order.totalAmount.toFixed(2)}</td>
-                <td className="px-6 py-4">
-                  <span className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center w-max gap-2 ${
-                    order.orderStatus === 'Pending' ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' :
-                    order.orderStatus === 'Preparing' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
-                    order.orderStatus === 'Out for Delivery' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' :
-                    'bg-green-500/10 text-green-500 border border-green-500/20'
-                  }`}>
-                    {order.orderStatus === 'Pending' && <Clock className="w-3.5 h-3.5" />}
-                    {order.orderStatus === 'Preparing' && <Package className="w-3.5 h-3.5" />}
-                    {order.orderStatus === 'Out for Delivery' && <Truck className="w-3.5 h-3.5" />}
-                    {order.orderStatus === 'Delivered' && <CheckCircle className="w-3.5 h-3.5" />}
-                    {order.orderStatus}
-                  </span>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="flex flex-wrap gap-2">
-                    {order.orderStatus === 'Pending' && (
-                      <button onClick={() => updateStatus(order._id, 'Preparing')} className="bg-blue-500/20 text-blue-400 hover:bg-blue-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">Start Preparing</button>
-                    )}
-                    {order.orderStatus === 'Preparing' && (
-                      <button onClick={() => updateStatus(order._id, 'Out for Delivery')} className="bg-purple-500/20 text-purple-400 hover:bg-purple-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">Dispatch</button>
-                    )}
-                    {order.orderStatus === 'Out for Delivery' && (
-                      <button onClick={() => updateStatus(order._id, 'Delivered')} className="bg-green-500/20 text-green-500 hover:bg-green-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">Mark Delivered</button>
-                    )}
-                    {order.orderStatus !== 'Delivered' && order.orderStatus !== 'Cancelled' && (
-                      <button onClick={() => updateStatus(order._id, 'Cancelled')} className="bg-red-500/10 text-red-500 hover:bg-red-500/20 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors">Cancel</button>
-                    )}
+                <td className="px-6 py-4 w-48">
+                  <div className="relative">
+                    <select
+                      value={order.orderStatus}
+                      onChange={(e) => updateStatus(order._id, e.target.value)}
+                      className={`w-full appearance-none px-4 py-2 pr-8 rounded-lg text-xs font-bold border outline-none cursor-pointer transition-colors ${
+                        order.orderStatus === 'Pending' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20 hover:bg-yellow-500/20' :
+                        order.orderStatus === 'Preparing' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:bg-blue-500/20' :
+                        order.orderStatus === 'Out for Delivery' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20 hover:bg-purple-500/20' :
+                        order.orderStatus === 'Delivered' ? 'bg-green-500/10 text-green-500 border-green-500/20 hover:bg-green-500/20' :
+                        'bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20'
+                      }`}
+                    >
+                      <option value="Pending" className="bg-dark-surface text-white">Pending</option>
+                      <option value="Preparing" className="bg-dark-surface text-white">Start Preparing</option>
+                      <option value="Out for Delivery" className="bg-dark-surface text-white">Dispatch (Out for Delivery)</option>
+                      <option value="Delivered" className="bg-dark-surface text-white">Mark Delivered</option>
+                      <option value="Cancelled" className="bg-dark-surface text-white">Cancel Order</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                       <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
                   </div>
                 </td>
               </tr>

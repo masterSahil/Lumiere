@@ -9,8 +9,9 @@ export default function AdminSettingsPage() {
   const [currentUser, setCurrentUser] = useState<any>(null);
 
   // Profile State
-  const [profileData, setProfileData] = useState({ username: '', email: '', phone: '' });
+  const [profileData, setProfileData] = useState({ username: '', email: '', phone: '', avatar: '' });
   const [savingProfile, setSavingProfile] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   // Security State
   const [passwords, setPasswords] = useState({ current: '', new: '', confirm: '' });
@@ -35,7 +36,8 @@ export default function AdminSettingsPage() {
         setProfileData({
           username: data.data.username || '',
           email: data.data.email || '',
-          phone: data.data.phone || ''
+          phone: data.data.phone || '',
+          avatar: data.data.avatar || ''
         });
       }
     } catch (e) {
@@ -75,6 +77,47 @@ export default function AdminSettingsPage() {
       toast.error("Failed to update profile: " + e.message);
     } finally {
       setSavingProfile(false);
+    }
+  };
+
+  const handleImageUpload = async (e: any) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      return toast.error("Image must be less than 5MB");
+    }
+
+    setUploadingImage(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "restro_uploads"); // Or a generic unsigned preset if configured
+    
+    // Instead of direct cloudinary, let's use the local API if available, or just use base64 for now if there's no dedicated endpoint.
+    // Assuming they have cloudinary env vars set, we can send to a generic upload API if we made one.
+    // Wait, let's use FileReader to convert to base64 and save it, as Cloudinary is often handled server-side in this project (e.g. food items).
+    try {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64String = reader.result as string;
+        try {
+          // Send to user update endpoint which should handle avatar
+          const res = await axios.put(`/api/users/${currentUser._id}`, { ...profileData, avatar: base64String });
+          if (res.data.success) {
+            toast.success("Profile image updated!");
+            setCurrentUser(res.data.user);
+            setProfileData({ ...profileData, avatar: res.data.user.avatar });
+          }
+        } catch (err: any) {
+          toast.error("Failed to upload image");
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error(error);
+      toast.error("Error reading file");
+    } finally {
+      setUploadingImage(false);
     }
   };
 
@@ -187,18 +230,23 @@ export default function AdminSettingsPage() {
               </div>
               
               <div className="flex items-center gap-6">
-                <div className="relative group cursor-pointer">
+                <label className="relative group cursor-pointer block">
                   <div className="w-24 h-24 rounded-2xl bg-dark-bg border border-white/10 flex items-center justify-center overflow-hidden">
-                    {currentUser?.avatar ? (
-                      <img src={currentUser.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                    {profileData.avatar || currentUser?.avatar ? (
+                      <img src={profileData.avatar || currentUser?.avatar} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
                       <User className="w-10 h-10 text-gray-500" />
                     )}
                   </div>
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl flex items-center justify-center">
-                    <Camera className="w-6 h-6 text-white" />
+                    {uploadingImage ? (
+                       <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
+                    ) : (
+                       <Camera className="w-6 h-6 text-white" />
+                    )}
                   </div>
-                </div>
+                  <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploadingImage} />
+                </label>
                 <div>
                   <h4 className="text-white font-bold">{currentUser?.username || 'Loading...'}</h4>
                   <p className="text-sm text-gray-400 capitalize">{currentUser?.role}</p>
@@ -256,7 +304,7 @@ export default function AdminSettingsPage() {
                 <p className="text-sm text-gray-400">Ensure your account is using a long, secure password.</p>
               </div>
               
-              <div className="space-y-6 max-w-lg">
+              <div className="space-y-6 w-full max-w-2xl">
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Current Password</label>
                   <input 
@@ -404,7 +452,7 @@ export default function AdminSettingsPage() {
       {/* Add Staff Modal */}
       {isAddingStaff && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-dark-surface border border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl relative animate-in zoom-in-95 duration-200">
+          <div className="bg-dark-surface border border-white/10 rounded-xl p-8 max-w-md w-full shadow-2xl relative animate-in zoom-in-95 duration-200">
             <button 
               onClick={() => setIsAddingStaff(false)}
               className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors"
@@ -427,7 +475,7 @@ export default function AdminSettingsPage() {
                   type="text" 
                   value={newStaff.username}
                   onChange={e => setNewStaff({...newStaff, username: e.target.value})}
-                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-xl px-4 py-3 outline-none transition-all" 
+                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-md px-4 py-3 outline-none transition-all" 
                 />
               </div>
               <div className="space-y-2">
@@ -436,7 +484,7 @@ export default function AdminSettingsPage() {
                   type="email" 
                   value={newStaff.email}
                   onChange={e => setNewStaff({...newStaff, email: e.target.value})}
-                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-xl px-4 py-3 outline-none transition-all" 
+                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-md px-4 py-3 outline-none transition-all" 
                 />
               </div>
               <div className="space-y-2">
@@ -445,7 +493,7 @@ export default function AdminSettingsPage() {
                   type="password" 
                   value={newStaff.password}
                   onChange={e => setNewStaff({...newStaff, password: e.target.value})}
-                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-xl px-4 py-3 outline-none transition-all" 
+                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-md px-4 py-3 outline-none transition-all" 
                 />
               </div>
               <div className="space-y-2">
@@ -453,7 +501,7 @@ export default function AdminSettingsPage() {
                 <select 
                   value={newStaff.role}
                   onChange={e => setNewStaff({...newStaff, role: e.target.value})}
-                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-xl px-4 py-3 outline-none appearance-none cursor-pointer"
+                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-md px-4 py-3 outline-none appearance-none cursor-pointer"
                 >
                   <option value="admin">Standard Admin</option>
                   <option value="superadmin">Super Administrator</option>
@@ -463,7 +511,7 @@ export default function AdminSettingsPage() {
               <button 
                 onClick={handleAddStaff}
                 disabled={savingStaff}
-                className="w-full bg-primary-500 text-dark-bg py-3.5 rounded-xl font-bold shadow-[0_0_15px_rgba(132,204,22,0.2)] hover:shadow-[0_0_25px_rgba(132,204,22,0.4)] transition-all disabled:opacity-50 mt-4"
+                className="w-full bg-primary-500 text-dark-bg py-3.5 rounded-lg font-bold shadow-[0_0_15px_rgba(132,204,22,0.2)] hover:shadow-[0_0_25px_rgba(132,204,22,0.4)] transition-all disabled:opacity-50 mt-4"
               >
                 {savingStaff ? 'Creating Account...' : 'Create Staff Account'}
               </button>
