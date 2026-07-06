@@ -35,16 +35,15 @@ export default function UserNavbar() {
     <nav className={`w-full z-50 border-b border-white/10 py-4 backdrop-blur-xl transition-all duration-300 ${isTransparentPage ? 'fixed top-0 bg-transparent' : 'sticky top-0 bg-dark-bg'}`}>
       <div className="flex justify-between items-center px-5 md:px-20 w-full max-w-7xl mx-auto">
         <div 
-          className="cursor-pointer max-w-[150px]"
+          className="cursor-pointer flex items-center gap-3"
           onClick={() => router.push('/')}
         >
-          {branding?.logo ? (
-            <img src={branding.logo} alt="Brand Logo" className="w-full h-auto max-h-10 object-contain" />
-          ) : (
-            <span className="font-serif text-[32px] leading-10 font-bold text-primary-400">
-              Lumière
-            </span>
+          {branding?.logo && (
+            <img src={branding.logo} alt="Brand Logo" className="w-auto h-10 object-contain" />
           )}
+          <span className="font-serif text-[32px] leading-10 font-bold text-primary-400">
+            Lumière
+          </span>
         </div>
         <div className="hidden lg:flex items-center gap-10">
           {[

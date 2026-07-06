@@ -14,7 +14,7 @@ export default function VerifyOtpPage() {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams.get('email') || '';
+  const email = searchParams?.get('email') || '';
   const branding = useBranding();
 
   useEffect(() => {
@@ -68,11 +68,12 @@ export default function VerifyOtpPage() {
       <header className="flex justify-between items-center px-8 py-6 border-b border-white/5 shrink-0 relative z-10">
         <Link href="/login" className="flex items-center gap-4 text-primary-400 hover:text-primary-300 transition-colors group">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          {branding?.logo ? (
-            <img src={branding.logo} alt="Brand Logo" className="h-8 object-contain" />
-          ) : (
+          <div className="flex items-center gap-3">
+            {branding?.logo && (
+              <img src={branding.logo} alt="Brand Logo" className="h-8 object-contain" />
+            )}
             <span className="font-serif text-[20px] tracking-[0.2em] font-bold uppercase">Lumière</span>
-          )}
+          </div>
         </Link>
         <div className="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest text-gray-500">
           <span className="hover:text-white cursor-pointer transition-colors">Experience</span>
