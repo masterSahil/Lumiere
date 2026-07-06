@@ -370,7 +370,7 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
               </div>
               <div className={`w-14 h-7 rounded-full relative transition-colors duration-300 ${toggles.popular ? 'bg-primary-500' : 'bg-white/10'}`}>
                 <div className={`absolute top-1 left-1 w-5 h-5 bg-dark-bg rounded-full transition-transform duration-300 flex items-center justify-center ${toggles.popular ? 'translate-x-7' : 'translate-x-0'}`}>
-                  {toggles.popular && <LuCheck className="text-primary-400 text-[14px] font-bold" />}
+                  {toggles.popular && <Check className="text-primary-400 text-[14px] font-bold" />}
                 </div>
               </div>
             </div>
@@ -382,7 +382,7 @@ export default function AdminEditMenuPage({ params }: { params: Promise<{ id: st
               </div>
               <div className={`w-14 h-7 rounded-full relative transition-colors duration-300 ${toggles.availability ? 'bg-primary-500' : 'bg-white/10'}`}>
                 <div className={`absolute top-1 left-1 w-5 h-5 bg-dark-bg rounded-full transition-transform duration-300 flex items-center justify-center ${toggles.availability ? 'translate-x-7' : 'translate-x-0'}`}>
-                  {toggles.availability && <LuCheck className="text-primary-400 text-[14px] font-bold" />}
+                  {toggles.availability && <Check className="text-primary-400 text-[14px] font-bold" />}
                 </div>
               </div>
             </div>
