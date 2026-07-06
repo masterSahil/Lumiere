@@ -1,6 +1,10 @@
 'use client'
-import { useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+
+export const BrandingContext = createContext<any>(null);
+
+export const useBranding = () => useContext(BrandingContext);
 
 export default function BrandingProvider({ children }: { children: React.ReactNode }) {
   const [branding, setBranding] = useState<any>(null);
@@ -18,6 +22,19 @@ export default function BrandingProvider({ children }: { children: React.ReactNo
     };
     fetchBranding();
   }, []);
+
+  useEffect(() => {
+    if (branding?.favicon) {
+      // Dynamically update the favicon
+      let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+      link.href = branding.favicon;
+    }
+  }, [branding?.favicon]);
 
   if (!branding) return <>{children}</>;
 
@@ -52,7 +69,9 @@ export default function BrandingProvider({ children }: { children: React.ReactNo
           --color-dark-surface: ${darkenHex(branding.surfaceBackdrop || '#101415', -10)};
         }
       `}} />
-      {children}
+      <BrandingContext.Provider value={branding}>
+        {children}
+      </BrandingContext.Provider>
     </>
   );
 }

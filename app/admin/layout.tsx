@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import axios from 'axios';
+import { useBranding } from '@/component/BrandingProvider';
 import { 
   LayoutDashboard, 
   ClipboardList, 
@@ -18,6 +19,7 @@ import {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
+  const branding = useBranding();
   const [currentUser, setCurrentUser] = useState<any>(null);
 
   useEffect(() => {
@@ -50,7 +52,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* SideNavBar */}
       <aside className="w-64 shrink-0 bg-dark-surface border-r border-white/10 flex flex-col h-screen sticky top-0">
         <div className="p-6 border-b border-white/10 flex items-center justify-between">
-          <span className="font-serif text-[24px] font-bold text-primary-400 cursor-pointer" onClick={() => router.push('/')}>Lumière</span>
+          <div className="cursor-pointer max-w-[140px]" onClick={() => router.push('/')}>
+            {branding?.logo ? (
+              <img src={branding.logo} alt="Brand Logo" className="w-full h-auto max-h-8 object-contain" />
+            ) : (
+              <span className="font-serif text-[24px] font-bold text-primary-400">Lumière</span>
+            )}
+          </div>
           <span className="text-[10px] bg-primary-500/20 text-primary-400 px-2 py-1 rounded uppercase tracking-widest font-bold">Admin</span>
         </div>
         
