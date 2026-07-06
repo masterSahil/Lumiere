@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { LuCreditCard, LuPlus, LuMoveHorizontal, LuTrash2 } from 'react-icons/lu';
+import { CreditCard, Plus, MoveHorizontal, Trash2 } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 
@@ -80,14 +80,14 @@ export default function PaymentsPage() {
             <p className="text-gray-400">Manage your saved cards and payment preferences.</p>
           </div>
           <button onClick={() => setShowAddModal(true)} className="flex items-center gap-2 bg-primary-500 text-dark-bg px-6 py-3 rounded-xl font-sans text-sm tracking-wider font-semibold hover:bg-primary-400 transition-all shadow-[0_0_15px_rgba(132,204,22,0.3)]">
-            <LuPlus className="text-lg" />
+            <Plus className="text-lg" />
             Add New Card
           </button>
         </div>
 
         {cards.length === 0 ? (
            <div className="bg-dark-surface p-12 rounded-2xl border border-white/10 text-center">
-              <LuCreditCard className="text-6xl text-gray-600 mx-auto mb-4" />
+              <CreditCard className="text-6xl text-gray-600 mx-auto mb-4" />
               <h3 className="text-xl text-white mb-2">No payment methods found</h3>
               <p className="text-gray-400 mb-6">Add a credit or debit card to complete your reservations quickly.</p>
            </div>
@@ -98,7 +98,7 @@ export default function PaymentsPage() {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none group-hover:bg-primary-500/10 transition-colors"></div>
                 
                 <div className="flex justify-between items-start mb-12">
-                  <LuCreditCard className="text-4xl text-gray-300" />
+                  <CreditCard className="text-4xl text-gray-300" />
                   <div className="flex items-center gap-4">
                     {card.isDefault && (
                       <span className="bg-primary-950 text-primary-400 text-[10px] px-3 py-1 rounded-full uppercase tracking-widest font-bold border border-primary-500/20">
@@ -106,7 +106,7 @@ export default function PaymentsPage() {
                       </span>
                     )}
                     <button onClick={() => handleDeleteCard(card._id)} className="text-gray-500 hover:text-red-400 transition-colors" title="Remove Card">
-                      <LuTrash2 className="text-xl" />
+                      <Trash2 className="text-xl" />
                     </button>
                   </div>
                 </div>

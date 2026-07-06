@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { LuMapPin, LuPlus, LuX, LuCheck } from 'react-icons/lu';
+import { MapPin, Plus, X, Check } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 
@@ -121,7 +121,7 @@ export default function AddressesPage() {
           <button 
             onClick={() => handleOpenForm()}
             className="flex items-center gap-2 bg-primary-500 text-dark-bg px-6 py-3 rounded-xl font-sans text-sm tracking-wider font-semibold hover:bg-primary-400 transition-all shadow-[0_0_15px_rgba(132,204,22,0.3)]">
-            <LuPlus className="text-lg" />
+            <Plus className="text-lg" />
             Add New
           </button>
         </div>
@@ -131,7 +131,7 @@ export default function AddressesPage() {
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-serif text-white">{editingId ? 'Edit Address' : 'Add New Address'}</h2>
               <button onClick={() => setIsFormOpen(false)} className="text-gray-400 hover:text-white transition-colors">
-                <LuX className="text-2xl" />
+                <X className="text-2xl" />
               </button>
             </div>
             <form onSubmit={handleSave} className="space-y-6">
@@ -179,7 +179,7 @@ export default function AddressesPage() {
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             {addresses.length === 0 ? (
               <div className="col-span-full py-16 text-center bg-dark-surface rounded-2xl border border-white/5 border-dashed">
-                <LuMapPin className="text-6xl text-gray-600 mx-auto mb-4" />
+                <MapPin className="text-6xl text-gray-600 mx-auto mb-4" />
                 <p className="text-gray-400 font-medium">No saved addresses found.</p>
               </div>
             ) : addresses.map((address) => (
@@ -188,13 +188,13 @@ export default function AddressesPage() {
                   <div className="flex justify-between items-start mb-6">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary-500/10 flex items-center justify-center border border-primary-500/20">
-                        <LuMapPin className="text-primary-400 text-xl" />
+                        <MapPin className="text-primary-400 text-xl" />
                       </div>
                       <h3 className="text-xl font-serif font-medium text-white">{address.name || 'Address'}</h3>
                     </div>
                     {address.isDefault && (
                       <div className="flex items-center gap-1 bg-primary-950 text-primary-400 text-[11px] px-3 py-1.5 rounded-full uppercase tracking-widest font-bold border border-primary-500/30">
-                        <LuCheck className="text-sm" /> Default
+                        <Check className="text-sm" /> Default
                       </div>
                     )}
                   </div>

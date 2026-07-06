@@ -2,7 +2,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { LuArrowLeft, LuUtensils } from 'react-icons/lu';
+import { ArrowLeft, Utensils } from 'lucide-react';
 
 export default function page() {
 
@@ -50,12 +50,12 @@ export default function page() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <button onClick={()=>router.back()}
                 className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-primary-500 text-dark-bg text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-primary-400 transition-all duration-300 shadow-[0_0_20px_rgba(132,204,22,0.2)] active:scale-95">
-                <LuArrowLeft className="text-[18px]" /> Return Back
+                <ArrowLeft className="text-[18px]" /> Return Back
               </button>
               
               <Link href="/menu" 
                 className="w-full sm:w-auto flex items-center justify-center gap-3 py-4 px-8 bg-dark-surface border border-white/10 text-white text-[12px] leading-none tracking-widest uppercase rounded-lg font-bold hover:bg-white/5 transition-all duration-300 active:scale-[0.98]">
-                <LuUtensils className="text-[18px]" /> View Current Menu
+                <Utensils className="text-[18px]" /> View Current Menu
               </Link>
             </div>
           </div>

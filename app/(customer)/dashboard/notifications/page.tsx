@@ -1,5 +1,5 @@
 'use client'
-import { LuBell, LuMail, LuMessageSquare, LuSmartphone } from 'react-icons/lu';
+import { Bell, Mail, MessageSquare, Smartphone } from 'lucide-react';
 import { useState } from 'react';
 
 export default function NotificationsPage() {
@@ -27,7 +27,7 @@ export default function NotificationsPage() {
             <div className="flex items-start justify-between">
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary-500/10 flex items-center justify-center border border-primary-500/20 shrink-0">
-                  <LuBell className="text-primary-400 text-xl" />
+                  <Bell className="text-primary-400 text-xl" />
                 </div>
                 <div>
                   <h3 className="text-xl font-serif font-medium text-white mb-1">Order Updates</h3>
@@ -47,7 +47,7 @@ export default function NotificationsPage() {
             <div className="flex items-start justify-between">
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary-500/10 flex items-center justify-center border border-primary-500/20 shrink-0">
-                  <LuMail className="text-primary-400 text-xl" />
+                  <Mail className="text-primary-400 text-xl" />
                 </div>
                 <div>
                   <h3 className="text-xl font-serif font-medium text-white mb-1">Reservation Reminders</h3>
@@ -67,7 +67,7 @@ export default function NotificationsPage() {
             <div className="flex items-start justify-between">
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary-500/10 flex items-center justify-center border border-primary-500/20 shrink-0">
-                  <LuMessageSquare className="text-primary-400 text-xl" />
+                  <MessageSquare className="text-primary-400 text-xl" />
                 </div>
                 <div>
                   <h3 className="text-xl font-serif font-medium text-white mb-1">Promotional Offers</h3>
@@ -87,7 +87,7 @@ export default function NotificationsPage() {
             <div className="flex items-start justify-between">
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary-500/10 flex items-center justify-center border border-primary-500/20 shrink-0">
-                  <LuSmartphone className="text-primary-400 text-xl" />
+                  <Smartphone className="text-primary-400 text-xl" />
                 </div>
                 <div>
                   <h3 className="text-xl font-serif font-medium text-white mb-1">SMS Notifications</h3>

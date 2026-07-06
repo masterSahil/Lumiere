@@ -89,7 +89,7 @@ export default function AdminViewMenuPage({ params }: { params: Promise<{ id: st
               )}
               {food.isSpicy && (
                 <span className="px-4 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-sm font-semibold flex items-center gap-2">
-                  <LuFlame /> Spicy
+                  <Flame /> Spicy
                 </span>
               )}
               <span className={`px-4 py-1.5 rounded-full border text-sm font-semibold ${food.isAvailable ? 'border-primary-500/30 bg-primary-500/10 text-primary-400' : 'border-gray-500/30 bg-gray-500/10 text-gray-400'}`}>
