@@ -1,21 +1,51 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LuMapPin, LuPlus, LuX, LuCheck } from 'react-icons/lu';
+import axios from 'axios';
+import { toast } from 'sonner';
 
 export default function AddressesPage() {
-  const [addresses, setAddresses] = useState([
-    { id: 1, name: 'Home', street: '123 Michelin Ave', city: 'New York', state: 'NY', zip: '10001', isDefault: true },
-    { id: 2, name: 'Work', street: '456 Culinary Blvd', city: 'San Francisco', state: 'CA', zip: '94105', isDefault: false },
-  ]);
+  const [user, setUser] = useState<any>(null);
+  const [addresses, setAddresses] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({ name: '', street: '', city: '', state: '', zip: '', isDefault: false });
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get('/api/auth/verify');
+        if (data.success) {
+          setUser(data.data);
+          // Fetch full user doc to get addresses
+          const userRes = await axios.get(`/api/users/${data.data._id}`);
+          if (userRes.data.success) {
+            setAddresses(userRes.data.user.addresses || []);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch addresses", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleOpenForm = (address?: any) => {
     if (address) {
-      setEditingId(address.id);
-      setFormData(address);
+      setEditingId(address._id);
+      setFormData({
+        name: address.name || '',
+        street: address.street || '',
+        city: address.city || '',
+        state: address.state || '',
+        zip: address.zip || '',
+        isDefault: address.isDefault || false
+      });
     } else {
       setEditingId(null);
       setFormData({ name: '', street: '', city: '', state: '', zip: '', isDefault: false });
@@ -23,24 +53,62 @@ export default function AddressesPage() {
     setIsFormOpen(true);
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editingId) {
-      setAddresses(addresses.map(a => a.id === editingId ? { ...formData, id: editingId } : (formData.isDefault ? { ...a, isDefault: false } : a)));
-    } else {
-      const newAddress = { ...formData, id: Date.now() };
-      setAddresses([...(formData.isDefault ? addresses.map(a => ({...a, isDefault: false})) : addresses), newAddress]);
+    if (!user) return;
+    setSaving(true);
+    try {
+      if (editingId) {
+        const res = await axios.put(`/api/users/${user._id}/addresses/${editingId}`, formData);
+        if (res.data.success) {
+          toast.success("Address updated successfully");
+          setAddresses(res.data.addresses);
+        }
+      } else {
+        const res = await axios.post(`/api/users/${user._id}/addresses`, formData);
+        if (res.data.success) {
+          toast.success("Address added successfully");
+          setAddresses(res.data.addresses);
+        }
+      }
+      setIsFormOpen(false);
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || err.message || "Failed to save address");
+    } finally {
+      setSaving(false);
     }
-    setIsFormOpen(false);
   };
 
-  const handleDelete = (id: number) => {
-    setAddresses(addresses.filter(a => a.id !== id));
+  const handleDelete = async (id: string) => {
+    if (!user) return;
+    if (!confirm("Are you sure you want to remove this address?")) return;
+    try {
+      const res = await axios.delete(`/api/users/${user._id}/addresses/${id}`);
+      if (res.data.success) {
+        toast.success("Address removed");
+        setAddresses(res.data.addresses);
+      }
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || err.message || "Failed to remove address");
+    }
   };
 
-  const handleSetDefault = (id: number) => {
-    setAddresses(addresses.map(a => ({ ...a, isDefault: a.id === id })));
+  const handleSetDefault = async (id: string) => {
+    if (!user) return;
+    try {
+      const res = await axios.put(`/api/users/${user._id}/addresses/${id}`, { isDefault: true });
+      if (res.data.success) {
+        toast.success("Default address updated");
+        setAddresses(res.data.addresses);
+      }
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || err.message || "Failed to set default address");
+    }
   };
+
+  if (loading) {
+     return <div className="text-gray-400">Loading addresses...</div>;
+  }
 
   return (
     <div className="space-y-12">
@@ -101,7 +169,9 @@ export default function AddressesPage() {
               </div>
               <div className="flex justify-end gap-4 pt-4 border-t border-white/10">
                 <button type="button" onClick={() => setIsFormOpen(false)} className="px-6 py-3 rounded-lg text-gray-300 hover:text-white transition-colors">Cancel</button>
-                <button type="submit" className="bg-primary-500 text-dark-bg px-8 py-3 rounded-lg font-semibold hover:bg-primary-400 transition-colors">Save Address</button>
+                <button type="submit" disabled={saving} className="bg-primary-500 text-dark-bg px-8 py-3 rounded-lg font-semibold hover:bg-primary-400 transition-colors disabled:opacity-50">
+                   {saving ? 'Saving...' : 'Save Address'}
+                </button>
               </div>
             </form>
           </div>
@@ -113,7 +183,7 @@ export default function AddressesPage() {
                 <p className="text-gray-400 font-medium">No saved addresses found.</p>
               </div>
             ) : addresses.map((address) => (
-              <div key={address.id} className="bg-dark-surface p-8 rounded-2xl border border-white/10 relative hover:border-primary-500/30 transition-all flex flex-col justify-between">
+              <div key={address._id} className="bg-dark-surface p-8 rounded-2xl border border-white/10 relative hover:border-primary-500/30 transition-all flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-start mb-6">
                     <div className="flex items-center gap-3">
@@ -136,9 +206,9 @@ export default function AddressesPage() {
                 
                 <div className="flex gap-4 border-t border-white/10 pt-6 mt-auto">
                   <button onClick={() => handleOpenForm(address)} className="text-sm font-semibold tracking-wide text-primary-400 hover:text-primary-300 transition-colors">Edit</button>
-                  <button onClick={() => handleDelete(address.id)} className="text-sm font-semibold tracking-wide text-red-400 hover:text-red-300 transition-colors">Delete</button>
+                  <button onClick={() => handleDelete(address._id)} className="text-sm font-semibold tracking-wide text-red-400 hover:text-red-300 transition-colors">Delete</button>
                   {!address.isDefault && (
-                    <button onClick={() => handleSetDefault(address.id)} className="ml-auto text-sm font-medium tracking-wide text-gray-400 hover:text-white transition-colors">Set as Default</button>
+                    <button onClick={() => handleSetDefault(address._id)} className="ml-auto text-sm font-medium tracking-wide text-gray-400 hover:text-white transition-colors">Set as Default</button>
                   )}
                 </div>
               </div>

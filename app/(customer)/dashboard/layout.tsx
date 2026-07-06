@@ -4,6 +4,8 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ReceiptText, Utensils, User, MapPin, CreditCard, Bell, Settings } from 'lucide-react';
+import UserNavbar from '@/component/layout/UserNavbar';
+import Footer from '@/component/Home/Footer';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -26,7 +28,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const navItems = [
     { name: 'Orders', icon: ReceiptText, path: '/dashboard/orders' },
     { name: 'Reservations', icon: Utensils, path: '/dashboard/reservations' },
-    { name: 'Profile', icon: User, path: '/dashboard/profile' },
     { name: 'Addresses', icon: MapPin, path: '/dashboard/addresses' },
     { name: 'Payment Methods', icon: CreditCard, path: '/dashboard/payments' },
     { name: 'Notifications', icon: Bell, path: '/dashboard/notifications' },
@@ -36,29 +37,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="font-sans text-gray-300 leading-6 selection:bg-primary-500 selection:text-dark-bg min-h-screen bg-dark-bg">
       {/* Top Navigation Bar */}
-      <nav className="fixed top-0 w-full z-50 bg-dark-bg/80 backdrop-blur-xl border-b border-white/10">
-        <div className="flex justify-between items-center px-5 md:px-20 py-4 w-full max-w-7xl mx-auto">
-          <span 
-            className="font-serif text-[32px] leading-10 font-bold text-primary-400 cursor-pointer"
-            onClick={() => router.push('/')}
-          >
-            Lumière
-          </span>
-          <div className="hidden md:flex items-center gap-6">
-            <a className="font-serif text-[14px] leading-5 font-medium text-gray-300 hover:text-primary-400 transition-colors duration-300" href="/menu">Menu</a>
-            <a className="font-serif text-[14px] leading-5 font-medium text-gray-300 hover:text-primary-400 transition-colors duration-300" href="/cart">Cart</a>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full border border-primary-500/30 overflow-hidden bg-dark-surface flex items-center justify-center">
-              {user?.avatar ? (
-                <img src={user.avatar} className="w-full h-full object-cover" alt="User" />
-              ) : (
-                <User className="text-primary-400 w-6 h-6" />
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
+      <UserNavbar />
 
       <main className="pt-32 pb-20 px-5 md:px-10 max-w-400 mx-auto min-h-screen">
         <div className="flex flex-col lg:flex-row gap-6">
@@ -111,11 +90,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </main>
 
       {/* Footer */}
-      <footer className="w-full py-12 px-5 md:px-20 border-t border-white/5 bg-dark-bg">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="font-sans text-[14px] leading-5 tracking-wider font-semibold text-gray-500">© {new Date().getFullYear()} Lumière Dining. All Rights Reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -96,23 +96,21 @@ export default function ProfilePage() {
   return (
     <div className="space-y-12 max-w-2xl">
       <section>
-        <div className="flex justify-between items-end mb-6">
+        <div className="flex justify-between items-end mb-8">
           <div>
-            <h1 className="font-serif text-[48px] leading-tight font-semibold mb-2 text-white">Profile</h1>
+            <h1 className="font-serif text-[48px] leading-tight font-bold mb-2 text-white">Profile</h1>
             <p className="text-gray-400">Manage your personal details.</p>
           </div>
         </div>
 
-        <form onSubmit={handleSave} className="bg-dark-surface p-8 rounded-2xl border border-white/10 space-y-6">
-          <div className="flex flex-col items-center gap-4 mb-8">
+        <form onSubmit={handleSave} className="bg-dark-surface p-8 md:p-10 rounded-[20px] border border-white/5 space-y-8">
+          <div className="flex flex-col items-center gap-4 mb-10">
             <div className="relative group cursor-pointer">
-              <div className="w-24 h-24 rounded-full bg-primary-500/20 border border-primary-500/30 overflow-hidden flex items-center justify-center">
+              <div className="w-24 h-24 rounded-full bg-[#112417] overflow-hidden flex items-center justify-center transition-transform hover:scale-105">
                 {imagePreview ? (
                   <img src={imagePreview} alt="Avatar" className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-primary-500/10">
-                    <User className="w-12 h-12 text-primary-400" />
-                  </div>
+                  <User className="w-10 h-10 text-primary-500" />
                 )}
               </div>
               <label className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
@@ -120,39 +118,41 @@ export default function ProfilePage() {
                 <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
               </label>
             </div>
-            <p className="text-gray-400 text-sm">Click to change avatar</p>
+            <p className="text-gray-400 text-[13px]">Click to change avatar</p>
           </div>
           
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Display Name</label>
+          <div className="space-y-3">
+            <label className="block text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400">Display Name</label>
             <input 
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="w-full bg-dark-bg border border-white/10 rounded-lg p-4 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-white placeholder-gray-500 outline-none" 
+              className="w-full bg-[#070b09] border border-white/5 rounded-xl p-4 focus:ring-1 focus:ring-primary-500/50 focus:border-primary-500/50 text-white placeholder-gray-600 outline-none transition-all shadow-inner" 
               type="text" 
               required
             />
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Phone Number</label>
+          <div className="space-y-3">
+            <label className="block text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400">Phone Number</label>
             <input 
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full bg-dark-bg border border-white/10 rounded-lg p-4 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-white placeholder-gray-500 outline-none" 
+              className="w-full bg-[#070b09] border border-white/5 rounded-xl p-4 focus:ring-1 focus:ring-primary-500/50 focus:border-primary-500/50 text-white placeholder-gray-600 outline-none transition-all shadow-inner" 
               type="tel" 
             />
           </div>
 
-          <button 
-            type="submit"
-            disabled={loading || uploadingImage}
-            className="bg-primary-500 text-dark-bg px-8 py-3 rounded-lg font-sans text-sm tracking-wider font-semibold hover:brightness-110 transition-all disabled:opacity-50"
-          >
-            {uploadingImage ? 'Uploading Image...' : loading ? 'Saving...' : 'Save Changes'}
-          </button>
+          <div className="pt-2">
+            <button 
+              type="submit"
+              disabled={loading || uploadingImage}
+              className="bg-primary-500 text-[#030605] px-6 py-3 rounded-lg font-sans text-[14px] font-bold tracking-wide hover:bg-primary-400 transition-all shadow-[0_0_15px_rgba(34,197,94,0.15)] disabled:opacity-50"
+            >
+              {uploadingImage ? 'Uploading Image...' : loading ? 'Saving...' : 'Save Changes'}
+            </button>
+          </div>
         </form>
       </section>
     </div>

@@ -12,7 +12,7 @@ const CardWrapper = ({ children, index }: { children: React.ReactNode, index: nu
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="bg-[var(--color-dark-surface)] rounded-2xl overflow-hidden border border-[var(--color-primary-900)] flex flex-col group hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:border-[var(--color-primary-500)] transition-all"
+    className="bg-dark-surface rounded-2xl overflow-hidden border border-primary-900 flex flex-col group hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:border-primary-500 transition-all"
   >
     {children}
   </motion.div>
@@ -45,7 +45,7 @@ export default function MenuPage() {
   }, []);
 
   return (
-    <div className="font-sans min-h-screen bg-[var(--color-dark-bg)] text-white">
+    <div className="font-sans min-h-screen bg-dark-bg text-white">
       <UserNavbar />
 
       <main className="px-5 md:px-20 max-w-7xl mx-auto py-12">
@@ -56,7 +56,7 @@ export default function MenuPage() {
           transition={{ duration: 0.7 }}
           className="max-w-3xl mb-12"
         >
-          <h4 className="text-[var(--color-primary-400)] text-[12px] font-bold tracking-widest uppercase mb-4">Exquisite Flavors</h4>
+          <h4 className="text-primary-400 text-[12px] font-bold tracking-widest uppercase mb-4">Exquisite Flavors</h4>
           <h1 className="font-serif text-[48px] md:text-[64px] leading-tight font-bold text-white mb-6">
             Our Culinary Canvas
           </h1>
@@ -78,15 +78,15 @@ export default function MenuPage() {
                 <div className="p-6 flex flex-col grow">
                   <div className="flex justify-between items-start mb-2">
                     <a href={`/menu/${food._id}`}>
-                      <h3 className="font-serif text-[22px] font-semibold text-white hover:text-[var(--color-primary-300)] transition-colors">{food.name}</h3>
+                      <h3 className="font-serif text-[22px] font-semibold text-white hover:text-primary-300 transition-colors">{food.name}</h3>
                     </a>
-                    <span className="text-[var(--color-primary-400)] font-bold text-[18px]">${food.price}</span>
+                    <span className="text-primary-400 font-bold text-[18px]">${food.price}</span>
                   </div>
                   <p className="text-gray-400 text-[14px] leading-relaxed mb-6 grow line-clamp-3">
                     {food.description}
                   </p>
                   {getCartItem(food._id) ? (
-                    <div className="w-full bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] py-2 px-4 rounded-xl font-bold flex items-center justify-between transition-colors">
+                    <div className="w-full bg-primary-500 text-dark-bg py-2 px-4 rounded-xl font-bold flex items-center justify-between transition-colors">
                       <button 
                         onClick={() => {
                           const item = getCartItem(food._id);
@@ -114,7 +114,7 @@ export default function MenuPage() {
                   ) : (
                     <button 
                       onClick={() => addItem({ id: food._id, name: food.name, price: food.price, image: food.primaryImage, quantity: 1 })}
-                      className="w-full bg-[var(--color-primary-500)] text-[var(--color-dark-bg)] py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[var(--color-primary-400)] transition-colors">
+                      className="w-full bg-primary-500 text-dark-bg py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary-400 transition-colors">
                       Add to Cart
                     </button>
                   )}
@@ -123,7 +123,7 @@ export default function MenuPage() {
             ))}
             
             {foods.length === 0 && !loading && (
-              <div className="col-span-full text-center text-gray-400 py-20 bg-[var(--color-dark-surface)] rounded-2xl border border-[var(--color-primary-900)]">No menu items found. Please add foods from the admin panel.</div>
+              <div className="col-span-full text-center text-gray-400 py-20 bg-dark-surface rounded-2xl border border-primary-900">No menu items found. Please add foods from the admin panel.</div>
             )}
           </div>
         )}

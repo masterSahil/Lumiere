@@ -1,6 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 const addressSchema = new Schema({
+  name: { type: String, default: "Address" },
   street: { type: String, required: true },
   city: { type: String, default: "" },
   state: { type: String, default: "" },
@@ -30,6 +31,14 @@ const UserSchema = new Schema(
     isDeleted: { type: Boolean, default: false },
     lastLogin: { type: Date },
     addresses: [addressSchema],
+    paymentMethods: [
+      {
+        brand: { type: String, required: true },
+        last4: { type: String, required: true },
+        expiry: { type: String, required: true },
+        isDefault: { type: Boolean, default: false },
+      }
+    ],
     wishlist: [{ type: Schema.Types.ObjectId, ref: "Food" }],
   },
   {
