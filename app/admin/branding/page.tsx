@@ -126,35 +126,53 @@ export default function BrandingManagement() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">Main Wordmark</label>
-                <label className="border-2 border-dashed border-white/10 rounded-xl h-40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary-400/50 hover:bg-white/5 transition-all block relative overflow-hidden">
+                <div className="border-2 border-dashed border-white/10 rounded-xl h-40 flex flex-col items-center justify-center gap-3 hover:border-primary-400/50 hover:bg-white/5 transition-all relative overflow-hidden group">
                   {formData.logo ? (
-                     <img src={formData.logo} alt="Logo" className="w-full h-full object-contain p-4" />
+                     <>
+                       <img src={formData.logo} alt="Logo" className="w-full h-full object-contain p-4" />
+                       <button 
+                         onClick={() => setFormData({ ...formData, logo: '' })}
+                         className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-red-500/80 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all"
+                         title="Remove Logo"
+                       >
+                         ✕
+                       </button>
+                     </>
                   ) : uploadingLogo ? (
                      <span className="text-primary-400 text-sm">Uploading...</span>
                   ) : (
-                    <>
-                      <CloudUpload className="w-8 h-8 text-gray-400" />
+                    <label className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
+                      <CloudUpload className="w-8 h-8 text-gray-400 mb-2" />
                       <span className="text-[12px] text-gray-400">Drop SVG or PNG</span>
-                    </>
+                      <input type="file" accept="image/*" className="hidden" onChange={(e) => handleUpload(e, 'logo')} disabled={uploadingLogo} />
+                    </label>
                   )}
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleUpload(e, 'logo')} disabled={uploadingLogo} />
-                </label>
+                </div>
               </div>
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">Favicon (32x32)</label>
-                <label className="border-2 border-dashed border-white/10 rounded-xl h-40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary-400/50 hover:bg-white/5 transition-all block relative overflow-hidden">
+                <div className="border-2 border-dashed border-white/10 rounded-xl h-40 flex flex-col items-center justify-center gap-3 hover:border-primary-400/50 hover:bg-white/5 transition-all relative overflow-hidden group">
                   {formData.favicon ? (
-                     <img src={formData.favicon} alt="Favicon" className="w-16 h-16 object-contain" />
+                     <>
+                       <img src={formData.favicon} alt="Favicon" className="w-16 h-16 object-contain" />
+                       <button 
+                         onClick={() => setFormData({ ...formData, favicon: '' })}
+                         className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-red-500/80 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all"
+                         title="Remove Favicon"
+                       >
+                         ✕
+                       </button>
+                     </>
                   ) : uploadingFavicon ? (
                      <span className="text-primary-400 text-sm">Uploading...</span>
                   ) : (
-                    <>
-                      <Utensils className="w-8 h-8 text-primary-400" />
+                    <label className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
+                      <Utensils className="w-8 h-8 text-primary-400 mb-2" />
                       <span className="text-[12px] text-gray-400">Update Icon</span>
-                    </>
+                      <input type="file" accept="image/*" className="hidden" onChange={(e) => handleUpload(e, 'favicon')} disabled={uploadingFavicon} />
+                    </label>
                   )}
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleUpload(e, 'favicon')} disabled={uploadingFavicon} />
-                </label>
+                </div>
               </div>
             </div>
           </div>
