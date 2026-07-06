@@ -1,5 +1,7 @@
 'use client'
+import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import axios from 'axios';
 import { 
   LayoutDashboard, 
   ClipboardList, 
@@ -16,6 +18,21 @@ import {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get('/api/auth/verify');
+        if (data.success) {
+          setCurrentUser(data.data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const navItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
@@ -59,11 +76,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         
         <div className="p-4 border-t border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center">
-              <Shield className="w-5 h-5 text-primary-400" />
+            <div className="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center overflow-hidden">
+              {currentUser?.avatar ? (
+                <img src={currentUser.avatar} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                <Shield className="w-5 h-5 text-primary-400" />
+              )}
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white">Manager</h3>
+              <h3 className="text-sm font-bold text-white max-w-[100px] truncate">{currentUser?.username || 'Loading...'}</h3>
               <button onClick={() => router.push('/')} className="text-xs text-red-400 hover:underline">Exit Admin</button>
             </div>
           </div>

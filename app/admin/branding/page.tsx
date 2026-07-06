@@ -29,6 +29,8 @@ export default function BrandingManagement() {
   });
 
   const [previewMode, setPreviewMode] = useState<'desktop' | 'mobile' | 'tablet'>('desktop');
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingFavicon, setUploadingFavicon] = useState(false);
 
   useEffect(() => {
     const fetchBranding = async () => {
@@ -62,6 +64,23 @@ export default function BrandingManagement() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleUpload = (e: any, field: 'logo' | 'favicon') => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) return toast.error("Image must be less than 2MB");
+    
+    if (field === 'logo') setUploadingLogo(true);
+    else setUploadingFavicon(true);
+    
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFormData({ ...formData, [field]: reader.result as string });
+      if (field === 'logo') setUploadingLogo(false);
+      else setUploadingFavicon(false);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleDiscard = () => {
@@ -107,17 +126,35 @@ export default function BrandingManagement() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">Main Wordmark</label>
-                <div className="border-2 border-dashed border-white/10 rounded-xl h-40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary-400/50 hover:bg-white/5 transition-all">
-                  <CloudUpload className="w-8 h-8 text-gray-400" />
-                  <span className="text-[12px] text-gray-400">Drop SVG or PNG</span>
-                </div>
+                <label className="border-2 border-dashed border-white/10 rounded-xl h-40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary-400/50 hover:bg-white/5 transition-all block relative overflow-hidden">
+                  {formData.logo ? (
+                     <img src={formData.logo} alt="Logo" className="w-full h-full object-contain p-4" />
+                  ) : uploadingLogo ? (
+                     <span className="text-primary-400 text-sm">Uploading...</span>
+                  ) : (
+                    <>
+                      <CloudUpload className="w-8 h-8 text-gray-400" />
+                      <span className="text-[12px] text-gray-400">Drop SVG or PNG</span>
+                    </>
+                  )}
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleUpload(e, 'logo')} disabled={uploadingLogo} />
+                </label>
               </div>
               <div>
                 <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">Favicon (32x32)</label>
-                <div className="border-2 border-dashed border-white/10 rounded-xl h-40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary-400/50 hover:bg-white/5 transition-all">
-                  <Utensils className="w-8 h-8 text-primary-400" />
-                  <span className="text-[12px] text-gray-400">Update Icon</span>
-                </div>
+                <label className="border-2 border-dashed border-white/10 rounded-xl h-40 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-primary-400/50 hover:bg-white/5 transition-all block relative overflow-hidden">
+                  {formData.favicon ? (
+                     <img src={formData.favicon} alt="Favicon" className="w-16 h-16 object-contain" />
+                  ) : uploadingFavicon ? (
+                     <span className="text-primary-400 text-sm">Uploading...</span>
+                  ) : (
+                    <>
+                      <Utensils className="w-8 h-8 text-primary-400" />
+                      <span className="text-[12px] text-gray-400">Update Icon</span>
+                    </>
+                  )}
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => handleUpload(e, 'favicon')} disabled={uploadingFavicon} />
+                </label>
               </div>
             </div>
           </div>

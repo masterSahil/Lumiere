@@ -7,6 +7,10 @@ import { Plus, Edit2, Trash2, EyeOff, LayoutGrid } from 'lucide-react';
 export default function CategoriesManagement() {
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isAdding, setIsAdding] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [newCategory, setNewCategory] = useState({ name: '', description: '', image: '', isActive: true });
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -37,6 +41,38 @@ export default function CategoriesManagement() {
     }
   };
 
+  const handleCreate = async () => {
+    if (!newCategory.name) return toast.error("Category name is required");
+    setSaving(true);
+    try {
+      const { data } = await axios.post('/api/categories', newCategory);
+      if (data.success) {
+        toast.success("Category created!");
+        setCategories([data.category, ...categories]);
+        setIsAdding(false);
+        setNewCategory({ name: '', description: '', image: '', isActive: true });
+      }
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Failed to create category");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleImageUpload = (e: any) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) return toast.error("Image must be less than 5MB");
+    
+    setUploadingImage(true);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setNewCategory({ ...newCategory, image: reader.result as string });
+      setUploadingImage(false);
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
@@ -47,7 +83,7 @@ export default function CategoriesManagement() {
             Curate your gastronomic landscape. Organize your menu into immersive collections that guide guests through the Lumière experience.
           </p>
         </div>
-        <button className="flex items-center gap-2 bg-primary-400 text-[#0d1700] px-6 py-3 rounded-full font-bold tracking-wider uppercase text-[13px] hover:bg-primary-300 transition-colors shadow-[0_0_20px_rgba(158,233,57,0.3)]">
+        <button onClick={() => setIsAdding(true)} className="flex items-center gap-2 bg-primary-400 text-[#0d1700] px-6 py-3 rounded-full font-bold tracking-wider uppercase text-[13px] hover:bg-primary-300 transition-colors shadow-[0_0_20px_rgba(158,233,57,0.3)]">
           <Plus className="w-4 h-4" /> Create New Category
         </button>
       </div>
@@ -105,7 +141,7 @@ export default function CategoriesManagement() {
         )}
 
         {/* Add Category Card */}
-        <div className="bg-dark-bg border border-dashed border-white/20 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[350px] text-center hover:bg-white/5 transition-colors cursor-pointer group">
+        <div onClick={() => setIsAdding(true)} className="bg-dark-bg border border-dashed border-white/20 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[350px] text-center hover:bg-white/5 transition-colors cursor-pointer group">
           <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary-400/20 group-hover:border-primary-400/50 group-hover:text-primary-400 transition-all text-gray-400">
             <Plus className="w-6 h-6" />
           </div>
@@ -141,6 +177,74 @@ export default function CategoriesManagement() {
           <span>v2.4.0-Enterprise</span>
         </div>
       </div>
+
+      {/* Add Category Modal */}
+      {isAdding && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-dark-surface border border-white/10 rounded-2xl p-8 max-w-lg w-full shadow-2xl relative animate-in zoom-in-95 duration-200">
+            <button 
+              onClick={() => setIsAdding(false)}
+              className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors"
+            >
+              ✕
+            </button>
+            
+            <div className="mb-8">
+              <h2 className="text-2xl font-serif text-white">Create Category</h2>
+              <p className="text-sm text-gray-400 mt-1">Add a new collection to your menu.</p>
+            </div>
+
+            <div className="space-y-5">
+              <div className="space-y-2">
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Category Name</label>
+                <input 
+                  type="text" 
+                  value={newCategory.name}
+                  onChange={e => setNewCategory({...newCategory, name: e.target.value})}
+                  placeholder="e.g. Signature Mains"
+                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-md px-4 py-3 outline-none transition-all" 
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Description</label>
+                <textarea 
+                  value={newCategory.description}
+                  onChange={e => setNewCategory({...newCategory, description: e.target.value})}
+                  placeholder="Describe this category..."
+                  rows={3}
+                  className="w-full bg-dark-bg border border-white/10 focus:border-primary-500 text-white rounded-md px-4 py-3 outline-none transition-all resize-none" 
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Category Image</label>
+                <label className="w-full h-32 rounded-lg border-2 border-dashed border-white/20 hover:border-primary-500/50 bg-dark-bg flex flex-col items-center justify-center cursor-pointer transition-colors relative overflow-hidden">
+                  {newCategory.image ? (
+                     <img src={newCategory.image} alt="Preview" className="w-full h-full object-cover" />
+                  ) : uploadingImage ? (
+                     <span className="text-primary-400 text-sm">Processing image...</span>
+                  ) : (
+                    <>
+                      <LayoutGrid className="w-8 h-8 text-white/20 mb-2" />
+                      <span className="text-gray-400 text-sm font-medium">Click to upload image</span>
+                    </>
+                  )}
+                  <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploadingImage} />
+                </label>
+              </div>
+              
+              <button 
+                onClick={handleCreate}
+                disabled={saving || uploadingImage}
+                className="w-full bg-primary-500 text-dark-bg py-3.5 rounded-lg font-bold shadow-[0_0_15px_rgba(132,204,22,0.2)] hover:shadow-[0_0_25px_rgba(132,204,22,0.4)] transition-all disabled:opacity-50 mt-4"
+              >
+                {saving ? 'Creating...' : 'Create Category'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
