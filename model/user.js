@@ -32,6 +32,7 @@ const UserSchema = new Schema(
     lastLogin: { type: Date },
     resetPasswordOtp: { type: String, default: "" },
     resetPasswordOtpExpiry: { type: Date },
+    resetPasswordToken: { type: String, default: "" },
     addresses: [addressSchema],
     paymentMethods: [
       {

@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Lock } from 'lucide-react';
 import { toast } from 'sonner';
+import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
 
 export default function VerifyOtpPage() {
   const [code, setCode] = useState(['', '', '', '', '', '']);
@@ -11,6 +13,8 @@ export default function VerifyOtpPage() {
   const [loading, setLoading] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email');
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -37,16 +41,23 @@ export default function VerifyOtpPage() {
     }
   };
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     const fullCode = code.join('');
     if (fullCode.length !== 6) return toast.error("Please enter the 6-digit code");
+    if (!email) return toast.error("Email is missing. Please restart the process.");
     
     setLoading(true);
-    setTimeout(() => {
-      toast.success("Identity verified!");
+    try {
+      const { data } = await axios.post('/api/auth/verify-otp', { email, otp: fullCode });
+      if (data.success) {
+        toast.success("Identity verified!");
+        router.push(`/reset-password?email=${encodeURIComponent(email)}&token=${data.token}`);
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Verification failed");
+    } finally {
       setLoading(false);
-      router.push('/reset-password');
-    }, 1500);
+    }
   };
 
   return (

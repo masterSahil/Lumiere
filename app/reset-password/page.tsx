@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, RotateCcw, Eye, EyeOff, ShieldCheck, BadgeCheck, Fingerprint } from 'lucide-react';
 import { toast } from 'sonner';
+import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
 
 export default function ResetPasswordPage() {
   const [pwd, setPwd] = useState('');
@@ -11,19 +13,33 @@ export default function ResetPasswordPage() {
   const [showPwd, setShowPwd] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email');
+  const token = searchParams.get('token');
 
-  const handleReset = (e: any) => {
+  const handleReset = async (e: any) => {
     e.preventDefault();
     if (!pwd || !confirmPwd) return toast.error("Please fill in all fields");
     if (pwd !== confirmPwd) return toast.error("Passwords do not match");
     if (pwd.length < 8) return toast.error("Password must be at least 8 characters");
+    if (!email || !token) return toast.error("Missing reset token. Please restart the process.");
     
     setLoading(true);
-    setTimeout(() => {
-      toast.success("Password successfully reset!");
+    try {
+      const { data } = await axios.post('/api/auth/reset-password', {
+        email,
+        token,
+        newPassword: pwd
+      });
+      if (data.success) {
+        toast.success("Password successfully reset!");
+        router.push('/login');
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Failed to reset password");
+    } finally {
       setLoading(false);
-      router.push('/login');
-    }, 1500);
+    }
   };
 
   // Simple strength calc

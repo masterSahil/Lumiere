@@ -26,7 +26,8 @@ export async function GET(req) {
       return errorResponse("Unauthorized - Invalid or expired token", 401);
     }
 
-    const user = await User.findById(decoded.userId).select("-password");
+    const userId = decoded.userId || decoded.id;
+    const user = await User.findById(userId).select("-password");
     
     if (!user) {
       return errorResponse("User not found", 404);
