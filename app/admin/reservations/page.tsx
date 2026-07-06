@@ -79,8 +79,8 @@ export default function AdminReservationsPage() {
                       onChange={(e) => updateStatus(res._id, e.target.value)}
                       className={`w-full appearance-none px-4 py-2 pr-8 rounded-lg text-xs font-bold border outline-none cursor-pointer transition-colors ${
                         res.status === 'Pending' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20 hover:bg-yellow-500/20' :
-                        res.status === 'Confirmed' ? 'bg-green-500/10 text-green-500 border-green-500/20 hover:bg-green-500/20' :
-                        res.status === 'Completed' ? 'bg-primary-500/10 text-primary-400 border-primary-500/20 hover:bg-primary-500/20' :
+                        res.status === 'Confirmed' ? 'bg-primary-500/10 text-primary-400 border-primary-500/20 hover:bg-primary-500/20' :
+                        res.status === 'Completed' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:bg-blue-500/20' :
                         'bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20'
                       }`}
                     >

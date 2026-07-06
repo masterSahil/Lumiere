@@ -49,7 +49,7 @@ export default function AdminDashboardPage() {
         <div className="bg-dark-surface p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
           <div className="flex justify-between items-start mb-4">
             <h3 className="text-gray-400 font-medium">Total Revenue</h3>
-            <CircleDollarSign className="w-10 h-10 text-green-400 bg-green-500/10 p-2 rounded-lg" />
+            <CircleDollarSign className="w-10 h-10 text-primary-400 bg-primary-500/10 p-2 rounded-lg" />
           </div>
           <p className="text-4xl font-serif text-white">${stats.totalRevenue.toFixed(2)}</p>
         </div>

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ReceiptText } from 'lucide-react';
 
 export default function OrdersPage() {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -40,7 +40,7 @@ export default function OrdersPage() {
       case 'Pending': return 'text-yellow-500';
       case 'Preparing': return 'text-blue-400';
       case 'Out for Delivery': return 'text-purple-400';
-      case 'Delivered': return 'text-green-500';
+      case 'Delivered': return 'text-primary-400';
       case 'Cancelled': return 'text-red-500';
       default: return 'text-gray-400';
     }
@@ -90,7 +90,7 @@ export default function OrdersPage() {
                       LIVE TRACKING
                     </div>
                     <h2 className="font-serif text-[28px] font-medium mb-2 text-white">Order #{order._id.substring(order._id.length - 6).toUpperCase()}</h2>
-                    <p className="text-gray-400 mb-4">Payment: <span className={order.paymentStatus === 'Paid' ? 'text-green-400' : 'text-yellow-400'}>{order.paymentStatus}</span></p>
+                    <p className="text-gray-400 mb-4">Payment: <span className={order.paymentStatus === 'Paid' ? 'text-primary-400' : 'text-yellow-400'}>{order.paymentStatus}</span></p>
                     
                     <div className="flex items-center justify-between mb-2">
                       <span className={`font-sans text-[14px] font-medium ${getStatusColor(order.orderStatus)}`}>{order.orderStatus}</span>

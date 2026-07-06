@@ -71,7 +71,7 @@ export default function Sidebar({
         }`}>
         {/* Logo */}
         <div className="mb-10 hidden lg:block">
-          <h1 className="font-serif text-4xl text-[#7ae749] tracking-tight">Lumière</h1>
+          <h1 className="font-serif text-4xl text-primary-400 tracking-tight">Lumière</h1>
           <p className="text-[#d0c5af] text-xs uppercase tracking-widest mt-2 opacity-60"> Admin Panel</p>
         </div>
 
@@ -88,7 +88,7 @@ export default function Sidebar({
                 (sub) => pathname === sub.link || pathname.startsWith(sub.link + '/')
               );
 
-            const activeParentStyles = 'bg-[#7ae749]/10 text-[#7ae749] shadow-[inset_4px_0_0_0_#7ae749]';
+            const activeParentStyles = 'bg-primary-400/10 text-primary-400 shadow-[inset_4px_0_0_0_var(--color-primary-400)]';
             const inactiveParentStyles = 'text-[#d0c5af] hover:bg-white/5 hover:text-white';
 
             return (
@@ -101,13 +101,13 @@ export default function Sidebar({
                       }`} >
                     <div className="flex items-center gap-4">
                       <item.icon
-                        className={`text-xl transition-transform ${!isItemActive ? 'group-hover:scale-110 group-hover:text-[#7ae749]' : ''
+                        className={`text-xl transition-transform ${!isItemActive ? 'group-hover:scale-110 group-hover:text-primary-400' : ''
                           }`}
                       />
                       {item.label}
                     </div>
                     <LuChevronDown
-                      className={`text-lg transition-transform duration-300 ${isExpanded ? 'rotate-180 text-[#7ae749]' : 'opacity-50'
+                      className={`text-lg transition-transform duration-300 ${isExpanded ? 'rotate-180 text-primary-400' : 'opacity-50'
                         }`}
                     />
                   </button>
@@ -119,7 +119,7 @@ export default function Sidebar({
                     className={`flex items-center gap-4 py-3 px-4 rounded-xl transition-all font-medium text-sm group ${isItemActive ? activeParentStyles : inactiveParentStyles
                       }`} >
                     <item.icon
-                      className={`text-xl transition-transform ${!isItemActive ? 'group-hover:scale-110 group-hover:text-[#7ae749]' : ''
+                      className={`text-xl transition-transform ${!isItemActive ? 'group-hover:scale-110 group-hover:text-primary-400' : ''
                         }`}
                     />
                     {item.label}
@@ -145,13 +145,13 @@ export default function Sidebar({
                               href={subItem.link}
                               onClick={() => setIsSidebarOpen(false)}
                               className={`py-2 px-3 rounded-lg text-sm transition-all duration-200 relative group ${isSubActive
-                                  ? 'text-[#7ae749] font-medium bg-[#7ae749]/5'
+                                  ? 'text-primary-400 font-medium bg-primary-400/5'
                                   : 'text-[#d0c5af]/80 hover:text-white hover:bg-white/5'
                                 }`}
                             >
                               {/* Horizontal branch line effect on hover/active */}
                               <span
-                                className={`absolute -left-4.25 top-1/2 -translate-y-1/2 w-3 h-px transition-colors ${isSubActive ? 'bg-[#7ae749]' : 'bg-transparent group-hover:bg-white/20'
+                                className={`absolute -left-4.25 top-1/2 -translate-y-1/2 w-3 h-px transition-colors ${isSubActive ? 'bg-primary-400' : 'bg-transparent group-hover:bg-white/20'
                                   }`}
                               />
                               {subItem.label}
@@ -173,13 +173,13 @@ export default function Sidebar({
             href="/settings"
             onClick={() => setIsSidebarOpen(false)}
             className={`flex items-center gap-4 py-3 px-4 rounded-xl transition-all font-medium text-sm group ${pathname.startsWith('/settings')
-                ? 'bg-[#7ae749]/10 text-[#7ae749] shadow-[inset_4px_0_0_0_#7ae749]'
+                ? 'bg-primary-400/10 text-primary-400 shadow-[inset_4px_0_0_0_var(--color-primary-400)]'
                 : 'text-[#d0c5af] hover:bg-white/5 hover:text-white'
               }`}
           >
             <LuSettings
               className={`text-xl transition-transform ${!pathname.startsWith('/settings')
-                  ? 'group-hover:scale-110 group-hover:text-[#7ae749]'
+                  ? 'group-hover:scale-110 group-hover:text-primary-400'
                   : ''
                 }`}
             />

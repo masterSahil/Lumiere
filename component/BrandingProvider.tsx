@@ -6,8 +6,8 @@ export const BrandingContext = createContext<any>(null);
 
 export const useBranding = () => useContext(BrandingContext);
 
-export default function BrandingProvider({ children }: { children: React.ReactNode }) {
-  const [branding, setBranding] = useState<any>(null);
+export default function BrandingProvider({ children, initialBranding }: { children: React.ReactNode, initialBranding?: any }) {
+  const [branding, setBranding] = useState<any>(initialBranding || null);
 
   useEffect(() => {
     const fetchBranding = async () => {
@@ -67,6 +67,8 @@ export default function BrandingProvider({ children }: { children: React.ReactNo
           
           --color-dark-bg: ${branding.surfaceBackdrop || '#101415'};
           --color-dark-surface: ${darkenHex(branding.surfaceBackdrop || '#101415', -10)};
+          
+          --accent-glow: ${branding.accentGlow || primaryColor};
         }
       `}} />
       <BrandingContext.Provider value={branding}>

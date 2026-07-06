@@ -29,8 +29,8 @@ export default function DashboardReservationsPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Pending': return 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20';
-      case 'Confirmed': return 'text-green-500 bg-green-500/10 border-green-500/20';
-      case 'Completed': return 'text-primary-400 bg-primary-500/10 border-primary-500/20';
+      case 'Confirmed': return 'text-primary-400 bg-primary-500/10 border-primary-500/20';
+      case 'Completed': return 'text-blue-400 bg-blue-500/10 border-blue-500/20';
       case 'Cancelled': return 'text-red-500 bg-red-500/10 border-red-500/20';
       default: return 'text-gray-400 bg-gray-500/10 border-gray-500/20';
     }

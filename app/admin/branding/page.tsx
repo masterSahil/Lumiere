@@ -252,7 +252,6 @@ export default function BrandingManagement() {
               </div>
             </div>
           </div>
-
         </div>
 
         {/* Right Side: Live Preview */}
@@ -268,11 +267,18 @@ export default function BrandingManagement() {
             </div>
           </div>
 
-          <div 
-            className="flex-1 min-h-[500px] border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative transition-all duration-300"
-            style={{ backgroundColor: formData.surfaceBackdrop }}
-          >
-            {/* Fake Website content using selected colors */}
+          <div className="flex justify-center flex-1">
+            <div 
+              className="border border-white/10 rounded-2xl overflow-hidden relative transition-all duration-300"
+              style={{ 
+                backgroundColor: formData.surfaceBackdrop,
+                width: previewMode === 'mobile' ? '320px' : previewMode === 'tablet' ? '480px' : '100%',
+                height: previewMode === 'mobile' ? '568px' : previewMode === 'tablet' ? '700px' : '100%',
+                minHeight: '500px',
+                boxShadow: `0 0 40px ${formData.accentGlow}15`
+              }}
+            >
+              {/* Fake Website content using selected colors */}
             <div className="p-6">
               <header className="flex justify-between items-center mb-16">
                 <div className="font-serif font-bold text-xl" style={{ color: formData.primaryColor }}>
@@ -298,14 +304,15 @@ export default function BrandingManagement() {
                 </p>
                 <div className="pt-4">
                   <button 
-                    className="px-6 py-3 rounded-lg text-[10px] font-bold uppercase tracking-widest shadow-lg transition-transform hover:scale-105"
-                    style={{ backgroundColor: formData.primaryColor, color: '#0d1700', boxShadow: `0 0 15px ${formData.accentGlow}40` }}
+                    className="px-6 py-3 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-transform hover:scale-105"
+                    style={{ backgroundColor: formData.primaryColor, color: '#0d1700', boxShadow: `0 0 20px ${formData.accentGlow}80` }}
                   >
                     Book Experience
                   </button>
                 </div>
               </div>
             </div>
+          </div>
           </div>
 
           {/* Device Toggles */}

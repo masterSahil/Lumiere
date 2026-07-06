@@ -10,7 +10,7 @@ export default function Footer() {
         
         {/* Brand & Socials */}
         <div className="space-y-6">
-          <div className="font-serif text-[32px] leading-10 font-medium text-[#72df41]">
+          <div className="font-serif text-[32px] leading-10 font-medium text-primary-400">
             Lumière Dining
           </div>
           <p className="text-[#d0c5af] font-sans text-[14px] leading-5 tracking-wider font-semibold">
@@ -18,11 +18,11 @@ export default function Footer() {
           </p>
           <div className="flex gap-4">
             <Link href="/" aria-label="Social Media or Location"
-              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:text-[#7ae749] transition-all">
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:text-primary-400 transition-all">
               <MdPublic />
             </Link>
             <Link href="mailto:contact@lumieredining.com" 
-              aria-label="Email Us" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:text-[#7ae749] transition-all">
+              aria-label="Email Us" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:text-primary-400 transition-all">
               <MdEmail />
             </Link>
           </div>
@@ -33,22 +33,22 @@ export default function Footer() {
           <h5 className="text-white font-sans text-[14px] leading-5 tracking-wider font-semibold uppercase">Experience</h5>
           <ul className="space-y-2">
             <li>
-              <Link href="/menu" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+              <Link href="/menu" className="text-[#d0c5af] hover:text-primary-400 transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
                 Menu
               </Link>
             </li>
             <li>
-              <Link href="/reservations" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+              <Link href="/reservations" className="text-[#d0c5af] hover:text-primary-400 transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
                 Reservations
               </Link>
             </li>
             <li>
-              <Link href="/gift-cards" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+              <Link href="/gift-cards" className="text-[#d0c5af] hover:text-primary-400 transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
                 Gift Cards
               </Link>
             </li>
             <li>
-              <Link href="/careers" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+              <Link href="/careers" className="text-[#d0c5af] hover:text-primary-400 transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
                 Careers
               </Link>
             </li>
@@ -60,22 +60,22 @@ export default function Footer() {
           <h5 className="text-white font-sans text-[14px] leading-5 tracking-wider font-semibold uppercase">Support</h5>
           <ul className="space-y-2">
             <li>
-              <Link href="/privacy" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+              <Link href="/privacy" className="text-[#d0c5af] hover:text-primary-400 transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+              <Link href="/terms" className="text-[#d0c5af] hover:text-primary-400 transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
                 Terms of Service
               </Link>
             </li>
             <li>
-              <Link href="/sustainability" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+              <Link href="/sustainability" className="text-[#d0c5af] hover:text-primary-400 transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
                 Sustainability
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="text-[#d0c5af] hover:text-[#7ae749] transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
+              <Link href="/contact" className="text-[#d0c5af] hover:text-primary-400 transition-all font-sans text-[14px] leading-5 tracking-wider font-semibold">
                 Contact Us
               </Link>
             </li>

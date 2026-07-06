@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Suspense } from "react";
 import Loader from "./loading";
+import connectDB from "@/libs/config";
+import Branding from "@/model/branding";
 
 export const metadata = {
   title: "Lumière | Fine Dining & Culinary Excellence",
@@ -26,11 +28,23 @@ import { CartProvider } from "@/context/CartContext";
 import { Toaster } from 'sonner';
 import BrandingProvider from '@/component/BrandingProvider';
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  let initialBranding = null;
+  try {
+    await connectDB();
+    const rawBranding = await Branding.findOne();
+    if (rawBranding) {
+      // Serialize mongoose document to plain object
+      initialBranding = JSON.parse(JSON.stringify(rawBranding));
+    }
+  } catch (error) {
+    console.error("Failed to fetch branding in layout", error);
+  }
+
   return (
     <html lang="en">
       <body>
-        <BrandingProvider>
+        <BrandingProvider initialBranding={initialBranding}>
           <CartProvider>
             <Suspense fallback={<Loader />}>
               {children}

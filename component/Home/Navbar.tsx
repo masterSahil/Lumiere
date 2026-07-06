@@ -64,7 +64,7 @@ export default function Navbar() {
       <div className="flex justify-between items-center px-5 md:px-20 py-4 w-full max-w-360 mx-auto">
         
         {/* Logo */}
-        <div className="font-serif text-[32px] md:text-[48px] leading-10 md:leading-14 font-bold text-[#72df41]">
+        <div className="font-serif text-[32px] md:text-[48px] leading-10 md:leading-14 font-bold text-primary-400">
           <Link href="/">
             Lumière
           </Link>
@@ -78,14 +78,14 @@ export default function Navbar() {
             return (
               <Link key={link.name} href={link.href} 
                 className={`font-sans text-[14px] leading-5 tracking-wider font-semibold transition-all duration-300 pb-1 border-b-2 
-                  ${ isActive ? "text-[#7ae749] border-[#7ae749]" : "text-[#e5e2e3]/70 border-transparent hover:text-[#7ae749]" }`} >
+                  ${ isActive ? "text-primary-400 border-primary-400" : "text-[#e5e2e3]/70 border-transparent hover:text-primary-400" }`} >
                 {link.name}
               </Link>
             );
           })}
           {(userRole === 'admin' || userRole === 'superadmin') && (
             <Link href="/admin/dashboard" 
-              className="font-sans text-[14px] leading-5 tracking-wider font-bold transition-all duration-300 pb-1 border-b-2 text-[#7ae749] border-transparent hover:border-[#7ae749] flex items-center gap-2" >
+              className="font-sans text-[14px] leading-5 tracking-wider font-bold transition-all duration-300 pb-1 border-b-2 text-primary-400 border-transparent hover:border-primary-400 flex items-center gap-2" >
               <span className="material-symbols-outlined text-[18px]">admin_panel_settings</span>
               Admin Panel
             </Link>
@@ -96,11 +96,11 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           {
             loggedIn ? 
-              <button onClick={logout} className="bg-[#5fca2d] text-[#1a5000] px-6 py-2.5 rounded-full font-sans text-[14px] leading-5 tracking-wider font-semibold hover:bg-[#7ae749] transition-all duration-300 shadow-lg shadow-[#7ae749]/20">
+              <button onClick={logout} className="bg-primary-500 text-dark-bg px-6 py-2.5 rounded-full font-sans text-[14px] leading-5 tracking-wider font-semibold hover:bg-primary-400 transition-all duration-300 shadow-lg shadow-primary-400/20">
                 Logout
               </button>
               :
-              <button onClick={()=>router.push("/login")} className="bg-[#5fca2d] text-[#1a5000] px-6 py-2.5 rounded-full font-sans text-[14px] leading-5 tracking-wider font-semibold hover:bg-[#7ae749] transition-all duration-300 shadow-lg shadow-[#7ae749]/20">
+              <button onClick={()=>router.push("/login")} className="bg-primary-500 text-dark-bg px-6 py-2.5 rounded-full font-sans text-[14px] leading-5 tracking-wider font-semibold hover:bg-primary-400 transition-all duration-300 shadow-lg shadow-primary-400/20">
                 Sign In
               </button>
           }

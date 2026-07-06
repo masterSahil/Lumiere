@@ -63,7 +63,17 @@ export async function POST(request) {
       receipt: dbOrder._id.toString(),
     };
 
-    const rzpOrder = await razorpay.orders.create(options);
+    let rzpOrder;
+    if (!process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID === 'rzp_test_dummykey') {
+      // Mock order for dev if no real key is provided
+      rzpOrder = {
+        id: 'order_dummy_' + Date.now(),
+        currency: "USD",
+        amount: amountInPaise
+      };
+    } else {
+      rzpOrder = await razorpay.orders.create(options);
+    }
 
     // Save transaction ID properly inside paymentInfo
     dbOrder.paymentInfo.transactionId = rzpOrder.id;

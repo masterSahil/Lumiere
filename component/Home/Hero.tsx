@@ -15,7 +15,7 @@ export default function HeroSection() {
                 <div className="relative z-10 px-5 md:px-20 w-full max-w-360 mx-auto">
                     <div className="max-w-3xl space-y-8">
                         <h1 className="font-serif text-[48px] md:text-[72px] leading-13 md:leading-20 tracking-[-0.01em] md:tracking-[-0.02em] font-bold text-shadow-hero text-white">
-                            The Art of <span className="text-[#72df41]">Fine Dining</span>, Delivered
+                            The Art of <span className="text-primary-400">Fine Dining</span>, Delivered
                         </h1>
                         <p className="font-sans text-[18px] leading-7 text-[#d0c5af] max-w-xl">
                             Experience Michelin-star quality in the comfort of your sanctuary. Our master chefs prepare each masterpiece with surgical precision and artistic passion.

@@ -79,7 +79,7 @@ export default function AdminOrdersPage() {
                         order.orderStatus === 'Pending' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20 hover:bg-yellow-500/20' :
                         order.orderStatus === 'Preparing' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:bg-blue-500/20' :
                         order.orderStatus === 'Out for Delivery' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20 hover:bg-purple-500/20' :
-                        order.orderStatus === 'Delivered' ? 'bg-green-500/10 text-green-500 border-green-500/20 hover:bg-green-500/20' :
+                        order.orderStatus === 'Delivered' ? 'bg-primary-500/10 text-primary-400 border-primary-500/20 hover:bg-primary-500/20' :
                         'bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20'
                       }`}
                     >
