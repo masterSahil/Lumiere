@@ -8,7 +8,7 @@ import UserNavbar from '@/component/layout/UserNavbar';
 import { Truck, CheckCircle, Wallet, Lock, CreditCard } from 'lucide-react';
 
 export default function CheckoutPage() {
-  const { items, getSubtotal, getTax, getDeliveryFee, getTotal, clearCart } = useCartStore();
+  const { items, getSubtotal, getTax, getDeliveryFee, getTotal, getDiscountAmount, couponCode, discount, applyCoupon, removeCoupon, clearCart } = useCartStore();
   const router = useRouter();
 
   const [formData, setFormData] = useState({
@@ -20,6 +20,8 @@ export default function CheckoutPage() {
   });
   
   const [loading, setLoading] = useState(false);
+  const [promoInput, setPromoInput] = useState('');
+  const [promoLoading, setPromoLoading] = useState(false);
 
   useEffect(() => {
     if (items.length === 0) {
@@ -45,6 +47,23 @@ export default function CheckoutPage() {
     });
   };
 
+  const handleApplyPromo = async () => {
+    if (!promoInput.trim()) return;
+    setPromoLoading(true);
+    try {
+      const { data } = await axios.get(`/api/coupons?code=${promoInput.trim()}`);
+      if (data.success && data.coupon) {
+        applyCoupon(data.coupon.code, data.coupon.discountPercentage);
+        toast.success(`Promo code applied: ${data.coupon.discountPercentage}% OFF`);
+        setPromoInput('');
+      }
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || err.response?.data?.error || 'Invalid promo code');
+    } finally {
+      setPromoLoading(false);
+    }
+  };
+
   const handleCheckout = async () => {
     if (!formData.customerName || !formData.customerEmail || !formData.shippingAddress || !formData.customerPhone) {
       toast.error("Please fill in all required delivery details.");
@@ -57,6 +76,8 @@ export default function CheckoutPage() {
       ...formData,
       items: items.map((i: { id: any; name: any; price: any; quantity: any; image: any; }) => ({ food: i.id, name: i.name, price: i.price, quantity: i.quantity, image: i.image })),
       subtotal: getSubtotal(),
+      discountAmount: getDiscountAmount(),
+      promoCode: couponCode || "",
       tax: getTax(),
       deliveryFee: getDeliveryFee(),
       totalAmount: getTotal(),
@@ -285,6 +306,17 @@ export default function CheckoutPage() {
                   <span>Subtotal</span>
                   <span>${getSubtotal().toFixed(2)}</span>
                 </div>
+                
+                {couponCode && (
+                  <div className="flex justify-between text-primary-400 font-medium">
+                    <div className="flex items-center gap-2">
+                      <span>Discount ({discount}%)</span>
+                      <button onClick={removeCoupon} className="text-xs text-red-400 hover:underline">(Remove)</button>
+                    </div>
+                    <span>-${getDiscountAmount().toFixed(2)}</span>
+                  </div>
+                )}
+
                 <div className="flex justify-between text-gray-300">
                   <span>Tax (8%)</span>
                   <span>${getTax().toFixed(2)}</span>
@@ -310,6 +342,27 @@ export default function CheckoutPage() {
               <div className="mt-6 flex items-center justify-center space-x-2 text-xs text-gray-400">
                 <Lock className="w-4 h-4" />
                 <span className="uppercase tracking-widest">End-to-end encrypted secure checkout</span>
+              </div>
+              
+              {/* Promo Code Section */}
+              <div className="mt-8 pt-8 border-t border-white/10">
+                <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Have a Promo Code?</label>
+                <div className="flex gap-2">
+                  <input 
+                    type="text" 
+                    value={promoInput}
+                    onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                    placeholder="ENTER CODE" 
+                    className="flex-1 bg-dark-bg border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-600 outline-none focus:border-primary-500 uppercase tracking-widest text-sm"
+                  />
+                  <button 
+                    onClick={handleApplyPromo}
+                    disabled={promoLoading || !promoInput.trim()}
+                    className="bg-white/10 text-white px-6 rounded-lg font-bold hover:bg-white/20 transition-colors disabled:opacity-50 text-sm"
+                  >
+                    {promoLoading ? '...' : 'Apply'}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

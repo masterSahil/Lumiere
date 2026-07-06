@@ -11,9 +11,12 @@ import {
   Users, 
   Settings, 
   Shield, 
-  Bell,
   Grid,
-  Palette
+  Palette,
+  Ticket,
+  LogOut,
+  Bell,
+  BarChart3
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -36,6 +39,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     fetchUser();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await axios.post('/api/auth/logout');
+      router.push('/login');
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
+  };
+
   const navItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
     { name: 'Orders', icon: ClipboardList, path: '/admin/orders' },
@@ -43,9 +55,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Categories', icon: Grid, path: '/admin/categories' },
     { name: 'Reservations', icon: CalendarCheck, path: '/admin/reservations' },
     { name: 'Customers', icon: Users, path: '/admin/customers' },
+    { name: 'Promos', icon: Ticket, path: '/admin/coupons' },
     { name: 'Branding', icon: Palette, path: '/admin/branding' },
     { name: 'Settings', icon: Settings, path: '/admin/settings' },
   ];
+
+  if (currentUser?.role === 'superadmin') {
+    navItems.splice(1, 0, { name: 'Analytics', icon: BarChart3, path: '/admin/analytics' });
+  }
 
   return (
     <div className="font-sans text-gray-300 min-h-screen bg-dark-bg flex">
@@ -90,9 +107,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <Shield className="w-5 h-5 text-primary-400" />
               )}
             </div>
-            <div>
-              <h3 className="text-sm font-bold text-white max-w-[100px] truncate">{currentUser?.username || 'Loading...'}</h3>
-              <button onClick={() => router.push('/')} className="text-xs text-red-400 hover:underline">Exit Admin</button>
+            <div className="flex flex-col items-start">
+              <h3 className="text-sm font-bold text-white max-w-[90px] truncate">{currentUser?.username || 'Loading...'}</h3>
+              <div className="flex gap-2 mt-1">
+                <button onClick={() => router.push('/')} className="text-[10px] text-gray-400 hover:text-white uppercase tracking-wider font-bold">Exit</button>
+                <span className="text-gray-600">|</span>
+                <button onClick={handleLogout} className="text-[10px] text-red-400 hover:text-red-300 uppercase tracking-wider font-bold flex items-center gap-1">
+                  <LogOut className="w-3 h-3" /> Logout
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -1,19 +1,27 @@
 import { NextResponse } from "next/server";
-import mongoose from "mongoose";
+import connectDB from "@/libs/config";
 import Branding from "@/model/branding";
 
-// Ensure DB is connected
-const connectDB = async () => {
-  if (mongoose.connection.readyState >= 1) return;
-  await mongoose.connect(process.env.MONGODB_URI);
-};
-
-export async function GET() {
+export async function GET(request) {
   try {
     await connectDB();
-    let branding = await Branding.findOne();
+    const { searchParams } = new URL(request.url);
+    const all = searchParams.get('all');
+
+    if (all === 'true') {
+      const themes = await Branding.find().sort({ createdAt: -1 });
+      return NextResponse.json({ success: true, data: themes });
+    }
+
+    let branding = await Branding.findOne({ isActiveTheme: true });
     if (!branding) {
-      branding = await Branding.create({});
+      branding = await Branding.findOne(); // Fallback
+      if (!branding) {
+        branding = await Branding.create({ themeName: "Default Theme", isActiveTheme: true });
+      } else {
+        branding.isActiveTheme = true;
+        await branding.save();
+      }
     }
     return NextResponse.json({ success: true, data: branding });
   } catch (error) {
@@ -21,19 +29,18 @@ export async function GET() {
   }
 }
 
-export async function PUT(req) {
+export async function POST(req) {
   try {
     await connectDB();
     const body = await req.json();
     
-    let branding = await Branding.findOne();
-    if (!branding) {
-      branding = await Branding.create(body);
-    } else {
-      branding = await Branding.findByIdAndUpdate(branding._id, body, { new: true });
+    // If setting as active, deactivate others
+    if (body.isActiveTheme) {
+      await Branding.updateMany({}, { isActiveTheme: false });
     }
     
-    return NextResponse.json({ success: true, data: branding, message: "Branding updated successfully" });
+    const theme = await Branding.create(body);
+    return NextResponse.json({ success: true, data: theme, message: "Theme created successfully" });
   } catch (error) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }

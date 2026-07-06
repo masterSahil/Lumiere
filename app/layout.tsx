@@ -27,12 +27,16 @@ export const metadata = {
 import { CartProvider } from "@/context/CartContext";
 import { Toaster } from 'sonner';
 import BrandingProvider from '@/component/BrandingProvider';
+import FloatingAssistant from '@/component/FloatingAssistant';
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   let initialBranding = null;
   try {
     await connectDB();
-    const rawBranding = await Branding.findOne();
+    let rawBranding = await Branding.findOne({ isActiveTheme: true });
+    if (!rawBranding) {
+      rawBranding = await Branding.findOne(); // Fallback
+    }
     if (rawBranding) {
       // Serialize mongoose document to plain object
       initialBranding = JSON.parse(JSON.stringify(rawBranding));
@@ -71,6 +75,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             },
           }}
         />
+        
+        {/* Global AI Dining Assistant */}
+        <FloatingAssistant />
       </body>
     </html>
   );

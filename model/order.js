@@ -18,6 +18,8 @@ const orderSchema = new Schema(
     deliveryInstructions: { type: String, default: "" },
     items: [orderItemSchema],
     subtotal: { type: Number, required: true },
+    discountAmount: { type: Number, default: 0 },
+    promoCode: { type: String, default: "" },
     tax: { type: Number, required: true },
     deliveryFee: { type: Number, required: true },
     totalAmount: { type: Number, required: true },

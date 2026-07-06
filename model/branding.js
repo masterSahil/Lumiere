@@ -2,6 +2,8 @@ import { Schema, model, models } from "mongoose";
 
 const brandingSchema = new Schema(
   {
+    themeName: { type: String, default: "Default Theme" },
+    isActiveTheme: { type: Boolean, default: false },
     logo: { type: String, default: "" },
     favicon: { type: String, default: "" },
     

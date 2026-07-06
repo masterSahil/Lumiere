@@ -44,6 +44,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }, []);
 
   const navItems = [
+    { name: 'Dining Passport', icon: User, path: '/dashboard/profile' },
     { name: 'Orders', icon: ReceiptText, path: '/dashboard/orders' },
     { name: 'Reservations', icon: Utensils, path: '/dashboard/reservations' },
     { name: 'Addresses', icon: MapPin, path: '/dashboard/addresses' },
