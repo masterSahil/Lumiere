@@ -11,8 +11,8 @@ export default function LumiereDining() {
     <>
       <Navbar />
       <HeroSection />
-      <FeaturedDishes />
-      <Categories />
+      <FeaturedDishes dishes={[]} />
+      <Categories categories={[]} />
       <PromoBanner />
       <Stats />
       <Footer />
