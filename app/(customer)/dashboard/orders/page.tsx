@@ -108,13 +108,6 @@ export default function OrdersPage() {
                       ></div>
                     </div>
                     
-                    {/* Simulator Controls (For testing phase only) */}
-                    <div className="flex flex-wrap gap-2 pt-4 border-t border-white/10">
-                      <p className="w-full text-xs text-gray-500 uppercase tracking-widest mb-1">Simulator Controls</p>
-                      <button onClick={() => updateOrderStatus(order._id, 'Preparing')} className="text-[10px] bg-white/10 px-2 py-1 rounded hover:bg-primary-500 hover:text-dark-bg">Set Preparing</button>
-                      <button onClick={() => updateOrderStatus(order._id, 'Out for Delivery')} className="text-[10px] bg-white/10 px-2 py-1 rounded hover:bg-primary-500 hover:text-dark-bg">Set Out for Delivery</button>
-                      <button onClick={() => updateOrderStatus(order._id, 'Delivered')} className="text-[10px] bg-white/10 px-2 py-1 rounded hover:bg-primary-500 hover:text-dark-bg">Set Delivered</button>
-                    </div>
                   </div>
                   
                   <div className="bg-dark-bg/50 p-6 rounded-xl border border-white/5">

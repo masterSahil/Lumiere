@@ -81,7 +81,7 @@ export default function FloatingAssistant() {
             className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 w-full sm:w-[420px] max-w-[calc(100vw-2rem)] h-[600px] max-h-[calc(100vh-4rem)] bg-[#0a0a0a]/70 backdrop-blur-3xl border border-white/10 rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="px-6 py-5 border-b border-white/5 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-between shrink-0">
+            <div className="px-6 py-5 border-b border-white/5 bg-linear-to-b from-white/5 to-transparent flex items-center justify-between shrink-0">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shadow-inner">
                   <Sparkles className="w-5 h-5 text-primary-400" />

@@ -4,7 +4,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { ReceiptText, Utensils, User, MapPin, CreditCard, Bell, Settings, LogOut } from 'lucide-react';
+import { ReceiptText, Utensils, User, MapPin, CreditCard, Bell, Settings, LogOut, Gift, Heart } from 'lucide-react';
 import UserNavbar from '@/component/layout/UserNavbar';
 import Footer from '@/component/Home/Footer';
 
@@ -49,6 +49,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { name: 'Reservations', icon: Utensils, path: '/dashboard/reservations' },
     { name: 'Addresses', icon: MapPin, path: '/dashboard/addresses' },
     { name: 'Payment Methods', icon: CreditCard, path: '/dashboard/payments' },
+    { name: 'Rewards', icon: Gift, path: '/dashboard/rewards' },
+    { name: 'Wishlist', icon: Heart, path: '/dashboard/wishlist' },
     { name: 'Notifications', icon: Bell, path: '/dashboard/notifications' },
     { name: 'Settings', icon: Settings, path: '/dashboard/settings' },
   ];
@@ -98,6 +100,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   })}
                   
                   <div className="my-2 border-t border-white/5"></div>
+                  
+                  {(user?.role === 'superadmin' || user?.role === 'admin') && (
+                    <button 
+                      onClick={() => router.push(user.role === 'superadmin' ? '/superadmin/dashboard' : '/admin/dashboard')}
+                      className="flex items-center gap-3 p-3 rounded-lg transition-all text-primary-400 hover:bg-primary-500/10"
+                    >
+                      <Settings className="w-5 h-5 shrink-0" />
+                      <span className="font-sans text-[14px] leading-5 tracking-wider font-semibold">Switch to Admin</span>
+                    </button>
+                  )}
                   
                   <button 
                     onClick={handleLogout}

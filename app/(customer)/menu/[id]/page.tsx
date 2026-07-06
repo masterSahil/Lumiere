@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
+import Loader from '@/app/loading';
 import { toast } from 'sonner';
 
 export default function FoodDetail() {
@@ -39,7 +40,7 @@ export default function FoodDetail() {
     fetchFoodAndReviews();
   }, [id]);
 
-  if (loading) return <div className="min-h-screen bg-dark-bg flex justify-center items-center text-primary-500">Loading...</div>;
+  if (loading) return <Loader />;
   if (!food) return <div className="min-h-screen bg-dark-bg flex flex-col justify-center items-center text-white">Food not found <button onClick={() => router.push('/menu')} className="mt-4 text-primary-400">Back to menu</button></div>;
 
   return (
@@ -100,7 +101,6 @@ export default function FoodDetail() {
               </div>
             </motion.div>
           </div>
-        </div>
 
         {/* Reviews Section */}
         <div className="mt-24 max-w-4xl mx-auto">

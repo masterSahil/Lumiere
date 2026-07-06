@@ -3,27 +3,17 @@ import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import axios from 'axios';
 import { useBranding } from '@/component/BrandingProvider';
+import Loader from '@/app/loading';
 import { 
   LayoutDashboard, 
-  ClipboardList, 
-  CalendarCheck, 
-  Utensils, 
-  Users, 
-  Settings, 
-  Shield, 
-  Grid,
-  Palette,
-  Ticket,
+  ShieldCheck,
+  Activity,
   LogOut,
-  Bell,
-  BarChart3,
-  Image as ImageIcon,
-  Images,
-  HelpCircle,
-  MessageSquare
+  Settings,
+  Bell
 } from 'lucide-react';
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function SuperAdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const branding = useBranding();
@@ -33,11 +23,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const fetchUser = async () => {
       try {
         const { data } = await axios.get('/api/auth/verify');
-        if (data.success) {
+        if (data.success && data.data.role === 'superadmin') {
           setCurrentUser(data.data);
+        } else {
+          router.push('/login'); // Redirect if not superadmin
         }
       } catch (err) {
         console.error(err);
+        router.push('/login');
       }
     };
     fetchUser();
@@ -53,24 +46,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   const navItems = [
-    { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
-    { name: 'Orders', icon: ClipboardList, path: '/admin/orders' },
-    { name: 'Menu', icon: Utensils, path: '/admin/menu' },
-    { name: 'Categories', icon: Grid, path: '/admin/categories' },
-    { name: 'Reservations', icon: CalendarCheck, path: '/admin/reservations' },
-    { name: 'Customers', icon: Users, path: '/admin/customers' },
-    { name: 'Promos', icon: Ticket, path: '/admin/coupons' },
-    { name: 'Banners', icon: ImageIcon, path: '/admin/banners' },
-    { name: 'Gallery', icon: Images, path: '/admin/gallery' },
-    { name: 'FAQ', icon: HelpCircle, path: '/admin/content/faq' },
-    { name: 'Notifications', icon: MessageSquare, path: '/admin/notifications' },
-    { name: 'Branding', icon: Palette, path: '/admin/branding' },
-    { name: 'Settings', icon: Settings, path: '/admin/settings' },
+    { name: 'Dashboard', icon: LayoutDashboard, path: '/superadmin/dashboard' },
+    { name: 'Manage Admins', icon: ShieldCheck, path: '/superadmin/admins' },
+    { name: 'Audit Logs', icon: Activity, path: '/superadmin/logs' },
+    { name: 'Platform Settings', icon: Settings, path: '/superadmin/settings' },
   ];
 
-  if (currentUser?.role === 'superadmin') {
-    navItems.splice(1, 0, { name: 'Analytics', icon: BarChart3, path: '/admin/analytics' });
-  }
+  if (!currentUser) return <Loader />;
 
   return (
     <div className="font-sans text-gray-300 min-h-screen bg-dark-bg flex">
@@ -83,12 +65,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             )}
             <span className="font-serif text-[24px] font-bold text-primary-400">Lumière</span>
           </div>
-          <span className="text-[10px] bg-primary-500/20 text-primary-400 px-2 py-1 rounded uppercase tracking-widest font-bold">Admin</span>
+          <span className="text-[10px] bg-primary-500/20 text-primary-400 px-2 py-1 rounded uppercase tracking-widest font-bold">Root</span>
         </div>
         
         <nav className="flex-1 overflow-y-auto p-4 flex flex-col gap-2">
           {navItems.map((item) => {
-            const isActive = pathname === item.path || (pathname === '/admin' && item.path === '/admin/dashboard');
+            const isActive = pathname === item.path || (pathname === '/superadmin' && item.path === '/superadmin/dashboard');
             return (
               <button 
                 key={item.name}
@@ -112,19 +94,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               {currentUser?.avatar ? (
                 <img src={currentUser.avatar} alt="Profile" className="w-full h-full object-cover" />
               ) : (
-                <Shield className="w-5 h-5 text-primary-400" />
+                <ShieldCheck className="w-5 h-5 text-primary-400" />
               )}
             </div>
             <div className="flex flex-col items-start">
-              <h3 className="text-sm font-bold text-white max-w-[90px] truncate">{currentUser?.username || 'Loading...'}</h3>
+              <h3 className="text-sm font-bold text-white max-w-[90px] truncate">{currentUser?.username}</h3>
               <div className="flex gap-2 mt-1">
                 <button onClick={() => router.push('/dashboard')} className="text-[10px] text-gray-400 hover:text-white uppercase tracking-wider font-bold">App</button>
-                {currentUser?.role === 'superadmin' && (
-                  <>
-                    <span className="text-gray-600">|</span>
-                    <button onClick={() => router.push('/superadmin/dashboard')} className="text-[10px] text-primary-400 hover:text-primary-300 uppercase tracking-wider font-bold">Root</button>
-                  </>
-                )}
+                <span className="text-gray-600">|</span>
+                <button onClick={() => router.push('/admin/dashboard')} className="text-[10px] text-primary-400 hover:text-primary-300 uppercase tracking-wider font-bold">Admin</button>
                 <span className="text-gray-600">|</span>
                 <button onClick={handleLogout} className="text-[10px] text-red-400 hover:text-red-300 uppercase tracking-wider font-bold flex items-center gap-1">
                   <LogOut className="w-3 h-3" /> Logout
@@ -139,7 +117,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <main className="flex-1 bg-dark-bg flex flex-col h-screen overflow-hidden">
         <header className="h-20 border-b border-white/10 bg-dark-surface flex items-center justify-between px-8 shrink-0">
           <h2 className="font-serif text-2xl text-white">
-            {navItems.find(i => i.path === pathname)?.name || 'Admin Panel'}
+            {navItems.find(i => i.path === pathname)?.name || 'Super Admin Panel'}
           </h2>
           <div className="flex gap-4">
             <button className="text-gray-400 hover:text-white"><Bell className="w-5 h-5" /></button>

@@ -116,10 +116,10 @@ export default function AnalyticsDashboard() {
           <div className="h-64 flex items-end gap-2 md:gap-4 justify-between w-full relative">
             {/* Grid lines */}
             <div className="absolute inset-0 flex flex-col justify-between pointer-events-none border-t border-b border-white/5">
-              <div className="w-full h-[1px] bg-white/5"></div>
-              <div className="w-full h-[1px] bg-white/5"></div>
-              <div className="w-full h-[1px] bg-white/5"></div>
-              <div className="w-full h-[1px] bg-white/5"></div>
+              <div className="flex-1 h-px bg-white/10 mx-2"></div>
+              <div className="flex-1 h-px bg-white/10 mx-2"></div>
+              <div className="flex-1 h-px bg-white/10 mx-2"></div>
+              <div className="flex-1 h-px bg-white/10 mx-2"></div>
             </div>
 
             {data.chartData.map((point: any, idx: number) => {
@@ -133,7 +133,7 @@ export default function AnalyticsDashboard() {
                   
                   {/* Bar */}
                   <div 
-                    className="w-full max-w-[40px] bg-gradient-to-t from-primary-500/20 to-primary-500 rounded-t-sm transition-all duration-1000"
+                    className="w-full max-w-[40px] bg-linear-to-t from-primary-500/20 to-primary-500 rounded-t-sm transition-all duration-1000"
                     style={{ height: `${Math.max(heightPercent, 2)}%` }} // Give at least 2% height so 0 isn't invisible
                   ></div>
                   

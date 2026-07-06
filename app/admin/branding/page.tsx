@@ -176,7 +176,7 @@ export default function BrandingManagement() {
               <div 
                 key={theme._id}
                 onClick={() => setFormData(theme)}
-                className={`flex-shrink-0 w-64 p-4 rounded-xl border cursor-pointer transition-all flex flex-col justify-between
+                className={`shrink-0 w-64 p-4 rounded-xl border cursor-pointer transition-all flex flex-col justify-between
                   ${formData?._id === theme._id ? 'bg-primary-500/10 border-primary-500/50' : 'bg-dark-surface border-white/5 hover:border-white/20'}`}
               >
                 <div className="flex justify-between items-start mb-4">
