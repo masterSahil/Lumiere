@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import connectDB from "@/libs/config";
 import Branding from "@/model/branding";
 
@@ -15,7 +16,11 @@ export async function PUT(req, { params }) {
       await Branding.updateMany({}, { isActiveTheme: false });
     }
     
-    const theme = await Branding.findByIdAndUpdate(id, body, { new: true });
+    const theme = await Branding.findByIdAndUpdate(id, body, { returnDocument: 'after' });
+    
+    // Purge cache so layout updates instantly
+    revalidatePath('/', 'layout');
+    
     return NextResponse.json({ success: true, data: theme, message: "Theme updated successfully" });
   } catch (error) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
@@ -33,6 +38,9 @@ export async function DELETE(req, { params }) {
     }
     
     await Branding.findByIdAndDelete(id);
+    
+    revalidatePath('/', 'layout');
+    
     return NextResponse.json({ success: true, message: "Theme deleted" });
   } catch (error) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });

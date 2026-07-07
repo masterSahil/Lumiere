@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import connectDB from "@/libs/config";
 import Branding from "@/model/branding";
 
@@ -43,6 +44,10 @@ export async function POST(req) {
     }
     
     const theme = await Branding.create(body);
+    
+    // Purge cache
+    revalidatePath('/', 'layout');
+    
     return NextResponse.json({ success: true, data: theme, message: "Theme created successfully" });
   } catch (error) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
