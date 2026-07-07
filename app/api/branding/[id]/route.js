@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import connectDB from "@/libs/config";
 import Branding from "@/model/branding";
 
+export const dynamic = 'force-dynamic';
+
+
 export async function PUT(req, { params }) {
   try {
     await connectDB();

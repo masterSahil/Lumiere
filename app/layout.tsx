@@ -4,6 +4,9 @@ import Loader from "./loading";
 import connectDB from "@/libs/config";
 import Branding from "@/model/branding";
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata = {
   title: "Lumière | Fine Dining & Culinary Excellence",
   description: "Experience the pinnacle of culinary artistry at Lumière. Reserve a table, explore our exclusive menu, and indulge in luxury dining.",

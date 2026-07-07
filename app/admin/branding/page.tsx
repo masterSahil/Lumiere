@@ -2,8 +2,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { CloudUpload, Utensils, Edit2, Globe, Monitor, Smartphone, Tablet, EyeOff, Plus, Check, Trash2, Palette } from 'lucide-react';
+import { CloudUpload, Utensils, Edit2, Globe, Monitor, Smartphone, Tablet, EyeOff, Plus, Check, Trash2, Palette, AlertTriangle } from 'lucide-react';
 import { FaInstagram, FaXTwitter } from 'react-icons/fa6';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const PRESET_COLORS = [
   '#9EE939', '#22c55e', '#0ea5e9', '#f59e0b', '#f43f5e', '#a855f7',
@@ -31,6 +32,8 @@ export default function BrandingManagement() {
   const [previewMode, setPreviewMode] = useState<'desktop' | 'mobile' | 'tablet'>('desktop');
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [uploadingFavicon, setUploadingFavicon] = useState(false);
+  const [themeToDelete, setThemeToDelete] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const fetchThemes = async () => {
     try {
@@ -100,19 +103,23 @@ export default function BrandingManagement() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this theme?")) return;
+  const confirmDelete = async () => {
+    if (!themeToDelete) return;
+    setIsDeleting(true);
     try {
-      const res = await axios.delete(`/api/branding/${id}`);
+      const res = await axios.delete(`/api/branding/${themeToDelete}`);
       if (res.data.success) {
         toast.success("Theme deleted");
-        if (formData._id === id) {
+        if (formData?._id === themeToDelete) {
           setFormData(null); // Clear selection so it re-selects on fetch
         }
         fetchThemes();
       }
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Failed to delete theme");
+    } finally {
+      setIsDeleting(false);
+      setThemeToDelete(null);
     }
   };
 
@@ -195,7 +202,7 @@ export default function BrandingManagement() {
                   <span className="text-[10px] text-gray-500 font-mono">{theme._id.slice(-6)}</span>
                   {!theme.isActiveTheme && (
                     <button 
-                      onClick={(e) => { e.stopPropagation(); handleDelete(theme._id); }}
+                      onClick={(e) => { e.stopPropagation(); setThemeToDelete(theme._id); }}
                       className="text-red-500 hover:text-red-400 p-1"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -435,6 +442,60 @@ export default function BrandingManagement() {
 
         </div>
       </div>
+
+      <AnimatePresence>
+        {themeToDelete && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }} 
+              className="absolute inset-0 bg-dark-bg/80 backdrop-blur-sm"
+              onClick={() => !isDeleting && setThemeToDelete(null)}
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative bg-dark-surface border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-red-500" />
+              
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-red-500/20 text-red-400">
+                  <AlertTriangle className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-serif text-white">Delete Theme?</h3>
+              </div>
+              
+              <p className="text-gray-400 mb-8 leading-relaxed">
+                Are you sure you want to delete this theme? This action cannot be undone.
+              </p>
+              
+              <div className="flex gap-4 justify-end">
+                <button 
+                  disabled={isDeleting}
+                  onClick={() => setThemeToDelete(null)}
+                  className="px-5 py-2.5 rounded-lg text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button 
+                  disabled={isDeleting}
+                  onClick={confirmDelete}
+                  className="px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center min-w-[140px] bg-red-500 text-white hover:bg-red-600 shadow-red-500/20 hover:shadow-red-500/40"
+                >
+                  {isDeleting ? (
+                    <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    'Yes, Delete'
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
