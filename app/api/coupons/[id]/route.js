@@ -5,7 +5,8 @@ import Coupon from '@/model/coupon';
 export async function PUT(request, { params }) {
   try {
     await connectDB();
-    const { id } = params;
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
     const body = await request.json();
     const coupon = await Coupon.findByIdAndUpdate(id, body, { new: true });
     
@@ -22,7 +23,8 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     await connectDB();
-    const { id } = params;
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
     const coupon = await Coupon.findByIdAndDelete(id);
     
     if (!coupon) {

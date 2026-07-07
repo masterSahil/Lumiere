@@ -9,7 +9,8 @@ export const dynamic = 'force-dynamic';
 export async function PUT(req, { params }) {
   try {
     await connectDB();
-    const { id } = params;
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
     const body = await req.json();
     
     if (body.isActiveTheme) {
@@ -30,7 +31,8 @@ export async function PUT(req, { params }) {
 export async function DELETE(req, { params }) {
   try {
     await connectDB();
-    const { id } = params;
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
     
     const theme = await Branding.findById(id);
     if (theme && theme.isActiveTheme) {
