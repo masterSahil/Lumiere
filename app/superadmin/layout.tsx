@@ -10,7 +10,9 @@ import {
   Activity,
   LogOut,
   Settings,
-  Bell
+  Bell,
+  Menu,
+  X
 } from 'lucide-react';
 
 export default function SuperAdminLayout({ children }: { children: React.ReactNode }) {
@@ -18,6 +20,7 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
   const pathname = usePathname();
   const branding = useBranding();
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -55,26 +58,42 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
   if (!currentUser) return <Loader />;
 
   return (
-    <div className="font-sans text-gray-300 min-h-screen bg-dark-bg flex">
+    <div className="font-sans text-gray-300 min-h-screen bg-dark-bg flex relative">
+      {/* Mobile Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* SideNavBar */}
-      <aside className="w-64 shrink-0 bg-dark-surface border-r border-white/10 flex flex-col h-screen sticky top-0">
+      <aside className={`w-64 shrink-0 bg-dark-surface border-r border-white/10 flex flex-col h-screen fixed lg:sticky top-0 z-50 transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
         <div className="p-6 border-b border-white/10 flex items-center justify-between">
           <div className="cursor-pointer max-w-[140px] flex items-center gap-3" onClick={() => router.push('/')}>
             {branding?.logo && (
               <img src={branding.logo} alt="Brand Logo" className="w-auto h-8 object-contain" />
             )}
-            <span className="font-serif text-[24px] font-bold text-primary-400">Lumière</span>
+            <span className="font-serif text-[24px] font-bold text-primary-400 truncate">
+              {branding?.restaurantName || 'Lumière'}
+            </span>
           </div>
-          <span className="text-[10px] bg-primary-500/20 text-primary-400 px-2 py-1 rounded uppercase tracking-widest font-bold">Root</span>
+          <button className="lg:hidden text-gray-400 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>
+            <X className="w-5 h-5" />
+          </button>
+          <span className="hidden lg:inline-block text-[10px] bg-primary-500/20 text-primary-400 px-2 py-1 rounded uppercase tracking-widest font-bold">Root</span>
         </div>
         
-        <nav className="flex-1 overflow-y-auto p-4 flex flex-col gap-2">
+        <nav className="flex-1 overflow-y-auto p-4 flex flex-col gap-2 scrollbar-hide">
           {navItems.map((item) => {
             const isActive = pathname === item.path || (pathname === '/superadmin' && item.path === '/superadmin/dashboard');
             return (
               <button 
                 key={item.name}
-                onClick={() => router.push(item.path)}
+                onClick={() => {
+                  router.push(item.path);
+                  setIsMobileMenuOpen(false);
+                }}
                 className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
                   isActive 
                   ? "bg-primary-950 text-primary-400 border-l-4 border-primary-500" 
@@ -90,15 +109,15 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
         
         <div className="p-4 border-t border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary-500/20 flex items-center justify-center overflow-hidden">
+            <div className="w-10 h-10 shrink-0 rounded-full bg-primary-500/20 flex items-center justify-center overflow-hidden">
               {currentUser?.avatar ? (
                 <img src={currentUser.avatar} alt="Profile" className="w-full h-full object-cover" />
               ) : (
                 <ShieldCheck className="w-5 h-5 text-primary-400" />
               )}
             </div>
-            <div className="flex flex-col items-start">
-              <h3 className="text-sm font-bold text-white max-w-[90px] truncate">{currentUser?.username}</h3>
+            <div className="flex flex-col items-start overflow-hidden">
+              <h3 className="text-sm font-bold text-white w-full truncate">{currentUser?.username}</h3>
               <div className="flex gap-2 mt-1">
                 <button onClick={() => router.push('/dashboard')} className="text-[10px] text-gray-400 hover:text-white uppercase tracking-wider font-bold">App</button>
                 <span className="text-gray-600">|</span>
@@ -114,16 +133,24 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 bg-dark-bg flex flex-col h-screen overflow-hidden">
-        <header className="h-20 border-b border-white/10 bg-dark-surface flex items-center justify-between px-8 shrink-0">
-          <h2 className="font-serif text-2xl text-white">
-            {navItems.find(i => i.path === pathname)?.name || 'Super Admin Panel'}
-          </h2>
+      <main className="flex-1 bg-dark-bg flex flex-col h-screen overflow-hidden min-w-0">
+        <header className="h-20 border-b border-white/10 bg-dark-surface flex items-center justify-between px-4 lg:px-8 shrink-0">
+          <div className="flex items-center gap-4">
+            <button 
+              className="lg:hidden text-gray-400 hover:text-white"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            <h2 className="font-serif text-xl lg:text-2xl text-white truncate">
+              {navItems.find(i => i.path === pathname)?.name || 'Super Admin Panel'}
+            </h2>
+          </div>
           <div className="flex gap-4">
             <button className="text-gray-400 hover:text-white"><Bell className="w-5 h-5" /></button>
           </div>
         </header>
-        <div className="flex-1 overflow-y-auto p-8">
+        <div className="flex-1 overflow-y-auto p-4 lg:p-8">
           {children}
         </div>
       </main>

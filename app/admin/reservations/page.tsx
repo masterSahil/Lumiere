@@ -45,7 +45,7 @@ export default function AdminReservationsPage() {
         <h1 className="text-2xl font-serif text-white">Manage Reservations</h1>
       </div>
 
-      <div className="bg-dark-surface rounded-2xl border border-white/10 overflow-hidden">
+      <div className="bg-dark-surface rounded-2xl border border-white/10 overflow-x-auto">
         <table className="w-full text-left text-sm text-gray-300">
           <thead className="bg-dark-bg text-xs uppercase text-gray-500 border-b border-white/10">
             <tr>

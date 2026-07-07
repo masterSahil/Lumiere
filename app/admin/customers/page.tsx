@@ -58,7 +58,7 @@ export default function AdminCustomersPage() {
         <h1 className="text-2xl font-serif text-white">Manage Customers</h1>
       </div>
 
-      <div className="bg-dark-surface rounded-2xl border border-white/10 overflow-hidden shadow-xl">
+      <div className="bg-dark-surface rounded-2xl border border-white/10 overflow-x-auto shadow-xl">
         <table className="w-full text-left text-sm text-gray-300">
           <thead className="bg-dark-bg text-xs uppercase tracking-widest font-semibold text-gray-500 border-b border-white/10">
             <tr>

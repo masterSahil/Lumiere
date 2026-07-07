@@ -74,7 +74,7 @@ export default function NotificationsManagement() {
         </button>
       </div>
 
-      <div className="bg-dark-surface rounded-2xl border border-white/5 overflow-hidden">
+      <div className="bg-dark-surface rounded-2xl border border-white/5 overflow-x-auto">
         <table className="w-full text-left text-sm text-gray-400">
           <thead className="bg-white/5 text-white uppercase font-semibold text-xs tracking-wider">
             <tr>
